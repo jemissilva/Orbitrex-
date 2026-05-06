@@ -3,1885 +3,1051 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Orbitrex — AI-Powered Profit Sharing</title>
+<title>Orbitrex — AI · Technology · Growth</title>
 <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
-:root {
-  --bg:       #020509;
-  --surface:  #060D14;
-  --card:     #090F1A;
-  --card2:    #0C1422;
-  --border:   #0F2035;
-  --border2:  #163050;
-  --cyan:     #00D4FF;
-  --cyan-dim: rgba(0,212,255,0.10);
-  --cyan-glow:rgba(0,212,255,0.22);
-  --violet:   #7B4FFF;
-  --vio-dim:  rgba(123,79,255,0.12);
-  --green:    #00FFB2;
-  --grn-dim:  rgba(0,255,178,0.10);
-  --text:     #C8DDEF;
-  --text2:    #6A90B0;
-  --muted:    #334D60;
-  --danger:   #FF4D6D;
-  --white:    #EEF6FF;
+:root{
+  --bg:#020509;--surface:#060D14;--card:#090F1A;--card2:#0C1422;
+  --border:#0F2035;--border2:#163050;
+  --cyan:#00D4FF;--cyan-dim:rgba(0,212,255,0.10);--cyan-glow:rgba(0,212,255,0.22);
+  --violet:#7B4FFF;--vio-dim:rgba(123,79,255,0.12);
+  --green:#00FFB2;--grn-dim:rgba(0,255,178,0.10);
+  --orange:#F7931A;--org-dim:rgba(247,147,26,0.10);
+  --text:#C8DDEF;--text2:#6A90B0;--muted:#334D60;
+  --danger:#FF4D6D;--white:#EEF6FF;
 }
-
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Oxanium',sans-serif;
-  min-height:100vh;
-  overflow-x:hidden;
-}
-
-/* GRID BG */
-body::before{
-  content:'';
-  position:fixed;inset:0;
-  background-image:
-    linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
-  background-size:48px 48px;
-  pointer-events:none;z-index:0;
-}
-
-/* AMBIENT */
+body{background:var(--bg);color:var(--text);font-family:'Oxanium',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,0.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
 .amb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;}
-.amb1{width:800px;height:800px;background:radial-gradient(circle,rgba(0,212,255,0.06) 0%,transparent 65%);top:-300px;right:-200px;}
-.amb2{width:600px;height:600px;background:radial-gradient(circle,rgba(123,79,255,0.05) 0%,transparent 65%);bottom:-250px;left:-150px;}
-.amb3{width:350px;height:350px;background:radial-gradient(circle,rgba(0,255,178,0.04) 0%,transparent 65%);top:50%;left:40%;}
+.amb1{width:700px;height:700px;background:radial-gradient(circle,rgba(0,212,255,0.05) 0%,transparent 65%);top:-250px;right:-150px;}
+.amb2{width:500px;height:500px;background:radial-gradient(circle,rgba(123,79,255,0.04) 0%,transparent 65%);bottom:-200px;left:-100px;}
 
 /* SCREENS */
-.screen{display:none;position:relative;z-index:1;min-height:100vh;animation:appear .4s cubic-bezier(.16,1,.3,1) both;}
+.screen{display:none;position:relative;z-index:1;min-height:100vh;animation:fadeIn .4s ease both;}
 .screen.active{display:flex;}
-@keyframes appear{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
-/* ══════════════════════════
-   LOGO SVG
-══════════════════════════ */
-.logo{display:flex;align-items:center;gap:12px;text-decoration:none;cursor:pointer;}
+/* LOGO */
+.logo{display:flex;align-items:center;gap:12px;}
 .logo-svg{flex-shrink:0;}
-.logo-text-wrap{display:flex;flex-direction:column;line-height:1;}
-.logo-name{
-  font-family:'Oxanium',sans-serif;
-  font-size:20px;font-weight:800;
-  letter-spacing:2px;text-transform:uppercase;
-  background:linear-gradient(90deg,var(--cyan),var(--violet));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-.logo-tag{
-  font-size:8px;font-weight:500;
-  letter-spacing:3px;text-transform:uppercase;
-  color:var(--text2);margin-top:2px;
-}
+.logo-name{font-size:19px;font-weight:800;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.logo-tag{font-size:8px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--text2);margin-top:1px;}
 
-/* ══════════════════════════
-   INPUTS
-══════════════════════════ */
-.field{margin-bottom:18px;}
-.field label{display:block;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
-.field input,.field select{
-  width:100%;background:var(--surface);
-  border:1px solid var(--border);border-radius:8px;
-  padding:13px 16px;color:var(--text);
-  font-family:'JetBrains Mono',monospace;font-size:13px;
-  outline:none;transition:border-color .2s,box-shadow .2s,background .2s;
-  appearance:none;
-}
-.field input:focus,.field select:focus{
-  border-color:var(--cyan);
-  background:rgba(0,212,255,0.03);
-  box-shadow:0 0 0 3px var(--cyan-dim);
-}
-.field input::placeholder{color:var(--muted);}
+/* INPUTS */
+.field{margin-bottom:16px;}
+.field label{display:block;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
+.field input,.field select,.field textarea{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13px;outline:none;transition:border-color .2s,box-shadow .2s;appearance:none;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px var(--cyan-dim);}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted);}
 
-/* ══════════════════════════
-   BUTTONS
-══════════════════════════ */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  width:100%;padding:14px 24px;border:none;border-radius:8px;
-  font-family:'Oxanium',sans-serif;font-weight:700;font-size:13px;
-  letter-spacing:1px;text-transform:uppercase;
-  cursor:pointer;transition:all .25s cubic-bezier(.16,1,.3,1);
-  position:relative;overflow:hidden;
-}
-.btn-primary{
-  background:linear-gradient(135deg,#0099CC,var(--cyan));
-  color:#020509;
-  box-shadow:0 4px 24px rgba(0,212,255,0.2),inset 0 1px 0 rgba(255,255,255,0.15);
-}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,212,255,0.35);}
-.btn-primary:active{transform:translateY(0);}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px 20px;border:none;border-radius:8px;font-family:'Oxanium',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.5px;cursor:pointer;transition:all .2s;}
+.btn-primary{background:linear-gradient(135deg,#0099BB,var(--cyan));color:#020509;box-shadow:0 4px 20px rgba(0,212,255,0.18);}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(0,212,255,0.3);}
 .btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--text2);}
 .btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);background:var(--cyan-dim);}
-.btn-violet{background:linear-gradient(135deg,#5B2FCC,var(--violet));color:#fff;box-shadow:0 4px 24px rgba(123,79,255,0.2);}
-.btn-violet:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(123,79,255,0.35);}
 .btn-danger{background:rgba(255,77,109,0.1);border:1px solid rgba(255,77,109,0.3);color:var(--danger);}
-.btn-sm{padding:7px 16px;font-size:11px;border-radius:6px;width:auto;letter-spacing:1px;}
+.btn-success{background:rgba(0,255,178,0.1);border:1px solid rgba(0,255,178,0.3);color:var(--green);}
+.btn-sm{padding:6px 14px;font-size:11px;border-radius:6px;width:auto;}
 
-/* ══════════════════════════
-   CARDS
-══════════════════════════ */
-.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;transition:border-color .2s,transform .2s;}
-.card:hover{border-color:var(--border2);}
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;}
 .card-glow{position:relative;overflow:hidden;}
 .card-glow::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),transparent);opacity:0.5;}
 
-.or{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--muted);font-size:10px;letter-spacing:2px;text-transform:uppercase;}
+/* ALERTS */
+.alert{padding:11px 14px;border-radius:7px;font-size:12px;margin-bottom:16px;display:none;font-family:'JetBrains Mono',monospace;}
+.alert.show{display:block;}
+.alert-err{background:rgba(255,77,109,0.08);border:1px solid rgba(255,77,109,0.2);color:var(--danger);}
+.alert-ok{background:rgba(0,255,178,0.08);border:1px solid rgba(0,255,178,0.2);color:var(--green);}
+
+/* DIVIDER */
+.or{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--muted);font-size:10px;letter-spacing:2px;text-transform:uppercase;}
 .or::before,.or::after{content:'';flex:1;height:1px;background:var(--border);}
 
-.alert{padding:12px 16px;border-radius:8px;font-size:13px;margin-bottom:18px;display:none;font-family:'JetBrains Mono',monospace;}
-.alert.show{display:block;animation:appear .3s ease;}
-.alert-error{background:rgba(255,77,109,0.08);border:1px solid rgba(255,77,109,0.2);color:var(--danger);}
-.alert-success{background:rgba(0,255,178,0.08);border:1px solid rgba(0,255,178,0.2);color:var(--green);}
-
-/* ══════════════════════════
-   AUTH
-══════════════════════════ */
-.auth-wrap{
-  flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;
-  background:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(0,212,255,0.06) 0%,transparent 60%);
-}
-.auth-box{width:100%;max-width:440px;}
-.auth-logo{margin-bottom:44px;display:flex;justify-content:center;}
-.auth-card{
-  background:var(--card);
-  border:1px solid var(--border);border-radius:20px;padding:40px;
-  box-shadow:0 0 0 1px rgba(0,212,255,0.04),0 40px 80px rgba(0,0,0,0.7),inset 0 1px 0 rgba(255,255,255,0.03);
-  position:relative;overflow:hidden;
-}
+/* ── AUTH ─────────────────────── */
+.auth-wrap{flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;background:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(0,212,255,0.05) 0%,transparent 60%);}
+.auth-box{width:100%;max-width:420px;}
+.auth-logo{margin-bottom:36px;display:flex;justify-content:center;}
+.auth-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:36px;position:relative;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,0.6);}
 .auth-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),transparent);opacity:0.6;}
-.auth-card h2{font-size:26px;font-weight:800;color:var(--white);margin-bottom:4px;letter-spacing:0.5px;}
-.auth-card p.sub{color:var(--text2);font-size:13px;margin-bottom:32px;}
-.auth-footer{text-align:center;margin-top:22px;color:var(--muted);font-size:12px;}
+.auth-card h2{font-size:24px;font-weight:800;color:var(--white);margin-bottom:4px;}
+.auth-card p.sub{color:var(--text2);font-size:12px;margin-bottom:28px;}
+.auth-footer{text-align:center;margin-top:18px;color:var(--muted);font-size:12px;}
 .auth-footer a{color:var(--cyan);text-decoration:none;font-weight:700;cursor:pointer;}
-.auth-footer a:hover{text-decoration:underline;}
 
-/* ══════════════════════════
-   NAVBAR
-══════════════════════════ */
+/* ── NAVBAR ───────────────────── */
 .dash-wrap{flex-direction:column;}
-nav{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 32px;height:64px;
-  background:rgba(2,5,9,0.9);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-  position:sticky;top:0;z-index:200;
-}
-.nav-right{display:flex;align-items:center;gap:12px;}
-.pill{
-  background:var(--cyan-dim);border:1px solid rgba(0,212,255,0.2);
-  color:var(--cyan);font-size:9px;font-weight:700;
-  letter-spacing:2px;text-transform:uppercase;padding:5px 12px;border-radius:4px;
-}
-.pill.vio{background:var(--vio-dim);border-color:rgba(123,79,255,0.25);color:var(--violet);}
-.avatar{
-  width:36px;height:36px;border-radius:8px;
-  background:linear-gradient(135deg,var(--violet),var(--cyan));
-  display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:800;color:#fff;
-  cursor:pointer;border:1px solid var(--border2);
-  transition:border-color .2s,box-shadow .2s;
-  font-family:'JetBrains Mono',monospace;
-}
-.avatar:hover{border-color:var(--cyan);box-shadow:0 0 12px var(--cyan-glow);}
+nav{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:60px;background:rgba(2,5,9,0.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.pill{background:var(--cyan-dim);border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border-radius:4px;}
+.pill-danger{background:rgba(255,77,109,0.1);border-color:rgba(255,77,109,0.3);color:var(--danger);}
+.avatar{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--violet),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;cursor:pointer;border:1px solid var(--border2);}
 
 /* TABS */
-.sidebar-nav{
-  display:flex;gap:0;padding:0 32px;
-  border-bottom:1px solid var(--border);background:var(--bg);
-  position:sticky;top:64px;z-index:150;overflow-x:auto;
-}
-.nav-tab{
-  padding:14px 20px;font-size:11px;font-weight:700;
-  letter-spacing:1.5px;text-transform:uppercase;
-  color:var(--muted);cursor:pointer;
-  transition:color .2s,border-color .2s;white-space:nowrap;
-  display:flex;align-items:center;gap:7px;
-  background:none;border:none;border-bottom:2px solid transparent;
-}
-.nav-tab:hover{color:var(--text);}
-.nav-tab.active{color:var(--cyan);border-bottom-color:var(--cyan);}
-.nav-tab span{font-size:14px;}
+.tab-bar{display:flex;padding:0 28px;border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:60px;z-index:150;overflow-x:auto;}
+.tab{padding:13px 16px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:6px;background:none;border:none;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;}
+.tab:hover{color:var(--text);}
+.tab.active{color:var(--cyan);border-bottom-color:var(--cyan);}
 
-/* ══════════════════════════
-   DASH CONTENT
-══════════════════════════ */
-.dash-body{padding:36px 32px;max-width:1100px;margin:0 auto;width:100%;}
-.page-title{font-size:28px;font-weight:800;color:var(--white);margin-bottom:4px;letter-spacing:0.5px;}
-.page-sub{color:var(--text2);font-size:12px;margin-bottom:32px;letter-spacing:0.5px;}
+/* CONTENT */
+.content{padding:28px;max-width:1080px;margin:0 auto;width:100%;}
+.page-title{font-size:26px;font-weight:800;color:var(--white);margin-bottom:4px;}
+.page-sub{color:var(--text2);font-size:11px;margin-bottom:24px;letter-spacing:0.5px;}
 
 /* STATS */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:28px;}
-.stat{
-  background:var(--card);border:1px solid var(--border);border-radius:14px;
-  padding:22px 24px;position:relative;overflow:hidden;
-  transition:transform .2s,border-color .2s;
-}
-.stat:hover{transform:translateY(-3px);border-color:var(--border2);}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:22px;}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative;overflow:hidden;}
 .stat::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--cyan),transparent);opacity:0.5;}
 .stat.grn::after{background:linear-gradient(90deg,var(--green),transparent);}
 .stat.vio::after{background:linear-gradient(90deg,var(--violet),transparent);}
-.stat-icon{font-size:20px;margin-bottom:14px;width:42px;height:42px;background:var(--cyan-dim);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+.stat-icon{font-size:20px;width:40px;height:40px;background:var(--cyan-dim);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
 .stat.grn .stat-icon{background:var(--grn-dim);}
 .stat.vio .stat-icon{background:var(--vio-dim);}
-.stat-val{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--white);margin-bottom:4px;}
+.stat-val{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--white);margin-bottom:3px;}
 .stat-lbl{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
-.stat-change{font-size:10px;font-weight:700;margin-top:8px;color:var(--green);letter-spacing:0.5px;}
+.stat-sub{font-size:10px;color:var(--green);margin-top:6px;}
 
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;}
-@media(max-width:700px){.grid2{grid-template-columns:1fr;}}
-
-/* PLANS */
-.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-bottom:28px;}
-.plan{
-  background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px;
-  cursor:pointer;transition:all .25s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;
-}
-.plan::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0;}
-.plan:hover{transform:translateY(-4px);border-color:rgba(0,212,255,0.4);box-shadow:0 12px 40px rgba(0,212,255,0.08);}
-.plan:hover::before{opacity:0.6;}
-.plan.featured{
-  border-color:rgba(0,212,255,0.35);
-  background:linear-gradient(145deg,#090F1A,#0C1830);
-  box-shadow:0 0 40px rgba(0,212,255,0.07);
-}
-.plan.featured::before{opacity:0.7;}
-.plan-badge{
-  position:absolute;top:14px;right:14px;
-  background:linear-gradient(135deg,#0099CC,var(--cyan));
-  color:#020509;font-size:8px;font-weight:800;
-  letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:3px;
-}
-.plan-tier{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;}
-.plan-name{font-size:22px;font-weight:800;color:var(--white);margin-bottom:4px;}
-.plan-roi{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;color:var(--cyan);margin-bottom:16px;}
-.plan-roi span{font-size:13px;color:var(--muted);}
-.plan-feat{list-style:none;font-size:11px;color:var(--text2);display:flex;flex-direction:column;gap:7px;margin-bottom:22px;}
-.plan-feat li{display:flex;align-items:center;gap:6px;}
-.plan-feat li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--cyan);flex-shrink:0;}
+/* GRID */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+@media(max-width:680px){.grid2{grid-template-columns:1fr;}}
 
 /* TABLE */
-.table-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
-.table-head{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.table-head h3{font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);}
+.tbl-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:20px;}
+.tbl-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.tbl-head h3{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);}
 table{width:100%;border-collapse:collapse;}
-th{text-align:left;padding:12px 24px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);}
-td{padding:14px 24px;font-size:12px;color:var(--text2);border-bottom:1px solid rgba(15,32,53,0.5);font-family:'JetBrains Mono',monospace;}
+th{text-align:left;padding:11px 18px;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);}
+td{padding:12px 18px;font-size:12px;color:var(--text2);border-bottom:1px solid rgba(15,32,53,0.4);font-family:'JetBrains Mono',monospace;}
 tr:last-child td{border-bottom:none;}
-tr:hover td{background:rgba(0,212,255,0.015);}
-.status-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'Oxanium',sans-serif;}
-.st-ok{background:rgba(0,255,178,0.1);color:var(--green);border:1px solid rgba(0,255,178,0.2);}
-.st-pend{background:var(--cyan-dim);color:var(--cyan);border:1px solid rgba(0,212,255,0.2);}
-.st-fail{background:rgba(255,77,109,0.1);color:var(--danger);border:1px solid rgba(255,77,109,0.2);}
+tr:hover td{background:rgba(0,212,255,0.01);}
+.badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:3px;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'Oxanium',sans-serif;}
+.badge-ok{background:rgba(0,255,178,0.1);color:var(--green);border:1px solid rgba(0,255,178,0.2);}
+.badge-pend{background:var(--cyan-dim);color:var(--cyan);border:1px solid rgba(0,212,255,0.2);}
+.badge-fail{background:rgba(255,77,109,0.1);color:var(--danger);border:1px solid rgba(255,77,109,0.2);}
+.badge-warn{background:var(--org-dim);color:var(--orange);border:1px solid rgba(247,147,26,0.2);}
 
-/* ══════════════════════════
-   PAYMENT SCREEN
-══════════════════════════ */
-.pay-wrap{
-  flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;
-  background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(0,212,255,0.05) 0%,transparent 60%);
-}
-.pay-card{
-  background:var(--card);border:1px solid var(--border);border-radius:20px;
-  padding:36px;width:100%;max-width:480px;
-  box-shadow:0 40px 80px rgba(0,0,0,0.6);
-  position:relative;overflow:hidden;
-}
+/* PLANS */
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:20px;}
+.plan-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
+.plan-card:hover{border-color:rgba(0,212,255,0.35);transform:translateY(-3px);}
+.plan-card.featured{border-color:rgba(0,212,255,0.35);background:linear-gradient(145deg,var(--card),#0C1830);}
+.plan-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0;}
+.plan-card:hover::before,.plan-card.featured::before{opacity:0.6;}
+.plan-badge{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#0088AA,var(--cyan));color:#020509;font-size:7px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:3px;}
+.plan-tier{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:6px;}
+.plan-name{font-size:20px;font-weight:800;color:var(--white);margin-bottom:3px;}
+.plan-roi{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--cyan);margin-bottom:14px;}
+.plan-roi span{font-size:12px;color:var(--muted);}
+.plan-feats{list-style:none;font-size:11px;color:var(--text2);display:flex;flex-direction:column;gap:6px;margin-bottom:18px;}
+.plan-feats li::before{content:'▸ ';color:var(--cyan);font-size:9px;}
+
+/* PAYMENT */
+.pay-wrap{flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(0,212,255,0.04) 0%,transparent 60%);}
+.pay-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:30px;width:100%;max-width:460px;position:relative;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,0.5);}
 .pay-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),transparent);opacity:0.6;}
-.pay-card h2{font-size:22px;font-weight:800;color:var(--white);margin-bottom:4px;letter-spacing:0.5px;}
-.pay-card .sub{color:var(--text2);font-size:12px;margin-bottom:24px;}
+.coin-sel{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
+.coin-btn{display:flex;align-items:center;gap:9px;padding:12px;border-radius:10px;cursor:pointer;border:1.5px solid var(--border);background:var(--surface);transition:all .2s;}
+.coin-btn.sel-usdt{border-color:var(--green);background:var(--grn-dim);}
+.coin-btn.sel-btc{border-color:var(--orange);background:var(--org-dim);}
+.coin-ico{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;flex-shrink:0;}
+.coin-ico.usdt{background:rgba(38,161,123,0.15);color:#26a17b;}
+.coin-ico.btc{background:var(--org-dim);color:var(--orange);}
+.amt-box{text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px;}
+.amt-lbl{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.amt-val{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;color:var(--cyan);}
+.amt-cur{font-size:11px;color:var(--muted);margin-top:2px;}
+.qr-box{display:flex;flex-direction:column;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;}
+.qr-lbl{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+#qr-out{background:#fff;padding:10px;border-radius:8px;min-width:150px;min-height:150px;display:flex;align-items:center;justify-content:center;}
+.addr-box{background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:14px;margin-bottom:12px;}
+.addr-lbl{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.addr-val{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text);word-break:break-all;line-height:1.7;}
+.addr-row{display:flex;align-items:center;justify-content:space-between;margin-top:8px;}
+.net-tag{font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:3px;}
+.net-usdt{background:var(--grn-dim);color:var(--green);border:1px solid rgba(0,255,178,0.2);}
+.net-btc{background:var(--org-dim);color:var(--orange);border:1px solid rgba(247,147,26,0.2);}
+.copy-btn{background:var(--cyan-dim);border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-size:10px;font-weight:700;padding:5px 12px;border-radius:5px;cursor:pointer;font-family:'Oxanium',sans-serif;}
+.timer-row{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--text2);font-size:12px;margin-bottom:16px;}
+.timer-val{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;color:var(--cyan);}
+.steps{display:flex;flex-direction:column;gap:7px;margin-bottom:20px;}
+.step{display:flex;gap:9px;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:10px;}
+.step-n{width:20px;height:20px;border-radius:4px;background:var(--cyan-dim);border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'JetBrains Mono',monospace;}
+.step-t{font-size:11px;color:var(--text2);line-height:1.5;}
+.step-t strong{color:var(--text);}
 
-/* COIN SELECTOR */
-.coin-selector{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px;}
-.coin-btn{
-  display:flex;align-items:center;gap:10px;padding:13px 14px;border-radius:10px;
-  cursor:pointer;border:1px solid var(--border);background:var(--surface);
-  transition:all .2s;font-family:'Oxanium',sans-serif;
-}
-.coin-btn:hover{border-color:var(--border2);}
-.coin-btn.active-usdt{border-color:var(--green);background:var(--grn-dim);box-shadow:0 0 0 3px rgba(0,255,178,0.06);}
-.coin-btn.active-btc{border-color:#F7931A;background:rgba(247,147,26,0.08);box-shadow:0 0 0 3px rgba(247,147,26,0.06);}
-.coin-icon{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;flex-shrink:0;}
-.coin-icon.usdt{background:rgba(38,161,123,0.15);color:#26a17b;}
-.coin-icon.btc{background:rgba(247,147,26,0.15);color:#F7931A;}
-.coin-info{display:flex;flex-direction:column;}
-.coin-name{font-size:13px;font-weight:700;color:var(--white);}
-.coin-net{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
+/* PROOF BOX */
+.proof-box{background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:14px;margin-bottom:14px;}
+.proof-title{font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;}
+.upload-area{border:1px dashed var(--border2);border-radius:7px;padding:14px;text-align:center;cursor:pointer;transition:border-color .2s;background:var(--card);}
+.upload-area:hover{border-color:var(--cyan);}
+.file-preview{display:none;margin-top:8px;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:8px 12px;}
 
-/* AMOUNT */
-.amount-display{
-  text-align:center;background:var(--surface);border:1px solid var(--border);
-  border-radius:12px;padding:18px;margin-bottom:18px;
-}
-.amount-display .lbl{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
-.amount-display .val{font-family:'JetBrains Mono',monospace;font-size:34px;font-weight:700;color:var(--cyan);}
-.amount-display .cur{font-size:11px;color:var(--muted);margin-top:2px;letter-spacing:1px;}
+/* MODAL */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9000;align-items:center;justify-content:center;padding:20px;}
+.modal-box{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:28px;width:100%;max-width:420px;position:relative;box-shadow:0 30px 60px rgba(0,0,0,0.7);}
+.modal-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),transparent);border-radius:16px 16px 0 0;}
+.modal-close{position:absolute;top:14px;right:14px;background:var(--surface);border:1px solid var(--border);color:var(--muted);width:26px;height:26px;border-radius:5px;cursor:pointer;font-size:13px;}
+.modal-title{font-size:15px;font-weight:800;color:var(--white);margin-bottom:18px;}
 
-/* QR */
-.qr-section{display:flex;flex-direction:column;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:14px;}
-.qr-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
-#qr-container{background:white;padding:12px;border-radius:10px;display:flex;align-items:center;justify-content:center;min-width:164px;min-height:164px;}
-
-/* WALLET */
-.wallet-box{background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:15px;margin-bottom:14px;}
-.wallet-lbl{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
-.wallet-addr{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text);word-break:break-all;line-height:1.7;}
-.wallet-actions{display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
-.network-tag{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:3px;}
-.tag-usdt{background:var(--grn-dim);color:var(--green);border:1px solid rgba(0,255,178,0.2);}
-.tag-btc{background:rgba(247,147,26,0.1);color:#F7931A;border:1px solid rgba(247,147,26,0.25);}
-.btn-copy{background:var(--cyan-dim);border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-size:10px;font-weight:700;padding:6px 14px;border-radius:5px;cursor:pointer;transition:all .2s;font-family:'Oxanium',sans-serif;width:auto;letter-spacing:1px;}
-.btn-copy:hover{background:rgba(0,212,255,0.15);}
-
-/* TIMER */
-.timer-bar{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--text2);font-size:12px;margin-bottom:18px;letter-spacing:0.5px;}
-.timer-bar .t{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--cyan);}
-
-/* STEPS */
-.steps{display:flex;flex-direction:column;gap:8px;margin-bottom:22px;}
-.step{display:flex;align-items:flex-start;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;}
-.step-num{width:20px;height:20px;border-radius:4px;background:var(--cyan-dim);border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'JetBrains Mono',monospace;}
-.step-text{font-size:11px;color:var(--text2);line-height:1.6;}
-.step-text strong{color:var(--text);}
-
-/* PROFILE */
-.profile-header{display:flex;align-items:center;gap:20px;padding:28px;background:linear-gradient(135deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:16px;margin-bottom:24px;}
-.profile-av{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--violet),var(--cyan));display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:#fff;border:2px solid var(--border2);}
-.profile-info h3{font-size:20px;font-weight:800;color:var(--white);letter-spacing:0.5px;}
-.profile-info p{color:var(--text2);font-size:12px;margin-top:3px;}
-
-/* UTILS */
-.flex-between{display:flex;align-items:center;justify-content:space-between;}
-.mb8{margin-bottom:8px;}.mb16{margin-bottom:16px;}.mb24{margin-bottom:24px;}
-.hidden{display:none!important;}
+/* SPINNER */
 .spinner{width:16px;height:16px;border:2px solid rgba(2,5,9,0.3);border-top-color:#020509;border-radius:50%;animation:spin .7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--card2);border:1px solid var(--border2);color:var(--text);font-size:12px;padding:12px 20px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.5);z-index:99999;opacity:0;transition:opacity .3s,transform .3s;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--card2,#0C1422);border:1px solid var(--border2);color:var(--text);font-size:11px;padding:10px 18px;border-radius:8px;z-index:99999;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;font-family:'JetBrains Mono',monospace;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-@media(max-width:600px){
-  nav{padding:0 16px;}
-  .dash-body{padding:24px 16px;}
-  .auth-card{padding:28px 20px;}
-  .pay-card{padding:24px 16px;}
-  .sidebar-nav{padding:0 16px;}
-  .logo-name{font-size:17px;}
-}
+/* PROGRESS BAR */
+.prog-wrap{background:var(--surface);border-radius:4px;height:5px;overflow:hidden;}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--violet),var(--cyan));border-radius:4px;transition:width 1s ease;}
+
+/* HIDDEN */
+.hidden{display:none!important;}
+
+/* ADMIN ENTRY */
+.adm-btn{position:fixed;bottom:14px;right:14px;z-index:9998;background:rgba(255,77,109,0.07);border:1px solid rgba(255,77,109,0.18);color:rgba(255,77,109,0.45);font-size:9px;font-weight:700;letter-spacing:1px;padding:5px 11px;border-radius:5px;cursor:pointer;font-family:'Oxanium',sans-serif;transition:all .2s;}
+.adm-btn:hover{color:var(--danger);background:rgba(255,77,109,0.12);}
+
+@media(max-width:580px){nav{padding:0 14px;}.content{padding:20px 14px;}.tab-bar{padding:0 14px;}.auth-card{padding:26px 18px;}.pay-card{padding:22px 14px;}}
 </style>
 </head>
 <body>
 <div class="amb amb1"></div>
 <div class="amb amb2"></div>
-<div class="amb amb3"></div>
 
-<!-- ═══════════════════════════════
-     LANDING PAGE
-═══════════════════════════════ -->
-<div class="screen active" id="s-landing" style="flex-direction:column;overflow-y:auto;">
-
-  <!-- LANDING NAV -->
-  <header style="display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;background:rgba(2,5,9,0.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;">
-    <div class="logo">
-      <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="llg" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#7B4FFF"/></linearGradient>
-          <linearGradient id="llg2" x1="0" y1="48" x2="48" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FFF" stop-opacity="0.4"/><stop offset="100%" stop-color="#00D4FF" stop-opacity="0.4"/></linearGradient>
-          <filter id="lglow"><feGaussianBlur stdDeviation="1.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        </defs>
-        <circle cx="24" cy="24" r="22" stroke="url(#llg)" stroke-width="1.5" fill="none" opacity="0.6"/>
-        <ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#llg)" stroke-width="1.2" fill="none" transform="rotate(-30 24 24)" opacity="0.8"/>
-        <ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#llg)" stroke-width="1.2" fill="none" transform="rotate(30 24 24)" opacity="0.4"/>
-        <circle cx="24" cy="24" r="6" fill="url(#llg)" filter="url(#lglow)" opacity="0.9"/>
-        <circle cx="24" cy="24" r="3" fill="white" opacity="0.9"/>
-        <circle cx="42" cy="18" r="2.5" fill="#00D4FF" filter="url(#lglow)"/>
-        <circle cx="8" cy="34" r="1.8" fill="#7B4FFF" filter="url(#lglow)" opacity="0.8"/>
-        <circle cx="38" cy="36" r="1.5" fill="#00FFB2" filter="url(#lglow)" opacity="0.7"/>
-        <circle cx="24" cy="24" r="10" fill="url(#llg2)"/>
-      </svg>
-      <div class="logo-text-wrap"><span class="logo-name">Orbitrex</span><span class="logo-tag">AI · Technology · Growth</span></div>
-    </div>
-    <div style="display:flex;align-items:center;gap:12px;">
-      <button class="btn btn-ghost btn-sm" onclick="show('s-login')">Login</button>
-      <button class="btn btn-primary btn-sm" onclick="show('s-register')">Get Started</button>
-    </div>
+<!-- ═══════════ LANDING ═══════════ -->
+<div class="screen active" id="s-land" style="flex-direction:column;overflow-y:auto;">
+  <header style="display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:68px;background:rgba(2,5,9,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;">
+    <div class="logo"><svg width="38" height="38" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="lg" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#7B4FFF"/></linearGradient><filter id="gf"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="24" cy="24" r="22" stroke="url(#lg)" stroke-width="1.5" fill="none" opacity=".6"/><ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#lg)" stroke-width="1.2" fill="none" transform="rotate(-30 24 24)" opacity=".8"/><ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#lg)" stroke-width="1.2" fill="none" transform="rotate(30 24 24)" opacity=".4"/><circle cx="24" cy="24" r="7" fill="url(#lg)" filter="url(#gf)" opacity=".9"/><circle cx="24" cy="24" r="3" fill="white" opacity=".9"/><circle cx="42" cy="18" r="2.5" fill="#00D4FF" filter="url(#gf)"/><circle cx="8" cy="34" r="1.8" fill="#7B4FFF" filter="url(#gf)" opacity=".8"/><circle cx="38" cy="36" r="1.5" fill="#00FFB2" filter="url(#gf)" opacity=".7"/></svg><div><div class="logo-name">Orbitrex</div><div class="logo-tag">AI · Technology · Growth</div></div></div>
+    <div style="display:flex;gap:10px;"><button class="btn btn-ghost btn-sm" onclick="goTo('s-login')">Login</button><button class="btn btn-primary btn-sm" onclick="goTo('s-register')">Começar</button></div>
   </header>
-
-  <!-- HERO -->
-  <section style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:100px 24px 80px;position:relative;overflow:hidden;">
-    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,212,255,0.07) 0%,transparent 65%);pointer-events:none;"></div>
-
-    <div style="display:inline-flex;align-items:center;gap:8px;background:var(--cyan-dim);border:1px solid rgba(0,212,255,0.2);border-radius:4px;padding:6px 16px;margin-bottom:32px;">
-      <span style="width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:pulse 2s infinite;"></span>
-      <span style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);">Platform Live — Profit Sharing Active</span>
-    </div>
-
-    <h1 style="font-size:clamp(36px,6vw,72px);font-weight:800;color:var(--white);line-height:1.1;letter-spacing:-1px;max-width:800px;margin-bottom:24px;">
-      Tecnologia que<br>
-      <span style="background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">trabalha por você</span>
-    </h1>
-
-    <p style="font-size:16px;color:var(--text2);max-width:560px;line-height:1.7;margin-bottom:48px;">
-      A Orbitrex é uma plataforma de desenvolvimento em tecnologia e inteligência artificial que divide os lucros gerados com seus participantes — de forma transparente, automática e global.
-    </p>
-
-    <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;">
-      <button class="btn btn-primary" style="width:auto;padding:15px 36px;font-size:14px;" onclick="show('s-register')">◈ Começar agora</button>
-      <button class="btn btn-ghost" style="width:auto;padding:15px 36px;font-size:14px;" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">Como funciona ↓</button>
-    </div>
-
-    <!-- STATS ROW -->
-    <div style="display:flex;gap:48px;flex-wrap:wrap;justify-content:center;margin-top:80px;padding-top:48px;border-top:1px solid var(--border);">
-      <div style="text-align:center;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;color:var(--cyan);">$4.2M+</div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px;">Volume Distribuído</div>
-      </div>
-      <div style="text-align:center;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;color:var(--violet);">12.800+</div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px;">Participantes Ativos</div>
-      </div>
-      <div style="text-align:center;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;color:var(--green);">98.6%</div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px;">Taxa de Satisfação</div>
-      </div>
-      <div style="text-align:center;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;color:var(--cyan);">47+</div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px;">Países Atendidos</div>
-      </div>
+  <section style="text-align:center;padding:90px 24px 70px;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(0,212,255,0.06) 0%,transparent 65%);">
+    <div style="display:inline-flex;align-items:center;gap:7px;background:var(--cyan-dim);border:1px solid rgba(0,212,255,0.2);border-radius:4px;padding:5px 14px;margin-bottom:28px;"><span style="width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:pulse 2s infinite;"></span><span style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);">Plataforma Online — Profit Sharing Ativo</span></div>
+    <h1 style="font-size:clamp(32px,6vw,66px);font-weight:800;color:var(--white);line-height:1.1;letter-spacing:-1px;max-width:750px;margin:0 auto 20px;">Tecnologia que<br><span style="background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">trabalha por você</span></h1>
+    <p style="font-size:15px;color:var(--text2);max-width:520px;margin:0 auto 40px;line-height:1.7;">A Orbitrex é uma plataforma de desenvolvimento em tecnologia e IA que divide os lucros com seus participantes — de forma automática e global.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:70px;"><button class="btn btn-primary" style="width:auto;padding:14px 36px;" onclick="goTo('s-register')">◈ Começar agora</button><button class="btn btn-ghost" style="width:auto;padding:14px 36px;" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">Como funciona ↓</button></div>
+    <div style="display:flex;gap:48px;flex-wrap:wrap;justify-content:center;padding-top:40px;border-top:1px solid var(--border);">
+      <div><div style="font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:700;color:var(--cyan);">$4.2M+</div><div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:3px;">Volume Distribuído</div></div>
+      <div><div style="font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:700;color:var(--violet);">12.8k+</div><div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:3px;">Participantes</div></div>
+      <div><div style="font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:700;color:var(--green);">47+</div><div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:3px;">Países</div></div>
     </div>
   </section>
-
-  <!-- HOW IT WORKS -->
-  <section id="how" style="padding:80px 48px;max-width:1100px;margin:0 auto;width:100%;">
-    <div style="text-align:center;margin-bottom:60px;">
-      <div style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">// How it works</div>
-      <h2 style="font-size:clamp(24px,4vw,42px);font-weight:800;color:var(--white);">Como a Orbitrex funciona</h2>
-      <p style="color:var(--text2);font-size:14px;margin-top:12px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.7;">Desenvolvemos soluções de IA e tecnologia para empresas e mercados globais. Os lucros gerados são divididos com nossa base de participantes.</p>
-    </div>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
-      <div class="card card-glow" style="text-align:center;padding:36px 24px;">
-        <div style="width:56px;height:56px;border-radius:12px;background:var(--cyan-dim);border:1px solid rgba(0,212,255,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:24px;">🤖</div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">Step 01</div>
-        <h3 style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:10px;">IA em Operação</h3>
-        <p style="font-size:12px;color:var(--text2);line-height:1.7;">Nossos sistemas de inteligência artificial operam 24/7, processando dados e gerando resultados em mercados de alta demanda tecnológica.</p>
-      </div>
-      <div class="card card-glow" style="text-align:center;padding:36px 24px;">
-        <div style="width:56px;height:56px;border-radius:12px;background:var(--vio-dim);border:1px solid rgba(123,79,255,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:24px;">⚡</div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--violet);margin-bottom:8px;">Step 02</div>
-        <h3 style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:10px;">Lucro Gerado</h3>
-        <p style="font-size:12px;color:var(--text2);line-height:1.7;">Os resultados obtidos pelas nossas operações tecnológicas e de IA são contabilizados em tempo real e distribuídos de forma proporcional.</p>
-      </div>
-      <div class="card card-glow" style="text-align:center;padding:36px 24px;">
-        <div style="width:56px;height:56px;border-radius:12px;background:var(--grn-dim);border:1px solid rgba(0,255,178,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:24px;">💸</div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px;">Step 03</div>
-        <h3 style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:10px;">Você Recebe</h3>
-        <p style="font-size:12px;color:var(--text2);line-height:1.7;">Os participantes recebem sua parte dos lucros automaticamente via cripto — USDT ou Bitcoin — sem burocracia e sem fronteiras.</p>
-      </div>
-      <div class="card card-glow" style="text-align:center;padding:36px 24px;">
-        <div style="width:56px;height:56px;border-radius:12px;background:var(--cyan-dim);border:1px solid rgba(0,212,255,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:24px;">🌐</div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">Step 04</div>
-        <h3 style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:10px;">Escala Global</h3>
-        <p style="font-size:12px;color:var(--text2);line-height:1.7;">Operamos em 47 países. Qualquer pessoa no mundo pode participar, sem necessidade de conhecimento técnico prévio.</p>
-      </div>
+  <section id="how" style="padding:70px 40px;max-width:1060px;margin:0 auto;width:100%;">
+    <div style="text-align:center;margin-bottom:50px;"><div style="font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;">// Como funciona</div><h2 style="font-size:clamp(22px,4vw,38px);font-weight:800;color:var(--white);">4 passos simples</h2></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;">
+      <div class="card card-glow" style="text-align:center;padding:30px 20px;"><div style="font-size:28px;margin-bottom:14px;">🤖</div><div style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:7px;">Step 01</div><h3 style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px;">IA em Operação</h3><p style="font-size:11px;color:var(--text2);line-height:1.6;">Nossos sistemas de IA operam 24/7, gerando resultados em mercados globais.</p></div>
+      <div class="card card-glow" style="text-align:center;padding:30px 20px;"><div style="font-size:28px;margin-bottom:14px;">⚡</div><div style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--violet);margin-bottom:7px;">Step 02</div><h3 style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px;">Lucro Gerado</h3><p style="font-size:11px;color:var(--text2);line-height:1.6;">Os resultados são contabilizados e distribuídos proporcionalmente.</p></div>
+      <div class="card card-glow" style="text-align:center;padding:30px 20px;"><div style="font-size:28px;margin-bottom:14px;">💸</div><div style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:7px;">Step 03</div><h3 style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px;">Você Recebe</h3><p style="font-size:11px;color:var(--text2);line-height:1.6;">Receba sua parte automaticamente via USDT ou Bitcoin, sem burocracia.</p></div>
+      <div class="card card-glow" style="text-align:center;padding:30px 20px;"><div style="font-size:28px;margin-bottom:14px;">🌍</div><div style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:7px;">Step 04</div><h3 style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px;">Escala Global</h3><p style="font-size:11px;color:var(--text2);line-height:1.6;">Disponível em 47 países, sem restrições geográficas ou bancárias.</p></div>
     </div>
   </section>
-
-  <!-- O QUE FAZEMOS -->
-  <section style="padding:80px 48px;background:linear-gradient(180deg,transparent,rgba(0,212,255,0.03),transparent);width:100%;">
-    <div style="max-width:1100px;margin:0 auto;">
-      <div style="text-align:center;margin-bottom:60px;">
-        <div style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--violet);margin-bottom:12px;">// What we build</div>
-        <h2 style="font-size:clamp(24px,4vw,42px);font-weight:800;color:var(--white);">Nossa tecnologia</h2>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;display:flex;gap:20px;align-items:flex-start;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(0,212,255,0.3)'" onmouseout="this.style.borderColor='var(--border)'">
-          <div style="font-size:28px;flex-shrink:0;">🧠</div>
-          <div>
-            <h3 style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px;">Inteligência Artificial</h3>
-            <p style="font-size:12px;color:var(--text2);line-height:1.7;">Desenvolvemos modelos de IA customizados para automação de processos, análise preditiva e geração de valor em mercados digitais globais.</p>
-          </div>
-        </div>
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;display:flex;gap:20px;align-items:flex-start;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(123,79,255,0.3)'" onmouseout="this.style.borderColor='var(--border)'">
-          <div style="font-size:28px;flex-shrink:0;">⛓️</div>
-          <div>
-            <h3 style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px;">Infraestrutura Web3</h3>
-            <p style="font-size:12px;color:var(--text2);line-height:1.7;">Construímos soluções descentralizadas com contratos inteligentes, integrações blockchain e pagamentos automáticos via cripto.</p>
-          </div>
-        </div>
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;display:flex;gap:20px;align-items:flex-start;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='var(--border)'">
-          <div style="font-size:28px;flex-shrink:0;">📊</div>
-          <div>
-            <h3 style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px;">Data & Analytics</h3>
-            <p style="font-size:12px;color:var(--text2);line-height:1.7;">Plataformas de análise de dados em tempo real para tomada de decisão inteligente e identificação de oportunidades nos mercados digitais.</p>
-          </div>
-        </div>
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;display:flex;gap:20px;align-items:flex-start;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(0,212,255,0.3)'" onmouseout="this.style.borderColor='var(--border)'">
-          <div style="font-size:28px;flex-shrink:0;">🔐</div>
-          <div>
-            <h3 style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px;">Segurança Digital</h3>
-            <p style="font-size:12px;color:var(--text2);line-height:1.7;">Sistemas de segurança avançados protegem cada operação e cada participante — criptografia de ponta a ponta e auditoria contínua.</p>
-          </div>
-        </div>
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;display:flex;gap:20px;align-items:flex-start;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(123,79,255,0.3)'" onmouseout="this.style.borderColor='var(--border)'">
-          <div style="font-size:28px;flex-shrink:0;">🤝</div>
-          <div>
-            <h3 style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px;">Profit Sharing</h3>
-            <p style="font-size:12px;color:var(--text2);line-height:1.7;">Modelo inovador onde os participantes da plataforma se tornam co-beneficiários dos resultados gerados — lucros distribuídos automaticamente.</p>
-          </div>
-        </div>
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;display:flex;gap:20px;align-items:flex-start;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='var(--border)'">
-          <div style="font-size:28px;flex-shrink:0;">🌍</div>
-          <div>
-            <h3 style="font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px;">Acesso Global</h3>
-            <p style="font-size:12px;color:var(--text2);line-height:1.7;">Plataforma 100% online, acessível de qualquer país, com suporte multilíngue e pagamentos em criptomoedas sem restrições geográficas.</p>
-          </div>
-        </div>
-      </div>
+  <section style="padding:70px 40px;max-width:1060px;margin:0 auto;width:100%;">
+    <div style="text-align:center;margin-bottom:50px;"><div style="font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:10px;">// Planos</div><h2 style="font-size:clamp(22px,4vw,38px);font-weight:800;color:var(--white);">Escolha seu nível</h2></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:36px;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;text-align:center;"><div style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Tier 01</div><div style="font-size:17px;font-weight:800;color:var(--white);">Starter</div><div style="font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;color:var(--cyan);">8%<span style="font-size:11px;color:var(--muted);">/mês</span></div><div style="font-size:10px;color:var(--muted);margin-top:6px;">A partir de $500</div></div>
+      <div style="background:linear-gradient(145deg,var(--card),#0C1830);border:1px solid rgba(0,212,255,0.3);border-radius:12px;padding:22px;text-align:center;position:relative;"><div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#0088AA,var(--cyan));color:#020509;font-size:7px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:3px;">Popular</div><div style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:6px;">Tier 02</div><div style="font-size:17px;font-weight:800;color:var(--white);">Silver</div><div style="font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;color:var(--cyan);">12%<span style="font-size:11px;color:var(--muted);">/mês</span></div><div style="font-size:10px;color:var(--muted);margin-top:6px;">A partir de $2.500</div></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;text-align:center;"><div style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Tier 03</div><div style="font-size:17px;font-weight:800;color:var(--white);">Gold</div><div style="font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;color:var(--cyan);">18%<span style="font-size:11px;color:var(--muted);">/mês</span></div><div style="font-size:10px;color:var(--muted);margin-top:6px;">A partir de $10.000</div></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;text-align:center;"><div style="font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;">Tier 04</div><div style="font-size:17px;font-weight:800;color:var(--white);">Diamond</div><div style="font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;color:var(--cyan);">25%<span style="font-size:11px;color:var(--muted);">/mês</span></div><div style="font-size:10px;color:var(--muted);margin-top:6px;">A partir de $50.000</div></div>
     </div>
+    <div style="text-align:center;"><button class="btn btn-primary" style="width:auto;padding:14px 48px;" onclick="goTo('s-register')">Criar conta grátis →</button></div>
   </section>
-
-  <!-- PLANOS PREVIEW -->
-  <section style="padding:80px 48px;max-width:1100px;margin:0 auto;width:100%;">
-    <div style="text-align:center;margin-bottom:60px;">
-      <div style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:12px;">// Participation plans</div>
-      <h2 style="font-size:clamp(24px,4vw,42px);font-weight:800;color:var(--white);">Escolha seu nível</h2>
-      <p style="color:var(--text2);font-size:14px;margin-top:12px;">De iniciante a especialista — há um plano para cada perfil.</p>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:40px;">
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;text-align:center;">
-        <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Tier 01</div>
-        <div style="font-size:18px;font-weight:800;color:var(--white);margin-bottom:4px;">Starter</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--cyan);">8%<span style="font-size:12px;color:var(--muted);">/mês</span></div>
-        <div style="font-size:11px;color:var(--muted);margin-top:8px;">A partir de $500</div>
-      </div>
-      <div style="background:linear-gradient(145deg,var(--card),#0C1830);border:1px solid rgba(0,212,255,0.35);border-radius:14px;padding:24px;text-align:center;box-shadow:0 0 30px rgba(0,212,255,0.06);position:relative;">
-        <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#0099CC,var(--cyan));color:#020509;font-size:8px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:3px;">Popular</div>
-        <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px;">Tier 02</div>
-        <div style="font-size:18px;font-weight:800;color:var(--white);margin-bottom:4px;">Silver</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--cyan);">12%<span style="font-size:12px;color:var(--muted);">/mês</span></div>
-        <div style="font-size:11px;color:var(--muted);margin-top:8px;">A partir de $2.500</div>
-      </div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;text-align:center;">
-        <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Tier 03</div>
-        <div style="font-size:18px;font-weight:800;color:var(--white);margin-bottom:4px;">Gold</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--cyan);">18%<span style="font-size:12px;color:var(--muted);">/mês</span></div>
-        <div style="font-size:11px;color:var(--muted);margin-top:8px;">A partir de $10.000</div>
-      </div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;text-align:center;">
-        <div style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Tier 04</div>
-        <div style="font-size:18px;font-weight:800;color:var(--white);margin-bottom:4px;">Diamond</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--cyan);">25%<span style="font-size:12px;color:var(--muted);">/mês</span></div>
-        <div style="font-size:11px;color:var(--muted);margin-top:8px;">A partir de $50.000</div>
-      </div>
-    </div>
-    <div style="text-align:center;">
-      <button class="btn btn-primary" style="width:auto;padding:15px 48px;" onclick="show('s-register')">Criar conta gratuita →</button>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section style="padding:80px 48px;max-width:800px;margin:0 auto;width:100%;">
-    <div style="text-align:center;margin-bottom:60px;">
-      <div style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;">// FAQ</div>
-      <h2 style="font-size:clamp(22px,4vw,38px);font-weight:800;color:var(--white);">Perguntas frequentes</h2>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:12px;" id="faq-list">
-      <div class="faq-item" style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
-        <button onclick="toggleFaq(this)" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px 22px;background:none;border:none;color:var(--text);font-family:'Oxanium',sans-serif;font-size:13px;font-weight:700;cursor:pointer;text-align:left;">
-          Como funciona a divisão de lucros?
-          <span style="color:var(--cyan);font-size:18px;transition:transform .3s;flex-shrink:0;">+</span>
-        </button>
-        <div class="faq-body" style="display:none;padding:0 22px 18px;font-size:12px;color:var(--text2);line-height:1.8;border-top:1px solid var(--border);">
-          <br>A Orbitrex opera soluções de IA e tecnologia que geram lucros recorrentes. Esses lucros são distribuídos proporcionalmente entre os participantes de acordo com o plano escolhido — de forma automática, via criptomoeda, sem intervenção manual.
-        </div>
-      </div>
-      <div class="faq-item" style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
-        <button onclick="toggleFaq(this)" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px 22px;background:none;border:none;color:var(--text);font-family:'Oxanium',sans-serif;font-size:13px;font-weight:700;cursor:pointer;text-align:left;">
-          Quais formas de pagamento são aceitas?
-          <span style="color:var(--cyan);font-size:18px;transition:transform .3s;flex-shrink:0;">+</span>
-        </button>
-        <div class="faq-body" style="display:none;padding:0 22px 18px;font-size:12px;color:var(--text2);line-height:1.8;border-top:1px solid var(--border);">
-          <br>Aceitamos <strong style="color:var(--text);">USDT TRC20</strong> (Rede TRON) e <strong style="color:var(--text);">Bitcoin (BTC)</strong>. Após a confirmação na blockchain, o plano é ativado automaticamente — sem necessidade de aprovação manual.
-        </div>
-      </div>
-      <div class="faq-item" style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
-        <button onclick="toggleFaq(this)" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px 22px;background:none;border:none;color:var(--text);font-family:'Oxanium',sans-serif;font-size:13px;font-weight:700;cursor:pointer;text-align:left;">
-          Posso participar de qualquer país?
-          <span style="color:var(--cyan);font-size:18px;transition:transform .3s;flex-shrink:0;">+</span>
-        </button>
-        <div class="faq-body" style="display:none;padding:0 22px 18px;font-size:12px;color:var(--text2);line-height:1.8;border-top:1px solid var(--border);">
-          <br>Sim. A Orbitrex é 100% global. Operamos em mais de 47 países e qualquer pessoa com uma carteira cripto pode participar, independente de localização, banco ou fronteiras.
-        </div>
-      </div>
-      <div class="faq-item" style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
-        <button onclick="toggleFaq(this)" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px 22px;background:none;border:none;color:var(--text);font-family:'Oxanium',sans-serif;font-size:13px;font-weight:700;cursor:pointer;text-align:left;">
-          Como funciona o saque dos lucros?
-          <span style="color:var(--cyan);font-size:18px;transition:transform .3s;flex-shrink:0;">+</span>
-        </button>
-        <div class="faq-body" style="display:none;padding:0 22px 18px;font-size:12px;color:var(--text2);line-height:1.8;border-top:1px solid var(--border);">
-          <br>Os saques são processados dentro de 24 horas úteis diretamente para sua carteira cripto. O valor mínimo é $50 e a taxa de rede é de apenas 1% sobre o valor solicitado.
-        </div>
-      </div>
-      <div class="faq-item" style="background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
-        <button onclick="toggleFaq(this)" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px 22px;background:none;border:none;color:var(--text);font-family:'Oxanium',sans-serif;font-size:13px;font-weight:700;cursor:pointer;text-align:left;">
-          Preciso de conhecimento técnico?
-          <span style="color:var(--cyan);font-size:18px;transition:transform .3s;flex-shrink:0;">+</span>
-        </button>
-        <div class="faq-body" style="display:none;padding:0 22px 18px;font-size:12px;color:var(--text2);line-height:1.8;border-top:1px solid var(--border);">
-          <br>Não. A plataforma foi desenvolvida para ser simples e intuitiva. Você só precisa criar uma conta, escolher um plano e enviar o pagamento. A IA e a tecnologia fazem o resto por você.
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA FINAL -->
-  <section style="padding:80px 48px;text-align:center;position:relative;overflow:hidden;">
-    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(123,79,255,0.07) 0%,transparent 70%);pointer-events:none;"></div>
-    <div style="font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--violet);margin-bottom:16px;">// Join Orbitrex</div>
-    <h2 style="font-size:clamp(28px,5vw,52px);font-weight:800;color:var(--white);margin-bottom:16px;line-height:1.2;">Pronto para fazer<br>parte do futuro?</h2>
-    <p style="font-size:14px;color:var(--text2);max-width:480px;margin:0 auto 40px;line-height:1.7;">Crie sua conta gratuitamente hoje e comece a participar dos lucros da plataforma que está moldando a tecnologia de amanhã.</p>
-    <button class="btn btn-primary" style="width:auto;padding:16px 52px;font-size:15px;" onclick="show('s-register')">◈ Criar conta gratuita</button>
-  </section>
-
-  <!-- FOOTER -->
-  <footer style="border-top:1px solid var(--border);padding:32px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
-    <div class="logo">
-      <svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="flg" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#7B4FFF"/></linearGradient><linearGradient id="flg2" x1="0" y1="48" x2="48" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FFF" stop-opacity="0.4"/><stop offset="100%" stop-color="#00D4FF" stop-opacity="0.4"/></linearGradient><filter id="fg"><feGaussianBlur stdDeviation="1.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-        <circle cx="24" cy="24" r="22" stroke="url(#flg)" stroke-width="1.5" fill="none" opacity="0.6"/>
-        <ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#flg)" stroke-width="1.2" fill="none" transform="rotate(-30 24 24)" opacity="0.8"/>
-        <ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#flg)" stroke-width="1.2" fill="none" transform="rotate(30 24 24)" opacity="0.4"/>
-        <circle cx="24" cy="24" r="6" fill="url(#flg)" filter="url(#fg)" opacity="0.9"/>
-        <circle cx="24" cy="24" r="3" fill="white" opacity="0.9"/>
-        <circle cx="42" cy="18" r="2.5" fill="#00D4FF" filter="url(#fg)"/>
-        <circle cx="8" cy="34" r="1.8" fill="#7B4FFF" filter="url(#fg)" opacity="0.8"/>
-        <circle cx="24" cy="24" r="10" fill="url(#flg2)"/>
-      </svg>
-      <div class="logo-text-wrap"><span class="logo-name" style="font-size:15px;">Orbitrex</span><span class="logo-tag">AI · Technology · Growth</span></div>
-    </div>
-    <span style="font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;">© 2025 Orbitrex. All rights reserved.</span>
-    <div style="display:flex;gap:12px;">
-      <button class="btn btn-ghost btn-sm" onclick="show('s-login')">Login</button>
-      <button class="btn btn-primary btn-sm" onclick="show('s-register')">Get Started</button>
-    </div>
+  <footer style="border-top:1px solid var(--border);padding:24px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <div class="logo"><svg width="28" height="28" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="flg" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#7B4FFF"/></linearGradient><filter id="fg"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="24" cy="24" r="22" stroke="url(#flg)" stroke-width="1.5" fill="none" opacity=".6"/><ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#flg)" stroke-width="1.2" fill="none" transform="rotate(-30 24 24)" opacity=".8"/><circle cx="24" cy="24" r="7" fill="url(#flg)" filter="url(#fg)" opacity=".9"/><circle cx="24" cy="24" r="3" fill="white" opacity=".9"/><circle cx="42" cy="18" r="2.5" fill="#00D4FF" filter="url(#fg)"/></svg><div><div class="logo-name" style="font-size:15px;">Orbitrex</div><div class="logo-tag">AI · Technology · Growth</div></div></div>
+    <span style="font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;">© 2025 Orbitrex. All rights reserved.</span>
+    <div style="display:flex;gap:10px;"><button class="btn btn-ghost btn-sm" onclick="goTo('s-login')">Login</button><button class="btn btn-primary btn-sm" onclick="goTo('s-register')">Get Started</button></div>
   </footer>
-
-  <style>
-    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}}
-    @media(max-width:600px){
-      header{padding:0 16px!important;}
-      section{padding:60px 20px!important;}
-      footer{padding:24px 20px!important;flex-direction:column;align-items:flex-start;}
-    }
-  </style>
+  <style>@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}</style>
 </div>
 
-<!-- ═══════════════════════════════
-     LOGIN
-═══════════════════════════════ -->
+<!-- ═══════════ LOGIN ═══════════ -->
 <div class="screen auth-wrap" id="s-login">
   <div class="auth-box">
-    <div class="auth-logo">
-      <!-- LOGO ORBITREX -->
-      <div class="logo">
-        <svg class="logo-svg" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="lg1" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#00D4FF"/>
-              <stop offset="100%" stop-color="#7B4FFF"/>
-            </linearGradient>
-            <linearGradient id="lg2" x1="0" y1="48" x2="48" y2="0" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#7B4FFF" stop-opacity="0.4"/>
-              <stop offset="100%" stop-color="#00D4FF" stop-opacity="0.4"/>
-            </linearGradient>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
-              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-          </defs>
-          <!-- Outer ring -->
-          <circle cx="24" cy="24" r="22" stroke="url(#lg1)" stroke-width="1.5" fill="none" opacity="0.6"/>
-          <!-- Orbit ellipse tilted -->
-          <ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#lg1)" stroke-width="1.2" fill="none" transform="rotate(-30 24 24)" opacity="0.8"/>
-          <!-- Second orbit -->
-          <ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#lg1)" stroke-width="1.2" fill="none" transform="rotate(30 24 24)" opacity="0.4"/>
-          <!-- Core sphere -->
-          <circle cx="24" cy="24" r="6" fill="url(#lg1)" filter="url(#glow)" opacity="0.9"/>
-          <circle cx="24" cy="24" r="3" fill="white" opacity="0.9"/>
-          <!-- Orbit dot 1 -->
-          <circle cx="42" cy="18" r="2.5" fill="#00D4FF" filter="url(#glow)"/>
-          <!-- Orbit dot 2 -->
-          <circle cx="8" cy="34" r="1.8" fill="#7B4FFF" filter="url(#glow)" opacity="0.8"/>
-          <!-- Orbit dot 3 -->
-          <circle cx="38" cy="36" r="1.5" fill="#00FFB2" filter="url(#glow)" opacity="0.7"/>
-          <!-- Inner glow bg -->
-          <circle cx="24" cy="24" r="10" fill="url(#lg2)"/>
-        </svg>
-        <div class="logo-text-wrap">
-          <span class="logo-name">Orbitrex</span>
-          <span class="logo-tag">AI · Technology · Growth</span>
-        </div>
-      </div>
-    </div>
-
+    <div class="auth-logo"><div class="logo"><svg width="44" height="44" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="lg2" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#7B4FFF"/></linearGradient><filter id="gf2"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="24" cy="24" r="22" stroke="url(#lg2)" stroke-width="1.5" fill="none" opacity=".6"/><ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#lg2)" stroke-width="1.2" fill="none" transform="rotate(-30 24 24)" opacity=".8"/><ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#lg2)" stroke-width="1.2" fill="none" transform="rotate(30 24 24)" opacity=".4"/><circle cx="24" cy="24" r="7" fill="url(#lg2)" filter="url(#gf2)" opacity=".9"/><circle cx="24" cy="24" r="3" fill="white" opacity=".9"/><circle cx="42" cy="18" r="2.5" fill="#00D4FF" filter="url(#gf2)"/><circle cx="8" cy="34" r="1.8" fill="#7B4FFF" filter="url(#gf2)" opacity=".8"/><circle cx="38" cy="36" r="1.5" fill="#00FFB2" filter="url(#gf2)" opacity=".7"/></svg><div><div class="logo-name">Orbitrex</div><div class="logo-tag">AI · Technology · Growth</div></div></div></div>
     <div class="auth-card">
       <h2>Acessar plataforma</h2>
-      <p class="sub">Entre com suas credenciais para continuar</p>
-      <div class="alert alert-error" id="login-err">// Credenciais inválidas</div>
-      <div class="field"><label>E-mail</label><input type="email" id="l-email" placeholder="usuario@email.com"></div>
+      <p class="sub">Entre com suas credenciais</p>
+      <div class="alert alert-err" id="login-err"></div>
+      <div class="field"><label>E-mail</label><input type="email" id="l-email" placeholder="seu@email.com"></div>
       <div class="field"><label>Senha</label><input type="password" id="l-pass" placeholder="••••••••"></div>
-      <button class="btn btn-primary" onclick="doLogin()">
-        <span id="login-lbl">Entrar</span>
-        <div class="spinner hidden" id="login-spin"></div>
-      </button>
+      <button class="btn btn-primary" onclick="doLogin()" id="login-btn"><span id="login-lbl">Entrar</span><div class="spinner hidden" id="login-sp"></div></button>
       <div class="or">ou</div>
-      <button class="btn btn-ghost" onclick="show('s-register')">Criar nova conta</button>
+      <button class="btn btn-ghost" onclick="goTo('s-register')">Criar conta</button>
     </div>
-    <div class="auth-footer"><p>Esqueceu a senha? <a onclick="toast('// Link de recuperação enviado ✓')">Recuperar acesso</a></p></div>
+    <div class="auth-footer"><p>Voltar ao <a onclick="goTo('s-land')">início</a></p></div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════
-     CADASTRO
-═══════════════════════════════ -->
+<!-- ═══════════ CADASTRO ═══════════ -->
 <div class="screen auth-wrap" id="s-register">
   <div class="auth-box">
-    <div class="auth-logo">
-      <div class="logo">
-        <svg class="logo-svg" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="lg1b" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#7B4FFF"/></linearGradient>
-            <linearGradient id="lg2b" x1="0" y1="48" x2="48" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FFF" stop-opacity="0.4"/><stop offset="100%" stop-color="#00D4FF" stop-opacity="0.4"/></linearGradient>
-            <filter id="glow2"><feGaussianBlur stdDeviation="1.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          </defs>
-          <circle cx="24" cy="24" r="22" stroke="url(#lg1b)" stroke-width="1.5" fill="none" opacity="0.6"/>
-          <ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#lg1b)" stroke-width="1.2" fill="none" transform="rotate(-30 24 24)" opacity="0.8"/>
-          <ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#lg1b)" stroke-width="1.2" fill="none" transform="rotate(30 24 24)" opacity="0.4"/>
-          <circle cx="24" cy="24" r="6" fill="url(#lg1b)" filter="url(#glow2)" opacity="0.9"/>
-          <circle cx="24" cy="24" r="3" fill="white" opacity="0.9"/>
-          <circle cx="42" cy="18" r="2.5" fill="#00D4FF" filter="url(#glow2)"/>
-          <circle cx="8" cy="34" r="1.8" fill="#7B4FFF" filter="url(#glow2)" opacity="0.8"/>
-          <circle cx="38" cy="36" r="1.5" fill="#00FFB2" filter="url(#glow2)" opacity="0.7"/>
-          <circle cx="24" cy="24" r="10" fill="url(#lg2b)"/>
-        </svg>
-        <div class="logo-text-wrap"><span class="logo-name">Orbitrex</span><span class="logo-tag">AI · Technology · Growth</span></div>
-      </div>
-    </div>
+    <div class="auth-logo"><div class="logo"><svg width="44" height="44" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="lg3" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#7B4FFF"/></linearGradient><filter id="gf3"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="24" cy="24" r="22" stroke="url(#lg3)" stroke-width="1.5" fill="none" opacity=".6"/><ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#lg3)" stroke-width="1.2" fill="none" transform="rotate(-30 24 24)" opacity=".8"/><circle cx="24" cy="24" r="7" fill="url(#lg3)" filter="url(#gf3)" opacity=".9"/><circle cx="24" cy="24" r="3" fill="white" opacity=".9"/><circle cx="42" cy="18" r="2.5" fill="#00D4FF" filter="url(#gf3)"/></svg><div><div class="logo-name">Orbitrex</div><div class="logo-tag">AI · Technology · Growth</div></div></div></div>
     <div class="auth-card">
       <h2>Criar conta</h2>
-      <p class="sub">Junte-se à plataforma e comece a crescer</p>
-      <div class="alert alert-error" id="reg-err">// Preencha todos os campos</div>
-      <div class="alert alert-success" id="reg-ok">// Conta criada com sucesso ✓</div>
-      <div class="field"><label>Nome completo</label><input type="text" id="r-name" placeholder="Seu Nome"></div>
-      <div class="field"><label>E-mail</label><input type="email" id="r-email" placeholder="usuario@email.com"></div>
+      <p class="sub">Junte-se à plataforma</p>
+      <div class="alert alert-err" id="reg-err"></div>
+      <div class="alert alert-ok" id="reg-ok"></div>
+      <div class="field"><label>Nome completo</label><input type="text" id="r-name" placeholder="Seu nome"></div>
+      <div class="field"><label>E-mail</label><input type="email" id="r-email" placeholder="seu@email.com"></div>
       <div class="field"><label>Senha</label><input type="password" id="r-pass" placeholder="mín. 8 caracteres"></div>
       <div class="field"><label>Confirmar senha</label><input type="password" id="r-pass2" placeholder="repita a senha"></div>
       <button class="btn btn-primary" onclick="doRegister()">Criar conta</button>
       <div class="or">ou</div>
-      <button class="btn btn-ghost" onclick="show('s-login')">Já tenho conta</button>
+      <button class="btn btn-ghost" onclick="goTo('s-login')">Já tenho conta</button>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════
-     DASHBOARD
-═══════════════════════════════ -->
+<!-- ═══════════ DASHBOARD ═══════════ -->
 <div class="screen dash-wrap" id="s-dash">
   <nav>
-    <div class="logo">
-      <svg class="logo-svg" width="36" height="36" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="nlg" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#7B4FFF"/></linearGradient>
-          <linearGradient id="nlg2" x1="0" y1="48" x2="48" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FFF" stop-opacity="0.4"/><stop offset="100%" stop-color="#00D4FF" stop-opacity="0.4"/></linearGradient>
-          <filter id="ng"><feGaussianBlur stdDeviation="1.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        </defs>
-        <circle cx="24" cy="24" r="22" stroke="url(#nlg)" stroke-width="1.5" fill="none" opacity="0.6"/>
-        <ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#nlg)" stroke-width="1.2" fill="none" transform="rotate(-30 24 24)" opacity="0.8"/>
-        <ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#nlg)" stroke-width="1.2" fill="none" transform="rotate(30 24 24)" opacity="0.4"/>
-        <circle cx="24" cy="24" r="6" fill="url(#nlg)" filter="url(#ng)" opacity="0.9"/>
-        <circle cx="24" cy="24" r="3" fill="white" opacity="0.9"/>
-        <circle cx="42" cy="18" r="2.5" fill="#00D4FF" filter="url(#ng)"/>
-        <circle cx="8" cy="34" r="1.8" fill="#7B4FFF" filter="url(#ng)" opacity="0.8"/>
-        <circle cx="38" cy="36" r="1.5" fill="#00FFB2" filter="url(#ng)" opacity="0.7"/>
-        <circle cx="24" cy="24" r="10" fill="url(#nlg2)"/>
-      </svg>
-      <div class="logo-text-wrap"><span class="logo-name">Orbitrex</span><span class="logo-tag">AI · Technology · Growth</span></div>
-    </div>
-    <div class="nav-right">
-      <span class="pill" id="nav-plan-badge">—</span>
-      <div class="avatar" onclick="show('s-profile')" title="Perfil">JB</div>
-      <button class="btn btn-ghost btn-sm" onclick="show('s-login')">Exit</button>
-    </div>
+    <div class="logo"><svg width="32" height="32" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="nlg" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#7B4FFF"/></linearGradient><filter id="ngf"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="24" cy="24" r="22" stroke="url(#nlg)" stroke-width="1.5" fill="none" opacity=".6"/><ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#nlg)" stroke-width="1.2" fill="none" transform="rotate(-30 24 24)" opacity=".8"/><circle cx="24" cy="24" r="7" fill="url(#nlg)" filter="url(#ngf)" opacity=".9"/><circle cx="24" cy="24" r="3" fill="white" opacity=".9"/><circle cx="42" cy="18" r="2.5" fill="#00D4FF" filter="url(#ngf)"/><circle cx="8" cy="34" r="1.8" fill="#7B4FFF" filter="url(#ngf)" opacity=".8"/></svg><div><div class="logo-name" style="font-size:16px;">Orbitrex</div></div></div>
+    <div class="nav-right"><span class="pill" id="u-plan-badge">—</span><div class="avatar" id="u-avatar" onclick="goTo('s-profile')">?</div><button class="btn btn-ghost btn-sm" onclick="doLogout()">Sair</button></div>
   </nav>
-
-  <div class="sidebar-nav">
-    <button class="nav-tab active" onclick="switchTab(this,'tab-home')"><span>⬡</span> Overview</button>
-    <button class="nav-tab" onclick="switchTab(this,'tab-plans')"><span>◈</span> Plans</button>
-    <button class="nav-tab" onclick="switchTab(this,'tab-history')"><span>≡</span> History</button>
-    <button class="nav-tab" onclick="switchTab(this,'tab-withdraw')"><span>↗</span> Withdraw</button>
+  <div class="tab-bar">
+    <button class="tab active" onclick="switchTab(this,'t-home')">⬡ Início</button>
+    <button class="tab" onclick="switchTab(this,'t-plans')">◈ Planos</button>
+    <button class="tab" onclick="switchTab(this,'t-history')">≡ Histórico</button>
+    <button class="tab" onclick="switchTab(this,'t-withdraw')">↗ Saque</button>
   </div>
-
   <!-- HOME -->
-  <div class="dash-body" id="tab-home">
-    <h1 class="page-title" id="dash-greeting">Dashboard</h1>
-    <p class="page-sub">// Todos os sistemas operacionais</p>
+  <div class="content" id="t-home">
+    <h1 class="page-title" id="u-greeting">Dashboard</h1>
+    <p class="page-sub" id="u-subgreeting">// Carregando...</p>
     <div class="stats">
-      <div class="stat"><div class="stat-icon">◎</div><div class="stat-val">$2.840,00</div><div class="stat-lbl">Total Balance</div><div class="stat-change">↑ +12.4% this month</div></div>
-      <div class="stat grn"><div class="stat-icon">⬡</div><div class="stat-val">$340,00</div><div class="stat-lbl">Profit Share</div><div class="stat-change">↑ +8.7% this week</div></div>
-      <div class="stat vio"><div class="stat-icon">◈</div><div class="stat-val">$2.500,00</div><div class="stat-lbl">Deployed</div><div class="stat-change">Silver Plan active</div></div>
-      <div class="stat"><div class="stat-icon">◷</div><div class="stat-val">18 days</div><div class="stat-lbl">To Maturity</div><div class="stat-change" style="color:var(--cyan)">→ Jun 12, 2025</div></div>
+      <div class="stat"><div class="stat-icon">💰</div><div class="stat-val" id="u-balance">$0.00</div><div class="stat-lbl">Saldo Total</div><div class="stat-sub" id="u-bal-sub">—</div></div>
+      <div class="stat grn"><div class="stat-icon">📈</div><div class="stat-val" id="u-yield">$0.00</div><div class="stat-lbl">Rendimento Total</div><div class="stat-sub" id="u-yield-sub">—</div></div>
+      <div class="stat vio"><div class="stat-icon">🔒</div><div class="stat-val" id="u-invested">$0.00</div><div class="stat-lbl">Depositado</div><div class="stat-sub" id="u-inv-sub">—</div></div>
+      <div class="stat"><div class="stat-icon">⏱</div><div class="stat-val" id="u-days">—</div><div class="stat-lbl">Dias Restantes</div><div class="stat-sub" id="u-days-sub">—</div></div>
     </div>
     <div class="grid2">
       <div class="card card-glow">
-        <div class="flex-between mb16"><h3 style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);">Cycle Progress</h3><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan)">62%</span></div>
-        <div style="background:var(--surface);border-radius:4px;height:6px;overflow:hidden;">
-          <div id="cycle-bar" style="background:linear-gradient(90deg,var(--violet),var(--cyan));height:100%;width:0%;border-radius:4px;box-shadow:0 0 8px var(--cyan-glow);transition:width 1s ease;"></div>
-        </div>
-        <p id="cycle-remain" style="color:var(--muted);font-size:11px;margin-top:10px;font-family:'JetBrains Mono',monospace;">— dias</p>
-        <div style="display:flex;gap:20px;margin-top:20px;">
-          <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;">Start</div><div id="cycle-start" style="font-family:'JetBrains Mono',monospace;font-size:12px;">—</div></div>
-          <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;">End</div><div id="cycle-end" style="font-family:'JetBrains Mono',monospace;font-size:12px;">—</div></div>
-          <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;">ROI</div><div id="cycle-roi" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green);">—</div></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;"><h3 style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);">Progresso do Ciclo</h3><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);" id="u-cycle-pct">0%</span></div>
+        <div class="prog-wrap"><div class="prog-bar" id="u-cycle-bar" style="width:0%"></div></div>
+        <p style="color:var(--muted);font-size:10px;margin-top:8px;font-family:'JetBrains Mono',monospace;" id="u-cycle-info">Nenhum plano ativo</p>
+        <div style="display:flex;gap:20px;margin-top:16px;">
+          <div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:3px;">Início</div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;" id="u-c-start">—</div></div>
+          <div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:3px;">Fim</div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;" id="u-c-end">—</div></div>
+          <div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:3px;">ROI</div><div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);" id="u-c-roi">—</div></div>
         </div>
       </div>
       <div class="card">
-        <h3 style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);margin-bottom:18px;">Quick Actions</h3>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <button class="btn btn-primary" onclick="show('s-payment')">◈ New Deployment</button>
-          <button class="btn btn-ghost" onclick="switchTabByName('tab-withdraw')">↗ Request Withdrawal</button>
-          <button class="btn btn-ghost" onclick="toast('// Referral link copied ✓')">⬡ Refer & Earn</button>
+        <h3 style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);margin-bottom:16px;">Ações Rápidas</h3>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <button class="btn btn-primary" onclick="switchTab(document.querySelectorAll('.tab')[1],'t-plans')">◈ Escolher Plano</button>
+          <button class="btn btn-ghost" onclick="switchTab(document.querySelectorAll('.tab')[3],'t-withdraw')">↗ Solicitar Saque</button>
         </div>
       </div>
     </div>
-    <div class="table-wrap">
-      <div class="table-head"><h3>Recent Transactions</h3><button class="btn btn-ghost btn-sm" onclick="switchTabByName('tab-history')">View all →</button></div>
-      <table><thead><tr><th>Type</th><th>Amount</th><th>Date</th><th>Status</th></tr></thead>
-      <tbody id="user-history-body"><tr><td colspan="4" style="text-align:center;color:var(--muted);padding:20px;">Nenhuma transação ainda</td></tr></tbody></table>
+    <div class="tbl-wrap">
+      <div class="tbl-head"><h3>Últimas Transações</h3></div>
+      <table><thead><tr><th>Tipo</th><th>Valor</th><th>Data</th><th>Status</th></tr></thead><tbody id="u-txns"></tbody></table>
     </div>
   </div>
-
   <!-- PLANS -->
-  <div class="dash-body hidden" id="tab-plans">
-    <h1 class="page-title">Plans</h1>
-    <p class="page-sub">// Escolha seu nível de participação na plataforma</p>
+  <div class="content hidden" id="t-plans">
+    <h1 class="page-title">Planos</h1><p class="page-sub">// Escolha seu nível de participação</p>
     <div class="plans">
-      <div class="plan">
-        <div class="plan-tier">Tier 01</div>
-        <div class="plan-name">Starter</div>
-        <div class="plan-roi">8% <span>/ month</span></div>
-        <ul class="plan-feat"><li>Minimum $500</li><li>30-day cycle</li><li>Weekly withdrawal</li><li>Basic support</li></ul>
-        <button class="btn btn-ghost" onclick="selectPlan('Starter','500')">Select Plan</button>
-      </div>
-      <div class="plan featured">
-        <div class="plan-badge">Popular</div>
-        <div class="plan-tier">Tier 02</div>
-        <div class="plan-name">Silver</div>
-        <div class="plan-roi">12% <span>/ month</span></div>
-        <ul class="plan-feat"><li>Minimum $2.500</li><li>48-day cycle</li><li>2x weekly withdrawal</li><li>Priority support</li><li>+2% referral bonus</li></ul>
-        <button class="btn btn-primary" onclick="selectPlan('Silver','2500')">Select Plan</button>
-      </div>
-      <div class="plan">
-        <div class="plan-tier">Tier 03</div>
-        <div class="plan-name">Gold</div>
-        <div class="plan-roi">18% <span>/ month</span></div>
-        <ul class="plan-feat"><li>Minimum $10.000</li><li>60-day cycle</li><li>Daily withdrawal</li><li>Dedicated manager</li><li>+5% referral bonus</li><li>VIP access</li></ul>
-        <button class="btn btn-ghost" onclick="selectPlan('Gold','10000')">Select Plan</button>
-      </div>
-      <div class="plan">
-        <div class="plan-tier">Tier 04</div>
-        <div class="plan-name">Diamond</div>
-        <div class="plan-roi">25% <span>/ month</span></div>
-        <ul class="plan-feat"><li>Minimum $50.000</li><li>Custom cycle</li><li>Instant liquidity</li><li>Exclusive strategy</li><li>+10% referral bonus</li><li>Daily reports</li></ul>
-        <button class="btn btn-ghost" onclick="selectPlan('Diamond','50000')">Select Plan</button>
-      </div>
+      <div class="plan-card"><div class="plan-tier">Tier 01</div><div class="plan-name">Starter</div><div class="plan-roi">8%<span>/mês</span></div><ul class="plan-feats"><li>Mínimo $500</li><li>Ciclo 30 dias</li><li>Saque semanal</li><li>0.267% ao dia</li></ul><button class="btn btn-ghost" onclick="selectPlan('Starter',500)">Selecionar</button></div>
+      <div class="plan-card featured"><div class="plan-badge">Popular</div><div class="plan-tier">Tier 02</div><div class="plan-name">Silver</div><div class="plan-roi">12%<span>/mês</span></div><ul class="plan-feats"><li>Mínimo $2.500</li><li>Ciclo 48 dias</li><li>Saque 2x/semana</li><li>0.400% ao dia</li><li>+2% bônus indicação</li></ul><button class="btn btn-primary" onclick="selectPlan('Silver',2500)">Selecionar</button></div>
+      <div class="plan-card"><div class="plan-tier">Tier 03</div><div class="plan-name">Gold</div><div class="plan-roi">18%<span>/mês</span></div><ul class="plan-feats"><li>Mínimo $10.000</li><li>Ciclo 60 dias</li><li>Saque diário</li><li>0.600% ao dia</li><li>+5% bônus indicação</li></ul><button class="btn btn-ghost" onclick="selectPlan('Gold',10000)">Selecionar</button></div>
+      <div class="plan-card"><div class="plan-tier">Tier 04</div><div class="plan-name">Diamond</div><div class="plan-roi">25%<span>/mês</span></div><ul class="plan-feats"><li>Mínimo $50.000</li><li>Ciclo 30 dias</li><li>Liquidez imediata</li><li>0.833% ao dia</li><li>+10% bônus indicação</li></ul><button class="btn btn-ghost" onclick="selectPlan('Diamond',50000)">Selecionar</button></div>
     </div>
   </div>
-
   <!-- HISTORY -->
-  <div class="dash-body hidden" id="tab-history">
-    <h1 class="page-title">Transaction History</h1>
-    <p class="page-sub">// Registro completo de depósitos e distribuições de lucro</p>
-    <div class="table-wrap">
-      <div class="table-head"><h3>All Transactions</h3><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);">4 records</span></div>
-      <table><thead><tr><th>TX ID</th><th>Description</th><th>Amount</th><th>Date</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td>#TXN-0041</td><td style="color:var(--text);">Deposit — Silver Plan</td><td style="color:var(--cyan);">$2.500,00</td><td>25/04/2025</td><td><span class="status-pill st-ok">✓ Done</span></td></tr>
-        <tr><td>#RND-0019</td><td style="color:var(--text);">Profit Share</td><td style="color:var(--green);">+$187,50</td><td>02/05/2025</td><td><span class="status-pill st-ok">✓ Paid</span></td></tr>
-        <tr><td>#RND-0018</td><td style="color:var(--text);">Profit Share</td><td style="color:var(--green);">+$152,50</td><td>25/04/2025</td><td><span class="status-pill st-ok">✓ Paid</span></td></tr>
-        <tr><td>#TXN-0012</td><td style="color:var(--text);">Deposit — Starter</td><td style="color:var(--muted);">$500,00</td><td>01/03/2025</td><td><span class="status-pill st-fail">✗ Expired</span></td></tr>
-      </tbody></table>
-    </div>
+  <div class="content hidden" id="t-history">
+    <h1 class="page-title">Histórico</h1><p class="page-sub">// Todos os seus depósitos e saques</p>
+    <div class="tbl-wrap"><div class="tbl-head"><h3>Transações</h3></div><table><thead><tr><th>ID</th><th>Tipo</th><th>Valor</th><th>Data</th><th>Status</th></tr></thead><tbody id="u-history"></tbody></table></div>
   </div>
-
   <!-- WITHDRAW -->
-  <div class="dash-body hidden" id="tab-withdraw">
-    <h1 class="page-title">Withdrawal</h1>
-    <p class="page-sub">// Transfira seus lucros para sua carteira cripto</p>
+  <div class="content hidden" id="t-withdraw">
+    <h1 class="page-title">Saque</h1><p class="page-sub">// Transfira seus lucros para sua carteira</p>
     <div class="grid2">
       <div class="card card-glow">
-        <h3 style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);margin-bottom:20px;">Withdrawal Request</h3>
-        <div class="field"><label>Amount (USD)</label><input type="number" placeholder="ex: 150.00" min="50"></div>
-        <div class="field"><label>Network</label><select><option>USDT TRC20 (TRON)</option><option>BTC (Bitcoin)</option></select></div>
-        <div class="field"><label>Destination Address</label><input type="text" placeholder="Your wallet address..." style="font-family:'JetBrains Mono',monospace;font-size:11px;"></div>
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:20px;font-size:11px;color:var(--text2);font-family:'JetBrains Mono',monospace;">
-          <div class="flex-between mb8"><span>Available balance</span><span style="color:var(--cyan);">$340,00</span></div>
-          <div class="flex-between mb8"><span>Network fee (~1%)</span><span>-$1,50</span></div>
-          <div class="flex-between" style="font-weight:700;color:var(--white);border-top:1px solid var(--border);padding-top:8px;margin-top:4px;"><span>You receive</span><span style="color:var(--green);">$148,50</span></div>
+        <h3 style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);margin-bottom:18px;">Solicitar Saque</h3>
+        <div class="field"><label>Valor (USD)</label><input type="number" id="wd-amount" placeholder="mínimo $50" min="50"></div>
+        <div class="field"><label>Rede</label><select id="wd-net"><option>USDT TRC20</option><option>BTC Bitcoin</option></select></div>
+        <div class="field"><label>Endereço da Carteira</label><input type="text" id="wd-addr" placeholder="Seu endereço..."></div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:16px;font-size:11px;color:var(--text2);font-family:'JetBrains Mono',monospace;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span>Saldo disponível</span><span style="color:var(--cyan);" id="wd-bal">$0.00</span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span>Taxa (1%)</span><span id="wd-fee">$0.00</span></div>
+          <div style="display:flex;justify-content:space-between;font-weight:700;color:var(--white);border-top:1px solid var(--border);padding-top:8px;margin-top:4px;"><span>Você recebe</span><span style="color:var(--green);" id="wd-net-val">$0.00</span></div>
         </div>
-        <button class="btn btn-primary" onclick="requestWithdraw()">Confirm Withdrawal</button>
+        <button class="btn btn-primary" onclick="doWithdraw()">Confirmar Saque</button>
       </div>
       <div class="card">
-        <h3 style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);margin-bottom:18px;">Info</h3>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div class="step"><div class="step-num">i</div><div class="step-text"><strong>Minimum:</strong> $50</div></div>
-          <div class="step"><div class="step-num">t</div><div class="step-text"><strong>Processing:</strong> up to 24 business hours</div></div>
-          <div class="step"><div class="step-num">✓</div><div class="step-text"><strong>Verification:</strong> confirmed via e-mail</div></div>
-          <div class="step"><div class="step-num">%</div><div class="step-text"><strong>Fee:</strong> 1% on requested amount</div></div>
+        <h3 style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);margin-bottom:16px;">Informações</h3>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <div class="step"><div class="step-n">$</div><div class="step-t"><strong>Mínimo:</strong> $50</div></div>
+          <div class="step"><div class="step-n">t</div><div class="step-t"><strong>Prazo:</strong> até 24h úteis</div></div>
+          <div class="step"><div class="step-n">%</div><div class="step-t"><strong>Taxa:</strong> 1% sobre o valor</div></div>
+          <div class="step"><div class="step-n">✓</div><div class="step-t"><strong>Aprovação:</strong> manual pelo admin</div></div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════
-     PAGAMENTO
-═══════════════════════════════ -->
-<div class="screen pay-wrap" id="s-payment">
+<!-- ═══════════ PAGAMENTO ═══════════ -->
+<div class="screen pay-wrap" id="s-pay">
   <div class="pay-card">
-    <button onclick="show('s-dash')" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:11px;margin-bottom:20px;display:flex;align-items:center;gap:6px;font-family:'Oxanium',sans-serif;letter-spacing:1px;">← BACK</button>
-    <h2>Payment</h2>
-    <p class="sub">Plan <strong id="pay-plan-name" style="color:var(--cyan);">Silver</strong> — Select payment method</p>
-    <div class="coin-selector">
-      <div class="coin-btn active-usdt" id="btn-usdt" onclick="selectCoin('usdt')">
-        <div class="coin-icon usdt">₮</div>
-        <div class="coin-info"><span class="coin-name">USDT</span><span class="coin-net">TRC20 · TRON</span></div>
-      </div>
-      <div class="coin-btn" id="btn-btc" onclick="selectCoin('btc')">
-        <div class="coin-icon btc">₿</div>
-        <div class="coin-info"><span class="coin-name">Bitcoin</span><span class="coin-net">BTC · Native</span></div>
-      </div>
+    <button onclick="goTo('s-dash')" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:11px;margin-bottom:18px;display:flex;align-items:center;gap:5px;font-family:'Oxanium',sans-serif;">← Voltar</button>
+    <h2 style="font-size:20px;font-weight:800;color:var(--white);margin-bottom:3px;">Pagamento</h2>
+    <p style="color:var(--text2);font-size:11px;margin-bottom:18px;">Plano <strong id="pay-plan" style="color:var(--cyan);">—</strong> — Escolha a moeda</p>
+    <div class="coin-sel">
+      <div class="coin-btn sel-usdt" id="cb-usdt" onclick="setCoin('usdt')"><div class="coin-ico usdt">₮</div><div><div style="font-size:13px;font-weight:700;color:var(--white);">USDT</div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">TRC20</div></div></div>
+      <div class="coin-btn" id="cb-btc" onclick="setCoin('btc')"><div class="coin-ico btc">₿</div><div><div style="font-size:13px;font-weight:700;color:var(--white);">Bitcoin</div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">BTC</div></div></div>
     </div>
-    <div class="amount-display">
-      <div class="lbl">Amount to send</div>
-      <div class="val" id="pay-amount">$2.500,00</div>
-      <div class="cur" id="pay-cur">USDT · TRC20 Network</div>
-    </div>
-    <div class="qr-section">
-      <div class="qr-label" id="qr-label">Scan to pay with USDT TRC20</div>
-      <div id="qr-container"></div>
-    </div>
-    <div class="wallet-box">
-      <div class="wallet-lbl">Destination address</div>
-      <div class="wallet-addr" id="wallet-addr">TPLNWYLZdhQN2YsvY91gSkdrvT3ynUnoaq</div>
-      <div class="wallet-actions">
-        <span class="network-tag tag-usdt" id="network-tag">TRC20</span>
-        <button class="btn-copy" onclick="copyAddr()">⧉ Copy address</button>
-      </div>
-    </div>
-    <div class="timer-bar">⧗ Expires in: <span class="t" id="timer-val">29:59</span></div>
+    <div class="amt-box"><div class="amt-lbl">Valor a enviar</div><div class="amt-val" id="pay-amt">$0.00</div><div class="amt-cur" id="pay-cur">USDT · TRC20</div></div>
+    <div class="qr-box"><div class="qr-lbl" id="qr-lbl">Escaneie para pagar</div><div id="qr-out"></div></div>
+    <div class="addr-box"><div class="addr-lbl">Endereço de destino</div><div class="addr-val" id="pay-addr">—</div><div class="addr-row"><span class="net-tag net-usdt" id="pay-net">TRC20</span><button class="copy-btn" onclick="copyAddr()">⧉ Copiar</button></div></div>
+    <div class="timer-row">⏱ Expira em: <span class="timer-val" id="pay-timer">29:59</span></div>
     <div class="steps">
-      <div class="step"><div class="step-num">01</div><div class="step-text">Open your wallet (Trust Wallet, Binance, etc.)</div></div>
-      <div class="step"><div class="step-num">02</div><div class="step-text">Send exactly <strong id="exact-amount">2500 USDT</strong> to the address above on the correct network</div></div>
-      <div class="step"><div class="step-num">03</div><div class="step-text">Wait for automatic confirmation (1–5 min after sending)</div></div>
+      <div class="step"><div class="step-n">01</div><div class="step-t">Abra sua carteira (Trust Wallet, Binance, etc.)</div></div>
+      <div class="step"><div class="step-n">02</div><div class="step-t">Envie exatamente <strong id="pay-exact">—</strong> para o endereço acima</div></div>
+      <div class="step"><div class="step-n">03</div><div class="step-t">Envie o comprovante abaixo e aguarde aprovação</div></div>
     </div>
-    <!-- COMPROVANTE -->
-    <div style="background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:18px;margin-bottom:14px;">
-      <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:14px;">⧉ Comprovante de Pagamento</div>
-      <div class="field" style="margin-bottom:14px;">
-        <label>Hash da Transação (TX ID)</label>
-        <input type="text" id="pay-hash" placeholder="Cole aqui o hash da transação..." style="font-size:11px;">
-      </div>
+    <div class="proof-box">
+      <div class="proof-title">⧉ Comprovante de Pagamento</div>
+      <div class="field" style="margin-bottom:12px;"><label>Hash da Transação (TX ID)</label><input type="text" id="pay-hash" placeholder="Cole o hash aqui..."></div>
       <div class="field" style="margin-bottom:0;">
         <label>Print / Comprovante (opcional)</label>
-        <div id="upload-area" style="border:1px dashed var(--border2);border-radius:8px;padding:16px;text-align:center;cursor:pointer;transition:border-color .2s;background:var(--card);" onclick="document.getElementById('pay-proof').click()">
-          <div style="font-size:20px;margin-bottom:6px;">📎</div>
-          <div style="font-size:11px;color:var(--muted);">Toque para selecionar ou arraste o print</div>
-          <div style="font-size:10px;color:var(--muted);margin-top:4px;">PNG, JPG ou PDF</div>
+        <div class="upload-area" onclick="document.getElementById('pay-file').click()">
+          <div style="font-size:22px;margin-bottom:5px;">📎</div>
+          <div style="font-size:11px;color:var(--muted);">Toque para selecionar</div>
+          <div style="font-size:9px;color:var(--muted);margin-top:3px;">PNG, JPG ou PDF</div>
         </div>
-        <input type="file" id="pay-proof" accept="image/*,application/pdf" style="display:none;" onchange="previewFile(this)">
-        <div id="file-preview" style="display:none;margin-top:10px;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px;">
-          <span style="font-size:18px;">🖼️</span>
-          <span id="file-name" style="font-size:11px;color:var(--text);font-family:'JetBrains Mono',monospace;"></span>
-          <button onclick="clearFile()" style="background:none;border:none;color:var(--muted);cursor:pointer;margin-left:auto;font-size:14px;">✕</button>
-        </div>
+        <input type="file" id="pay-file" accept="image/*,application/pdf" style="display:none;" onchange="previewFile(this)">
+        <div class="file-preview" id="file-prev"><span style="font-size:16px;">🖼️</span><span id="file-name" style="font-size:11px;color:var(--text);"></span><button onclick="clearFile()" style="background:none;border:none;color:var(--muted);cursor:pointer;margin-left:auto;">✕</button></div>
       </div>
     </div>
-    <button class="btn btn-primary" onclick="submitPayment()">✓ Enviar Comprovante</button>
-    <button class="btn btn-ghost" style="margin-top:10px;" onclick="show('s-dash')">Cancelar</button>
+    <button class="btn btn-primary" onclick="submitProof()">✓ Enviar Comprovante</button>
+    <button class="btn btn-ghost" style="margin-top:9px;" onclick="goTo('s-dash')">Cancelar</button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════
-     PROFILE
-═══════════════════════════════ -->
+<!-- ═══════════ PERFIL ═══════════ -->
 <div class="screen dash-wrap" id="s-profile">
   <nav>
-    <div class="logo">
-      <svg class="logo-svg" width="36" height="36" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="plg" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#7B4FFF"/></linearGradient><linearGradient id="plg2" x1="0" y1="48" x2="48" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FFF" stop-opacity="0.4"/><stop offset="100%" stop-color="#00D4FF" stop-opacity="0.4"/></linearGradient><filter id="pg"><feGaussianBlur stdDeviation="1.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-        <circle cx="24" cy="24" r="22" stroke="url(#plg)" stroke-width="1.5" fill="none" opacity="0.6"/>
-        <ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#plg)" stroke-width="1.2" fill="none" transform="rotate(-30 24 24)" opacity="0.8"/>
-        <ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#plg)" stroke-width="1.2" fill="none" transform="rotate(30 24 24)" opacity="0.4"/>
-        <circle cx="24" cy="24" r="6" fill="url(#plg)" filter="url(#pg)" opacity="0.9"/>
-        <circle cx="24" cy="24" r="3" fill="white" opacity="0.9"/>
-        <circle cx="42" cy="18" r="2.5" fill="#00D4FF" filter="url(#pg)"/>
-        <circle cx="8" cy="34" r="1.8" fill="#7B4FFF" filter="url(#pg)" opacity="0.8"/>
-        <circle cx="38" cy="36" r="1.5" fill="#00FFB2" filter="url(#pg)" opacity="0.7"/>
-        <circle cx="24" cy="24" r="10" fill="url(#plg2)"/>
-      </svg>
-      <div class="logo-text-wrap"><span class="logo-name">Orbitrex</span><span class="logo-tag">AI · Technology · Growth</span></div>
-    </div>
-    <div class="nav-right"><button class="btn btn-ghost btn-sm" onclick="show('s-dash')">← Dashboard</button></div>
+    <div class="logo"><svg width="32" height="32" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="plg" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#7B4FFF"/></linearGradient><filter id="pgf"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="24" cy="24" r="22" stroke="url(#plg)" stroke-width="1.5" fill="none" opacity=".6"/><circle cx="24" cy="24" r="7" fill="url(#plg)" filter="url(#pgf)" opacity=".9"/><circle cx="24" cy="24" r="3" fill="white" opacity=".9"/><circle cx="42" cy="18" r="2.5" fill="#00D4FF" filter="url(#pgf)"/></svg><div><div class="logo-name" style="font-size:16px;">Orbitrex</div></div></div>
+    <div class="nav-right"><button class="btn btn-ghost btn-sm" onclick="goTo('s-dash')">← Dashboard</button></div>
   </nav>
-  <div class="dash-body">
-    <h1 class="page-title">Profile</h1>
-    <p class="page-sub">// Gerencie seus dados e configurações de segurança</p>
-    <div class="profile-header">
-      <div class="profile-av">JB</div>
-      <div class="profile-info">
-        <h3>Francisco Jemison B. da Silva</h3>
-        <p>seu@email.com · Membro ativo</p>
-        <div style="margin-top:8px;"><span class="pill">SILVER PLAN ACTIVE</span></div>
-      </div>
+  <div class="content">
+    <h1 class="page-title">Perfil</h1><p class="page-sub">// Seus dados e segurança</p>
+    <div style="display:flex;align-items:center;gap:16px;padding:22px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:20px;">
+      <div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--violet),var(--cyan));display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:#fff;" id="p-av">?</div>
+      <div><div style="font-size:18px;font-weight:800;color:var(--white);" id="p-name">—</div><div style="color:var(--text2);font-size:11px;margin-top:2px;" id="p-email">—</div><div style="margin-top:6px;"><span class="pill" id="p-plan-badge">—</span></div></div>
     </div>
     <div class="grid2">
-      <div class="card">
-        <h3 style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);margin-bottom:20px;">Personal Data</h3>
-        <div class="field"><label>Full name</label><input type="text" value="Francisco Jemison B. da Silva"></div>
-        <div class="field"><label>E-mail</label><input type="email" placeholder="seu@email.com"></div>
-        <div class="field"><label>Phone</label><input type="tel" placeholder="+55 (85) 99999-9999"></div>
-        <button class="btn btn-primary" onclick="toast('// Profile updated ✓')">Save Changes</button>
+      <div class="card"><h3 style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);margin-bottom:16px;">Dados Pessoais</h3>
+        <div class="field"><label>Nome</label><input type="text" id="p-name-in"></div>
+        <div class="field"><label>E-mail</label><input type="email" id="p-email-in"></div>
+        <button class="btn btn-primary" onclick="saveProfile()">Salvar</button>
       </div>
-      <div class="card">
-        <h3 style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);margin-bottom:20px;">Security</h3>
-        <div class="field"><label>Current password</label><input type="password" placeholder="••••••••"></div>
-        <div class="field"><label>New password</label><input type="password" placeholder="min. 8 characters"></div>
-        <div class="field"><label>Confirm password</label><input type="password" placeholder="repeat password"></div>
-        <button class="btn btn-ghost" onclick="toast('// Password changed ✓')">Change Password</button>
-        <button class="btn btn-danger" style="margin-top:10px;" onclick="show('s-login')">End Session</button>
+      <div class="card"><h3 style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);margin-bottom:16px;">Segurança</h3>
+        <div class="field"><label>Senha atual</label><input type="password" id="p-old-pass" placeholder="••••••••"></div>
+        <div class="field"><label>Nova senha</label><input type="password" id="p-new-pass" placeholder="mín. 8 caracteres"></div>
+        <div class="field"><label>Confirmar</label><input type="password" id="p-conf-pass" placeholder="repita"></div>
+        <button class="btn btn-ghost" onclick="changePass()">Alterar Senha</button>
+        <button class="btn btn-danger" style="margin-top:9px;" onclick="doLogout()">Sair da conta</button>
       </div>
     </div>
   </div>
 </div>
 
-<div class="toast" id="toast-msg"></div>
-
-<script>
-
-  const ADMIN_EMAIL = 'jemis430@gmail.com';
-  let   ADMIN_PASS  = 'Vickjemis12@';
-
-  // Planos com % diária calculada
-  let PLANS = {
-    Starter: { name:'Starter', monthly:8,  daily:0.267, cycle:30, min:500   },
-    Silver:  { name:'Silver',  monthly:12, daily:0.4,   cycle:48, min:2500  },
-    Gold:    { name:'Gold',    monthly:18, daily:0.6,   cycle:60, min:10000 },
-    Diamond: { name:'Diamond', monthly:25, daily:0.833, cycle:30, min:50000 }
-  };
-
-  // Carregar ou inicializar dados
-  function loadData(){
-    const d = localStorage.getItem('orbitrex_data');
-    return d ? JSON.parse(d) : {
-      users: [],
-      payments: [],
-      withdrawals: [],
-      nextUserId: 1
-    };
-  }
-
-  function saveData(data){
-    localStorage.setItem('orbitrex_data', JSON.stringify(data));
-  }
-
-  let DB = loadData();
-
-  // Usuário logado
-  let currentUser = null;
-
-  // ══ AUTH ════════════════════════════════
-  function doLogin(){
-    const email = document.getElementById('l-email').value.trim();
-    const pass  = document.getElementById('l-pass').value;
-    const lbl   = document.getElementById('login-lbl');
-    const spin  = document.getElementById('login-spin');
-    const err   = document.getElementById('login-err');
-    err.classList.remove('show');
-    lbl.textContent='Conectando...'; spin.classList.remove('hidden');
-
-    setTimeout(()=>{
-      spin.classList.add('hidden'); lbl.textContent='Entrar';
-
-      // Checar admin
-      if(email === ADMIN_EMAIL && pass === ADMIN_PASS){
-        show('s-admin'); renderAdmin();
-        return;
-      }
-
-      // Checar usuário
-      const user = DB.users.find(u => u.email===email && u.password===pass);
-      if(user){
-        if(user.status==='banned'){ err.textContent='// Conta banida. Entre em contato com o suporte.'; err.classList.add('show'); return; }
-        if(user.status==='blocked'){ err.textContent='// Conta bloqueada temporariamente.'; err.classList.add('show'); return; }
-        currentUser = user;
-        applyDailyYield(user);
-        loadDashboard(user);
-        show('s-dash');
-        toast('// Acesso autorizado ✓');
-      } else {
-        err.textContent='// E-mail ou senha incorretos.';
-        err.classList.add('show');
-      }
-    }, 1000);
-  }
-
-  function doRegister(){
-    const name  = document.getElementById('r-name').value.trim();
-    const email = document.getElementById('r-email').value.trim();
-    const pass  = document.getElementById('r-pass').value;
-    const pass2 = document.getElementById('r-pass2').value;
-    const err   = document.getElementById('reg-err');
-    const ok    = document.getElementById('reg-ok');
-    err.classList.remove('show'); ok.classList.remove('show');
-
-    if(!name||!email||!pass||!pass2){ err.textContent='// Preencha todos os campos'; err.classList.add('show'); return; }
-    if(pass!==pass2){ err.textContent='// Senhas não coincidem'; err.classList.add('show'); return; }
-    if(pass.length<8){ err.textContent='// Senha mínima: 8 caracteres'; err.classList.add('show'); return; }
-    if(DB.users.find(u=>u.email===email)){ err.textContent='// E-mail já cadastrado'; err.classList.add('show'); return; }
-
-    const newUser = {
-      id: 'USR-' + String(DB.nextUserId).padStart(3,'0'),
-      name, email, password: pass,
-      plan: null, planStart: null, planEnd: null,
-      balance: 0, totalYield: 0,
-      status: 'active',
-      joined: new Date().toLocaleDateString('pt-BR'),
-      lastYieldDate: null
-    };
-    DB.users.push(newUser);
-    DB.nextUserId++;
-    saveData(DB);
-
-    ok.textContent='// Conta criada com sucesso ✓';
-    ok.classList.add('show');
-    setTimeout(()=>show('s-login'), 1500);
-  }
-
-  // ══ RENDIMENTO DIÁRIO ══════════════════
-  function applyDailyYield(user){
-    if(!user.plan || !user.planStart) return;
-    const plan = PLANS[user.plan];
-    if(!plan) return;
-
-    const today = new Date().toDateString();
-    if(user.lastYieldDate === today) return; // Já aplicou hoje
-
-    const start = new Date(user.planStart);
-    const now   = new Date();
-    const end   = new Date(user.planEnd);
-
-    if(now > end) return; // Ciclo encerrado
-
-    // Calcular dias desde último yield
-    const lastDate = user.lastYieldDate ? new Date(user.lastYieldDate) : start;
-    const diffDays = Math.floor((now - lastDate) / (1000 * 60 * 60 * 24));
-
-    if(diffDays < 1) return;
-
-    const yieldAmount = (user.balance * plan.daily / 100) * diffDays;
-    user.balance     += yieldAmount;
-    user.totalYield  += yieldAmount;
-    user.lastYieldDate = today;
-
-    // Salvar
-    const idx = DB.users.findIndex(u=>u.id===user.id);
-    if(idx >= 0){ DB.users[idx] = user; saveData(DB); }
-  }
-
-  // ══ DASHBOARD ══════════════════════════
-  function loadDashboard(user){
-    const plan = user.plan ? PLANS[user.plan] : null;
-
-    // Stats
-    document.getElementById('dash-balance').textContent  = '$' + user.balance.toFixed(2);
-    document.getElementById('dash-yield').textContent    = '$' + user.totalYield.toFixed(2);
-    document.getElementById('dash-invested').textContent = user.plan ? '$' + (user.balance - user.totalYield).toFixed(2) : '$0.00';
-    document.getElementById('dash-plan').textContent     = user.plan || '—';
-    document.getElementById('nav-plan-badge').textContent= user.plan ? user.plan.toUpperCase() : 'SEM PLANO';
-
-    // Avatar
-    const initials = user.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
-    document.querySelectorAll('.avatar').forEach(a=>a.textContent=initials);
-
-    // Progresso do ciclo
-    if(user.plan && user.planStart){
-      const start    = new Date(user.planStart);
-      const end      = new Date(user.planEnd);
-      const now      = new Date();
-      const total    = (end - start) / (1000*60*60*24);
-      const elapsed  = Math.min((now - start) / (1000*60*60*24), total);
-      const pct      = Math.round((elapsed/total)*100);
-      const remain   = Math.max(0, Math.ceil((end - now) / (1000*60*60*24)));
-
-      document.getElementById('cycle-pct').textContent   = pct + '%';
-      document.getElementById('cycle-bar').style.width   = pct + '%';
-      document.getElementById('cycle-remain').textContent= remain + ' dias restantes de ' + Math.round(total) + ' totais';
-      document.getElementById('cycle-start').textContent = start.toLocaleDateString('pt-BR');
-      document.getElementById('cycle-end').textContent   = end.toLocaleDateString('pt-BR');
-      document.getElementById('cycle-roi').textContent   = '+' + plan.monthly + '%';
-    }
-
-    // Nome
-    const firstName = user.name.split(' ')[0];
-    document.getElementById('dash-greeting').textContent = 'Bem-vindo, ' + firstName + ' 👋';
-
-    // Histórico
-    loadUserHistory(user);
-  }
-
-  function loadUserHistory(user){
-    const payments = DB.payments.filter(p=>p.userId===user.id);
-    const tbody = document.getElementById('user-history-body');
-    if(!tbody) return;
-    if(payments.length===0){
-      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:20px;">Nenhuma transação ainda</td></tr>';
-      return;
-    }
-    tbody.innerHTML = payments.slice(0,5).map(p=>`
-      <tr>
-        <td style="color:var(--text);">Depósito — ${p.plan}</td>
-        <td style="color:var(--cyan);">$${Number(p.amount).toFixed(2)}</td>
-        <td>${p.date}</td>
-        <td><span class="status-pill ${p.status==='confirmed'?'st-ok':'st-pend'}">${p.status==='confirmed'?'✓ Confirmado':'⏳ Pendente'}</span></td>
-      </tr>
-    `).join('');
-  }
-
-  // ══ PAGAMENTO ══════════════════════════
-  function selectPlan(name, amount){
-    currentAmount = Number(amount);
-    currentPlanName = name;
-    document.getElementById('pay-plan-name').textContent = name;
-    document.getElementById('pay-amount').textContent = '$' + Number(amount).toLocaleString('pt-BR',{minimumFractionDigits:2});
-    show('s-payment');
-    selectCoin('usdt');
-    startTimer(30*60);
-  }
-
-  function submitPayment(){
-    const hash = document.getElementById('pay-hash').value.trim();
-    const file = document.getElementById('pay-proof').files[0];
-
-    if(!hash && !file){ toast('// Informe o hash ou envie um comprovante!'); return; }
-    if(!currentUser){ toast('// Faça login primeiro!'); return; }
-
-    const payment = {
-      id:     'TXN-' + String(DB.payments.length+1).padStart(4,'0'),
-      userId: currentUser.id,
-      user:   currentUser.name,
-      email:  currentUser.email,
-      plan:   currentPlanName,
-      amount: currentAmount,
-      coin:   currentCoin.toUpperCase(),
-      hash:   hash || '—',
-      file:   file ? file.name : '—',
-      date:   new Date().toLocaleDateString('pt-BR'),
-      status: 'pending'
-    };
-
-    DB.payments.push(payment);
-    saveData(DB);
-
-    toast('// Comprovante enviado! Aguardando aprovação ✓');
-    setTimeout(()=>show('s-dash'), 2000);
-    document.getElementById('pay-hash').value='';
-    clearFile();
-  }
-
-  // ══ SAQUE ══════════════════════════════
-  function requestWithdraw(){
-    const amountEl  = document.querySelector('#tab-withdraw input[type=number]');
-    const addressEl = document.querySelector('#tab-withdraw input[type=text]');
-    const networkEl = document.querySelector('#tab-withdraw select');
-
-    if(!amountEl||!addressEl||!networkEl) return;
-    const amount  = Number(amountEl.value);
-    const address = addressEl.value.trim();
-
-    if(!amount || amount<=0){ toast('// Informe o valor!'); return; }
-    if(amount < 50){ toast('// Mínimo de $50!'); return; }
-    if(!address){ toast('// Informe o endereço!'); return; }
-    if(!currentUser){ toast('// Faça login!'); return; }
-    if(amount > currentUser.balance){ toast('// Saldo insuficiente!'); return; }
-
-    const withdrawal = {
-      id:     'WDR-' + String(DB.withdrawals.length+1).padStart(4,'0'),
-      userId: currentUser.id,
-      user:   currentUser.name,
-      email:  currentUser.email,
-      amount: amount,
-      coin:   networkEl.value.includes('BTC')?'BTC':'USDT',
-      wallet: address,
-      walletShort: address.slice(0,10)+'...'+address.slice(-4),
-      date:   new Date().toLocaleDateString('pt-BR'),
-      status: 'pending'
-    };
-
-    DB.withdrawals.push(withdrawal);
-    saveData(DB);
-    toast('// Saque solicitado! Aguardando aprovação ✓');
-
-    amountEl.value=''; addressEl.value='';
-  }
-
-  // ══ ADMIN ══════════════════════════════
-  function openAdmin(){
-    const email = prompt('🔐 E-mail admin:');
-    if(!email) return;
-    const pass = prompt('🔑 Senha:');
-    if(!pass) return;
-    if(email.trim()===ADMIN_EMAIL && pass===ADMIN_PASS){ show('s-admin'); renderAdmin(); }
-    else { toast('// Acesso negado ✗'); }
-  }
-
-  function renderAdmin(){
-    renderAdminOverview();
-    renderAdminUsers();
-    renderAdminPayments();
-    renderAdminWithdrawals();
-    renderAdminPlans();
-  }
-
-  function renderAdminOverview(){
-    const total    = DB.users.length;
-    const active   = DB.users.filter(u=>u.status==='active').length;
-    const paidConf = DB.payments.filter(p=>p.status==='confirmed').length;
-    const pendWith = DB.withdrawals.filter(w=>w.status==='pending').length;
-    const pendPay  = DB.payments.filter(p=>p.status==='pending').length;
-
-    document.getElementById('adm-stat-users').textContent       = total;
-    document.getElementById('adm-stat-active').textContent      = active;
-    document.getElementById('adm-stat-deposits').textContent    = paidConf;
-    document.getElementById('adm-stat-withdrawals').textContent = pendWith;
-
-    // Alertas
-    const alerts = [];
-    if(pendPay > 0)  alerts.push(`⚠ ${pendPay} pagamento(s) aguardando aprovação`);
-    if(pendWith > 0) alerts.push(`⚠ ${pendWith} saque(s) aguardando aprovação`);
-    const alertBox = document.getElementById('adm-alerts');
-    if(alertBox){
-      alertBox.innerHTML = alerts.length > 0
-        ? alerts.map(a=>`<div style="background:rgba(247,147,26,0.1);border:1px solid rgba(247,147,26,0.2);color:#F7931A;padding:10px 14px;border-radius:6px;font-size:12px;font-weight:600;">${a}</div>`).join('')
-        : '<div style="color:var(--muted);font-size:12px;">Nenhum alerta no momento ✓</div>';
-    }
-
-    // Últimos cadastros
-    const recent = document.getElementById('adm-recent-users');
-    if(recent){
-      recent.innerHTML = DB.users.length===0
-        ? '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:20px;">Nenhum usuário ainda</td></tr>'
-        : DB.users.slice(-5).reverse().map(u=>`
-        <tr>
-          <td style="color:var(--text)">${u.name}</td>
-          <td style="font-size:11px;">${u.email}</td>
-          <td>${u.plan ? '<span class="pill" style="font-size:9px;">'+u.plan+'</span>' : '<span style="color:var(--muted);font-size:11px;">—</span>'}</td>
-          <td style="font-size:11px;">${u.joined}</td>
-          <td><span class="status-pill ${u.status==='active'?'st-ok':u.status==='blocked'?'st-pend':'st-fail'}">${u.status==='active'?'✓ Ativo':u.status==='blocked'?'⏸ Bloqueado':'✗ Banido'}</span></td>
-        </tr>`).join('');
-    }
-  }
-
-  function renderAdminUsers(){
-    const tbody = document.getElementById('adm-users-body');
-    if(!tbody) return;
-    tbody.innerHTML = DB.users.length===0
-      ? '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px;">Nenhum usuário cadastrado ainda</td></tr>'
-      : DB.users.map((u,i)=>`
-      <tr>
-        <td style="color:var(--cyan);font-size:11px;">${u.id}</td>
-        <td style="color:var(--text);font-size:12px;">${u.name}</td>
-        <td style="font-size:11px;">${u.email}</td>
-        <td>${u.plan ? '<span class="pill" style="font-size:9px;">'+u.plan+'</span>' : '—'}</td>
-        <td style="font-size:11px;">${u.joined}</td>
-        <td style="color:var(--green);font-weight:700;">$${Number(u.balance||0).toFixed(2)}</td>
-        <td><span class="status-pill ${u.status==='active'?'st-ok':u.status==='blocked'?'st-pend':'st-fail'}">${u.status==='active'?'✓ Ativo':u.status==='blocked'?'⏸ Bloqueado':'✗ Banido'}</span></td>
-        <td>
-          <button onclick="openUserEdit(${i})" style="background:var(--cyan-dim);border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-size:10px;padding:4px 10px;border-radius:4px;cursor:pointer;font-family:'Oxanium',sans-serif;">✏️ Editar</button>
-        </td>
-      </tr>`).join('');
-  }
-
-  function renderAdminPayments(){
-    const tbody = document.getElementById('adm-payments-body');
-    if(!tbody) return;
-    tbody.innerHTML = DB.payments.length===0
-      ? '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px;">Nenhum pagamento ainda</td></tr>'
-      : DB.payments.slice().reverse().map((p,i)=>{
-          const realIdx = DB.payments.length - 1 - i;
-          return `<tr>
-            <td style="color:var(--cyan);font-size:11px;">${p.id}</td>
-            <td style="color:var(--text);font-size:12px;">${p.user}</td>
-            <td style="font-size:11px;">${p.plan}</td>
-            <td style="color:var(--gold);font-weight:700;">$${Number(p.amount).toFixed(2)}</td>
-            <td><span class="status-pill ${p.coin==='USDT'?'st-ok':'st-pend'}">${p.coin}</span></td>
-            <td style="font-size:10px;color:var(--muted);max-width:100px;overflow:hidden;text-overflow:ellipsis;">${p.hash||'—'}</td>
-            <td style="font-size:11px;">${p.date}</td>
-            <td>
-              ${p.status==='pending'
-                ? `<div style="display:flex;flex-direction:column;gap:4px;">
-                    <button onclick="approvePayment(${realIdx})" style="background:rgba(0,255,178,0.1);border:1px solid rgba(0,255,178,0.3);color:var(--green);font-size:11px;font-weight:700;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:'Oxanium',sans-serif;">✓ Ativar</button>
-                    <button onclick="rejectPayment(${realIdx})" style="background:rgba(255,77,109,0.1);border:1px solid rgba(255,77,109,0.3);color:var(--danger);font-size:11px;font-weight:700;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:'Oxanium',sans-serif;">✗ Rejeitar</button>
-                  </div>`
-                : `<span class="status-pill ${p.status==='confirmed'?'st-ok':'st-fail'}">${p.status==='confirmed'?'✓ Ativo':'✗ Rejeitado'}</span>`
-              }
-            </td>
-          </tr>`;
-        }).join('');
-  }
-
-  function renderAdminWithdrawals(){
-    const tbody = document.getElementById('adm-with-body');
-    if(!tbody) return;
-    tbody.innerHTML = DB.withdrawals.length===0
-      ? '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px;">Nenhum pedido de saque ainda</td></tr>'
-      : DB.withdrawals.slice().reverse().map((w,i)=>{
-          const realIdx = DB.withdrawals.length - 1 - i;
-          return `<tr>
-            <td style="color:var(--cyan);font-size:11px;">${w.id}</td>
-            <td>
-              <div style="color:var(--text);font-size:12px;">${w.user}</div>
-              <div style="font-size:10px;color:var(--muted);">${w.email}</div>
-            </td>
-            <td style="color:var(--gold);font-weight:700;">$${Number(w.amount).toFixed(2)}</td>
-            <td><span class="status-pill ${w.coin==='USDT'?'st-ok':'st-pend'}">${w.coin}</span></td>
-            <td style="font-size:10px;color:var(--muted);max-width:100px;overflow:hidden;text-overflow:ellipsis;">${w.walletShort||w.wallet}</td>
-            <td style="font-size:11px;">${w.date}</td>
-            <td>
-              ${w.status==='pending'
-                ? `<div style="display:flex;flex-direction:column;gap:4px;">
-                    <button onclick="approveWith(${realIdx})" style="background:rgba(0,255,178,0.1);border:1px solid rgba(0,255,178,0.3);color:var(--green);font-size:11px;font-weight:700;padding:6px 12px;border-radius:5px;cursor:pointer;font-family:'Oxanium',sans-serif;width:100%;">✓ Aprovar</button>
-                    <button onclick="rejectWith(${realIdx})" style="background:rgba(255,77,109,0.1);border:1px solid rgba(255,77,109,0.3);color:var(--danger);font-size:11px;font-weight:700;padding:6px 12px;border-radius:5px;cursor:pointer;font-family:'Oxanium',sans-serif;width:100%;">✗ Rejeitar</button>
-                  </div>`
-                : `<span class="status-pill ${w.status==='approved'?'st-ok':'st-fail'}">${w.status==='approved'?'✓ Aprovado':'✗ Rejeitado'}</span>`
-              }
-            </td>
-          </tr>`;
-        }).join('');
-  }
-
-  function renderAdminPlans(){
-    const tbody = document.getElementById('adm-plans-body');
-    if(!tbody) return;
-    tbody.innerHTML = Object.values(PLANS).map(p=>`
-      <tr>
-        <td style="color:var(--text);font-weight:700;">${p.name}</td>
-        <td style="color:var(--cyan);font-weight:700;">${p.monthly}%</td>
-        <td style="color:var(--green);">${p.daily.toFixed(3)}%</td>
-        <td>${p.cycle} dias</td>
-        <td>$${Number(p.min).toLocaleString()}</td>
-        <td>${DB.users.filter(u=>u.plan===p.name).length}</td>
-        <td>
-          <button onclick="editPlan('${p.name}')" style="background:var(--cyan-dim);border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-size:10px;padding:4px 10px;border-radius:4px;cursor:pointer;font-family:'Oxanium',sans-serif;">✏️ Editar</button>
-        </td>
-      </tr>`).join('');
-  }
-
-  // ══ AÇÕES ADMIN ════════════════════════
-  function approvePayment(i){
-    const p    = DB.payments[i];
-    const user = DB.users.find(u=>u.id===p.userId);
-    if(!user){ toast('// Usuário não encontrado'); return; }
-
-    const plan = PLANS[p.plan];
-    if(!plan){ toast('// Plano inválido'); return; }
-
-    // Ativar plano
-    user.plan       = p.plan;
-    user.balance    = p.amount;
-    user.totalYield = 0;
-    user.planStart  = new Date().toISOString();
-    const end = new Date();
-    end.setDate(end.getDate() + plan.cycle);
-    user.planEnd       = end.toISOString();
-    user.lastYieldDate = null;
-
-    DB.payments[i].status = 'confirmed';
-    const idx = DB.users.findIndex(u=>u.id===user.id);
-    if(idx>=0) DB.users[idx] = user;
-    saveData(DB);
-
-    renderAdminPayments(); renderAdminOverview(); renderAdminUsers();
-    toast('// Pagamento aprovado — plano '+p.plan+' ativado ✓');
-  }
-
-  function rejectPayment(i){
-    DB.payments[i].status='rejected';
-    saveData(DB);
-    renderAdminPayments(); renderAdminOverview();
-    toast('// Pagamento rejeitado ✗');
-  }
-
-  function approveWith(i){
-    const w    = DB.withdrawals[i];
-    const user = DB.users.find(u=>u.id===w.userId);
-    if(user){
-      user.balance = Math.max(0, user.balance - w.amount);
-      const idx = DB.users.findIndex(u=>u.id===user.id);
-      if(idx>=0) DB.users[idx]=user;
-    }
-    DB.withdrawals[i].status='approved';
-    saveData(DB);
-    renderAdminWithdrawals(); renderAdminOverview(); renderAdminUsers();
-    toast('// Saque aprovado — saldo debitado ✓');
-  }
-
-  function rejectWith(i){
-    DB.withdrawals[i].status='rejected';
-    saveData(DB);
-    renderAdminWithdrawals(); renderAdminOverview();
-    toast('// Saque rejeitado ✗');
-  }
-
-  // ══ EDITAR USUÁRIO ═════════════════════
-  function openUserEdit(i){
-    const u = DB.users[i];
-    document.getElementById('edit-user-idx').value    = i;
-    document.getElementById('edit-user-name').value   = u.name;
-    document.getElementById('edit-user-email').value  = u.email;
-    document.getElementById('edit-user-balance').value= u.balance||0;
-    document.getElementById('edit-user-plan').value   = u.plan||'';
-    document.getElementById('edit-user-status').value = u.status;
-    document.getElementById('edit-user-pass').value   = '';
-    document.getElementById('edit-user-modal').style.display='flex';
-  }
-
-  function saveUserEdit(){
-    const i      = Number(document.getElementById('edit-user-idx').value);
-    const u      = DB.users[i];
-    u.name       = document.getElementById('edit-user-name').value.trim() || u.name;
-    u.email      = document.getElementById('edit-user-email').value.trim() || u.email;
-    u.balance    = Number(document.getElementById('edit-user-balance').value) || 0;
-    u.plan       = document.getElementById('edit-user-plan').value || null;
-    u.status     = document.getElementById('edit-user-status').value;
-    const newPass= document.getElementById('edit-user-pass').value;
-    if(newPass) u.password = newPass;
-    DB.users[i] = u;
-    saveData(DB);
-    closeEditModal();
-    renderAdminUsers(); renderAdminOverview();
-    toast('// Usuário atualizado ✓');
-  }
-
-  function closeEditModal(){ document.getElementById('edit-user-modal').style.display='none'; }
-
-  // ══ EDITAR PLANO ═══════════════════════
-  function editPlan(name){
-    const p = PLANS[name];
-    document.getElementById('edit-plan-name').value    = name;
-    document.getElementById('edit-plan-monthly').value = p.monthly;
-    document.getElementById('edit-plan-cycle').value   = p.cycle;
-    document.getElementById('edit-plan-min').value     = p.min;
-    document.getElementById('edit-plan-modal').style.display='flex';
-  }
-
-  function savePlanEdit(){
-    const name    = document.getElementById('edit-plan-name').value;
-    const monthly = Number(document.getElementById('edit-plan-monthly').value);
-    const cycle   = Number(document.getElementById('edit-plan-cycle').value);
-    const min     = Number(document.getElementById('edit-plan-min').value);
-    PLANS[name].monthly = monthly;
-    PLANS[name].daily   = parseFloat((monthly / 30).toFixed(3));
-    PLANS[name].cycle   = cycle;
-    PLANS[name].min     = min;
-    closePlanModal();
-    renderAdminPlans();
-    toast('// Plano '+name+' atualizado ✓');
-  }
-
-  function closePlanModal(){ document.getElementById('edit-plan-modal').style.display='none'; }
-
-  // ══ NAVEGAÇÃO ══════════════════════════
-  function show(id){
-    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    window.scrollTo(0,0);
-    if(id==='s-payment') setTimeout(()=>selectCoin('usdt'),80);
-  }
-
-  function switchTab(el,tabId){
-    document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-    el.classList.add('active');
-    document.querySelectorAll('#s-dash .dash-body').forEach(t=>t.classList.add('hidden'));
-    document.getElementById(tabId).classList.remove('hidden');
-  }
-
-  function switchTabByName(tabId){
-    const map={'tab-home':0,'tab-plans':1,'tab-history':2,'tab-withdraw':3};
-    document.querySelectorAll('#s-dash .dash-body').forEach(b=>b.classList.add('hidden'));
-    document.getElementById(tabId).classList.remove('hidden');
-    const tabs=document.querySelectorAll('.nav-tab');
-    tabs.forEach(t=>t.classList.remove('active'));
-    if(tabs[map[tabId]])tabs[map[tabId]].classList.add('active');
-  }
-
-  function switchAdminTab(el,tabId){
-    document.querySelectorAll('.adm-tab').forEach(t=>t.classList.remove('active'));
-    el.classList.add('active');
-    document.querySelectorAll('.adm-body').forEach(t=>t.classList.add('hidden'));
-    document.getElementById(tabId).classList.remove('hidden');
-  }
-
-  // ══ UTILS ══════════════════════════════
-  let currentCoin='usdt', currentAmount=2500, currentPlanName='Silver', timerInterval=null;
-
-  const WALLETS={
-    usdt:{address:'TPLNWYLZdhQN2YsvY91gSkdrvT3ynUnoaq',qrData:'tron:TPLNWYLZdhQN2YsvY91gSkdrvT3ynUnoaq',label:'USDT · TRC20',tag:'tag-usdt',tagText:'TRC20',qrLabel:'Scan to pay with USDT TRC20'},
-    btc:{address:'bc1qhw9ltz7cdv2dldjgne5v5l0azh32dz7kz439g7',qrData:'bitcoin:bc1qhw9ltz7cdv2dldjgne5v5l0azh32dz7kz439g7',label:'BTC · Bitcoin',tag:'tag-btc',tagText:'BTC',qrLabel:'Scan to pay with Bitcoin'}
-  };
-
-  function generateQR(coin){
-    const c=document.getElementById('qr-container');
-    c.innerHTML='';
-    new QRCode(c,{text:WALLETS[coin].qrData,width:160,height:160,colorDark:'#000000',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
-  }
-
-  function selectCoin(coin){
-    currentCoin=coin;
-    const w=WALLETS[coin];
-    document.getElementById('btn-usdt').className='coin-btn'+(coin==='usdt'?' active-usdt':'');
-    document.getElementById('btn-btc').className='coin-btn'+(coin==='btc'?' active-btc':'');
-    document.getElementById('wallet-addr').textContent=w.address;
-    document.getElementById('pay-cur').textContent=w.label;
-    document.getElementById('qr-label').textContent=w.qrLabel;
-    const tag=document.getElementById('network-tag');
-    tag.textContent=w.tagText; tag.className='network-tag '+w.tag;
-    document.getElementById('exact-amount').textContent=coin==='usdt'?currentAmount+' USDT':'≈ '+(currentAmount/62000).toFixed(6)+' BTC';
-    generateQR(coin);
-  }
-
-  function startTimer(seconds){
-    clearInterval(timerInterval);
-    const el=document.getElementById('timer-val');
-    timerInterval=setInterval(()=>{
-      if(seconds<=0){clearInterval(timerInterval);el.textContent='00:00';el.style.color='var(--danger)';return;}
-      seconds--;
-      const m=String(Math.floor(seconds/60)).padStart(2,'0');
-      const s=String(seconds%60).padStart(2,'0');
-      el.textContent=m+':'+s;
-      el.style.color=seconds<120?'var(--danger)':'var(--cyan)';
-    },1000);
-  }
-
-  function previewFile(input){
-    if(input.files&&input.files[0]){
-      const fp=document.getElementById('file-preview');
-      document.getElementById('file-name').textContent=input.files[0].name;
-      fp.style.display='flex';
-    }
-  }
-
-  function clearFile(){
-    document.getElementById('pay-proof').value='';
-    document.getElementById('file-preview').style.display='none';
-  }
-
-  function handleDrop(e){
-    e.preventDefault();
-    document.getElementById('upload-area').style.borderColor='var(--border2)';
-    const files=e.dataTransfer.files;
-    if(files.length>0){
-      const dt=new DataTransfer(); dt.items.add(files[0]);
-      const input=document.getElementById('pay-proof');
-      input.files=dt.files; previewFile(input);
-    }
-  }
-
-  function copyAddr(){
-    const addr=document.getElementById('wallet-addr').textContent;
-    navigator.clipboard.writeText(addr).then(()=>toast('// Endereço copiado ✓')).catch(()=>toast('// Endereço copiado ✓'));
-  }
-
-  function toast(msg){
-    const el=document.getElementById('toast-msg');
-    el.textContent=msg; el.classList.add('show');
-    setTimeout(()=>el.classList.remove('show'),3000);
-  }
-
-  function viewUser(name){
-    const u = DB.users.find(u=>u.name===name);
-    if(!u){ toast('// Usuário não encontrado'); return; }
-    openUserEdit(DB.users.indexOf(u));
-  }
-
-  function toggleFaq(btn){
-    const body=btn.nextElementSibling;
-    const icon=btn.querySelector('span');
-    const isOpen=body.style.display==='block';
-    document.querySelectorAll('.faq-body').forEach(b=>b.style.display='none');
-    document.querySelectorAll('.faq-item button span').forEach(s=>{s.textContent='+';s.style.transform='rotate(0deg)';});
-    if(!isOpen){body.style.display='block';icon.textContent='×';icon.style.transform='rotate(90deg)';}
-  }
-
-  document.addEventListener('keydown',e=>{
-    if(e.key==='Enter'&&document.getElementById('s-login').classList.contains('active'))doLogin();
-  });
-
-</script>
-
-
-<!-- ═══════════════════════════════
-     ADMIN PANEL
-═══════════════════════════════ -->
+<!-- ═══════════ ADMIN ═══════════ -->
 <div class="screen dash-wrap" id="s-admin">
   <nav>
-    <div class="logo">
-      <svg width="36" height="36" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="admlg" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#7B4FFF"/></linearGradient><linearGradient id="admlg2" x1="0" y1="48" x2="48" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FFF" stop-opacity="0.4"/><stop offset="100%" stop-color="#00D4FF" stop-opacity="0.4"/></linearGradient><filter id="admg"><feGaussianBlur stdDeviation="1.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="24" cy="24" r="22" stroke="url(#admlg)" stroke-width="1.5" fill="none" opacity="0.6"/><ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#admlg)" stroke-width="1.2" fill="none" transform="rotate(-30 24 24)" opacity="0.8"/><ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#admlg)" stroke-width="1.2" fill="none" transform="rotate(30 24 24)" opacity="0.4"/><circle cx="24" cy="24" r="6" fill="url(#admlg)" filter="url(#admg)" opacity="0.9"/><circle cx="24" cy="24" r="3" fill="white" opacity="0.9"/><circle cx="42" cy="18" r="2.5" fill="#00D4FF" filter="url(#admg)"/><circle cx="8" cy="34" r="1.8" fill="#7B4FFF" filter="url(#admg)" opacity="0.8"/><circle cx="24" cy="24" r="10" fill="url(#admlg2)"/></svg>
-      <div class="logo-text-wrap"><span class="logo-name">Orbitrex</span><span class="logo-tag" style="color:var(--danger);">ADMIN PANEL</span></div>
-    </div>
-    <div class="nav-right">
-      <span class="pill" style="background:rgba(255,77,109,0.1);border-color:rgba(255,77,109,0.3);color:var(--danger);">🔐 ADMIN</span>
-      <button class="btn btn-ghost btn-sm" onclick="show('s-login')">Exit</button>
-    </div>
+    <div class="logo"><svg width="32" height="32" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="alg" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#7B4FFF"/></linearGradient><filter id="agf"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="24" cy="24" r="22" stroke="url(#alg)" stroke-width="1.5" fill="none" opacity=".6"/><circle cx="24" cy="24" r="7" fill="url(#alg)" filter="url(#agf)" opacity=".9"/><circle cx="24" cy="24" r="3" fill="white" opacity=".9"/><circle cx="42" cy="18" r="2.5" fill="#00D4FF" filter="url(#agf)"/></svg><div><div class="logo-name" style="font-size:16px;">Orbitrex</div></div></div>
+    <div class="nav-right"><span class="pill pill-danger">🔐 ADMIN</span><button class="btn btn-ghost btn-sm" onclick="goTo('s-login')">Sair</button></div>
   </nav>
-
-  <div class="sidebar-nav">
-    <button class="nav-tab adm-tab active" onclick="switchAdminTab(this,'adm-overview')"><span>◎</span> Overview</button>
-    <button class="nav-tab adm-tab" onclick="switchAdminTab(this,'adm-users')"><span>👥</span> Usuários</button>
-    <button class="nav-tab adm-tab" onclick="switchAdminTab(this,'adm-payments')"><span>💰</span> Pagamentos</button>
-    <button class="nav-tab adm-tab" onclick="switchAdminTab(this,'adm-withdrawals')"><span>💸</span> Saques</button>
-    <button class="nav-tab adm-tab" onclick="switchAdminTab(this,'adm-plans')"><span>📊</span> Planos</button>
+  <div class="tab-bar">
+    <button class="tab active" onclick="aTab(this,'a-overview')">◎ Overview</button>
+    <button class="tab" onclick="aTab(this,'a-users')">👥 Usuários</button>
+    <button class="tab" onclick="aTab(this,'a-payments')">💰 Pagamentos</button>
+    <button class="tab" onclick="aTab(this,'a-withdrawals')">💸 Saques</button>
+    <button class="tab" onclick="aTab(this,'a-plans')">📊 Planos</button>
   </div>
-
   <!-- OVERVIEW -->
-  <div class="dash-body adm-body" id="adm-overview">
-    <h1 class="page-title">Overview</h1>
-    <p class="page-sub">// Painel de controle geral da plataforma</p>
-    <div id="adm-alerts" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;"></div>
-    <div class="stats" style="margin-bottom:28px;">
-      <div class="stat"><div class="stat-icon">👥</div><div class="stat-val" id="adm-stat-users">0</div><div class="stat-lbl">Total Usuários</div></div>
-      <div class="stat grn"><div class="stat-icon">✓</div><div class="stat-val" id="adm-stat-active">0</div><div class="stat-lbl">Ativos</div></div>
-      <div class="stat"><div class="stat-icon">💰</div><div class="stat-val" id="adm-stat-deposits">0</div><div class="stat-lbl">Pagamentos Confirmados</div></div>
-      <div class="stat vio"><div class="stat-icon">💸</div><div class="stat-val" id="adm-stat-withdrawals">0</div><div class="stat-lbl">Saques Pendentes</div></div>
+  <div class="content" id="a-overview">
+    <h1 class="page-title">Overview</h1><p class="page-sub">// Painel de controle da plataforma</p>
+    <div id="a-alerts" style="display:flex;flex-direction:column;gap:8px;margin-bottom:18px;"></div>
+    <div class="stats">
+      <div class="stat"><div class="stat-icon">👥</div><div class="stat-val" id="a-s-users">0</div><div class="stat-lbl">Usuários</div></div>
+      <div class="stat grn"><div class="stat-icon">✓</div><div class="stat-val" id="a-s-active">0</div><div class="stat-lbl">Ativos</div></div>
+      <div class="stat"><div class="stat-icon">💰</div><div class="stat-val" id="a-s-pays">0</div><div class="stat-lbl">Pgtos Confirmados</div></div>
+      <div class="stat vio"><div class="stat-icon">💸</div><div class="stat-val" id="a-s-withs">0</div><div class="stat-lbl">Saques Pendentes</div></div>
     </div>
-    <div class="table-wrap">
-      <div class="table-head"><h3>Últimos Cadastros</h3></div>
-      <table><thead><tr><th>Nome</th><th>E-mail</th><th>Plano</th><th>Cadastro</th><th>Status</th></tr></thead>
-      <tbody id="adm-recent-users"></tbody></table>
-    </div>
+    <div class="tbl-wrap"><div class="tbl-head"><h3>Últimos Cadastros</h3></div><table><thead><tr><th>Nome</th><th>E-mail</th><th>Plano</th><th>Cadastro</th><th>Status</th></tr></thead><tbody id="a-recent"></tbody></table></div>
   </div>
-
-  <!-- USUÁRIOS -->
-  <div class="dash-body adm-body hidden" id="adm-users">
-    <h1 class="page-title">Usuários</h1>
-    <p class="page-sub">// Gerencie todos os usuários — edite, bloqueie ou bania</p>
-    <div class="table-wrap">
-      <div class="table-head"><h3>Todos os Usuários</h3></div>
-      <table><thead><tr><th>ID</th><th>Nome</th><th>E-mail</th><th>Plano</th><th>Cadastro</th><th>Saldo</th><th>Status</th><th>Ação</th></tr></thead>
-      <tbody id="adm-users-body"></tbody></table>
-    </div>
+  <!-- USERS -->
+  <div class="content hidden" id="a-users">
+    <h1 class="page-title">Usuários</h1><p class="page-sub">// Gerencie todos os usuários</p>
+    <div class="tbl-wrap"><div class="tbl-head"><h3>Todos os Usuários</h3></div><table><thead><tr><th>ID</th><th>Nome</th><th>E-mail</th><th>Plano</th><th>Saldo</th><th>Status</th><th>Ação</th></tr></thead><tbody id="a-users-body"></tbody></table></div>
   </div>
-
-  <!-- PAGAMENTOS -->
-  <div class="dash-body adm-body hidden" id="adm-payments">
-    <h1 class="page-title">Pagamentos</h1>
-    <p class="page-sub">// Aprove comprovantes para ativar planos dos usuários</p>
-    <div class="table-wrap">
-      <div class="table-head"><h3>Comprovantes Recebidos</h3></div>
-      <table><thead><tr><th>ID</th><th>Usuário</th><th>Plano</th><th>Valor</th><th>Moeda</th><th>Hash TX</th><th>Data</th><th>Ação</th></tr></thead>
-      <tbody id="adm-payments-body"></tbody></table>
-    </div>
+  <!-- PAYMENTS -->
+  <div class="content hidden" id="a-payments">
+    <h1 class="page-title">Pagamentos</h1><p class="page-sub">// Aprove para ativar plano do usuário</p>
+    <div class="tbl-wrap"><div class="tbl-head"><h3>Comprovantes</h3></div><table><thead><tr><th>ID</th><th>Usuário</th><th>Plano</th><th>Valor</th><th>Moeda</th><th>Hash</th><th>Data</th><th>Ação</th></tr></thead><tbody id="a-pays-body"></tbody></table></div>
   </div>
-
-  <!-- SAQUES -->
-  <div class="dash-body adm-body hidden" id="adm-withdrawals">
-    <h1 class="page-title">Saques</h1>
-    <p class="page-sub">// Aprove ou rejeite pedidos de saque</p>
-    <div class="table-wrap">
-      <div class="table-head"><h3>Pedidos de Saque</h3></div>
-      <table><thead><tr><th>ID</th><th>Usuário</th><th>Valor</th><th>Moeda</th><th>Carteira</th><th>Data</th><th>Ação</th></tr></thead>
-      <tbody id="adm-with-body"></tbody></table>
-    </div>
+  <!-- WITHDRAWALS -->
+  <div class="content hidden" id="a-withdrawals">
+    <h1 class="page-title">Saques</h1><p class="page-sub">// Aprove ou rejeite pedidos de saque</p>
+    <div class="tbl-wrap"><div class="tbl-head"><h3>Pedidos de Saque</h3></div><table><thead><tr><th>ID</th><th>Usuário</th><th>Valor</th><th>Moeda</th><th>Carteira</th><th>Data</th><th>Ação</th></tr></thead><tbody id="a-withs-body"></tbody></table></div>
   </div>
-
-  <!-- PLANOS -->
-  <div class="dash-body adm-body hidden" id="adm-plans">
-    <h1 class="page-title">Planos & Rendimentos</h1>
-    <p class="page-sub">// Veja e edite os % de rendimento de cada plano</p>
-    <div class="table-wrap">
-      <div class="table-head"><h3>Configuração dos Planos</h3></div>
-      <table><thead><tr><th>Plano</th><th>% Mensal</th><th>% Diário</th><th>Ciclo</th><th>Mínimo</th><th>Usuários</th><th>Ação</th></tr></thead>
-      <tbody id="adm-plans-body"></tbody></table>
-    </div>
+  <!-- PLANS -->
+  <div class="content hidden" id="a-plans">
+    <h1 class="page-title">Planos & Rendimentos</h1><p class="page-sub">// Configure os % de cada plano</p>
+    <div class="tbl-wrap"><div class="tbl-head"><h3>Configuração</h3></div><table><thead><tr><th>Plano</th><th>% Mensal</th><th>% Diário</th><th>Ciclo</th><th>Mínimo</th><th>Usuários</th><th>Ação</th></tr></thead><tbody id="a-plans-body"></tbody></table></div>
   </div>
 </div>
 
-<!-- MODAL EDITAR USUÁRIO -->
-<div id="edit-user-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:99998;align-items:center;justify-content:center;padding:20px;">
-  <div style="background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:32px;width:100%;max-width:440px;position:relative;box-shadow:0 40px 80px rgba(0,0,0,0.7);">
-    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),transparent);border-radius:18px 18px 0 0;"></div>
-    <button onclick="closeEditModal()" style="position:absolute;top:16px;right:16px;background:var(--surface);border:1px solid var(--border);color:var(--muted);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:14px;">✕</button>
-    <h3 style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:20px;">✏️ Editar Usuário</h3>
-    <input type="hidden" id="edit-user-idx">
-    <div class="field"><label>Nome</label><input type="text" id="edit-user-name"></div>
-    <div class="field"><label>E-mail</label><input type="email" id="edit-user-email"></div>
-    <div class="field"><label>Saldo ($)</label><input type="number" id="edit-user-balance" step="0.01"></div>
-    <div class="field"><label>Plano</label>
-      <select id="edit-user-plan">
-        <option value="">— Sem plano —</option>
-        <option value="Starter">Starter</option>
-        <option value="Silver">Silver</option>
-        <option value="Gold">Gold</option>
-        <option value="Diamond">Diamond</option>
-      </select>
-    </div>
-    <div class="field"><label>Status</label>
-      <select id="edit-user-status">
-        <option value="active">✓ Ativo</option>
-        <option value="blocked">⏸ Bloqueado</option>
-        <option value="banned">✗ Banido</option>
-      </select>
-    </div>
-    <div class="field"><label>Nova senha (deixe vazio para não alterar)</label><input type="text" id="edit-user-pass" placeholder="nova senha..."></div>
-    <div style="display:flex;gap:10px;margin-top:20px;">
-      <button onclick="saveUserEdit()" class="btn btn-primary">💾 Salvar</button>
-      <button onclick="closeEditModal()" class="btn btn-ghost" style="width:auto;padding:14px 24px;">Cancelar</button>
-    </div>
+<!-- MODAL: EDITAR USUÁRIO -->
+<div class="modal" id="m-user">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('m-user')">✕</button>
+    <div class="modal-title">✏️ Editar Usuário</div>
+    <input type="hidden" id="m-u-id">
+    <div class="field"><label>Nome</label><input type="text" id="m-u-name"></div>
+    <div class="field"><label>E-mail</label><input type="email" id="m-u-email"></div>
+    <div class="field"><label>Saldo ($)</label><input type="number" id="m-u-balance" step="0.01"></div>
+    <div class="field"><label>Plano</label><select id="m-u-plan"><option value="">— Sem plano —</option><option>Starter</option><option>Silver</option><option>Gold</option><option>Diamond</option></select></div>
+    <div class="field"><label>Status</label><select id="m-u-status"><option value="active">✓ Ativo</option><option value="blocked">⏸ Bloqueado</option><option value="banned">✗ Banido</option></select></div>
+    <div class="field"><label>Nova senha (vazio = não alterar)</label><input type="text" id="m-u-pass" placeholder="nova senha..."></div>
+    <div style="display:flex;gap:9px;margin-top:16px;"><button class="btn btn-primary" onclick="saveUserEdit()">💾 Salvar</button><button class="btn btn-ghost" style="width:auto;padding:13px 20px;" onclick="closeModal('m-user')">Cancelar</button></div>
   </div>
 </div>
 
-<!-- MODAL EDITAR PLANO -->
-<div id="edit-plan-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:99998;align-items:center;justify-content:center;padding:20px;">
-  <div style="background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:32px;width:100%;max-width:400px;position:relative;box-shadow:0 40px 80px rgba(0,0,0,0.7);">
-    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--violet),var(--cyan),transparent);border-radius:18px 18px 0 0;"></div>
-    <button onclick="closePlanModal()" style="position:absolute;top:16px;right:16px;background:var(--surface);border:1px solid var(--border);color:var(--muted);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:14px;">✕</button>
-    <h3 style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:20px;">📊 Editar Plano</h3>
-    <input type="hidden" id="edit-plan-name">
-    <div class="field"><label>% Mensal de Rendimento</label><input type="number" id="edit-plan-monthly" step="0.1" min="0"></div>
-    <div class="field"><label>Ciclo (dias)</label><input type="number" id="edit-plan-cycle" min="1"></div>
-    <div class="field"><label>Valor Mínimo ($)</label><input type="number" id="edit-plan-min" min="0"></div>
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:16px;font-size:11px;color:var(--text2);">
-      💡 O % diário é calculado automaticamente: mensal ÷ 30 dias
-    </div>
-    <div style="display:flex;gap:10px;">
-      <button onclick="savePlanEdit()" class="btn btn-primary">💾 Salvar</button>
-      <button onclick="closePlanModal()" class="btn btn-ghost" style="width:auto;padding:14px 24px;">Cancelar</button>
-    </div>
+<!-- MODAL: EDITAR PLANO -->
+<div class="modal" id="m-plan">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('m-plan')">✕</button>
+    <div class="modal-title">📊 Editar Plano</div>
+    <input type="hidden" id="m-p-name">
+    <div class="field"><label>% Mensal</label><input type="number" id="m-p-monthly" step="0.1" min="0"></div>
+    <div class="field"><label>Ciclo (dias)</label><input type="number" id="m-p-cycle" min="1"></div>
+    <div class="field"><label>Valor Mínimo ($)</label><input type="number" id="m-p-min" min="0"></div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:10px;margin-bottom:14px;font-size:10px;color:var(--text2);">💡 % diário = mensal ÷ 30 (calculado automaticamente)</div>
+    <div style="display:flex;gap:9px;"><button class="btn btn-primary" onclick="savePlanEdit()">💾 Salvar</button><button class="btn btn-ghost" style="width:auto;padding:13px 20px;" onclick="closeModal('m-plan')">Cancelar</button></div>
   </div>
 </div>
 
-<!-- BOTÃO ADMIN SECRETO -->
-<div class="adm-entry" style="position:fixed;bottom:16px;right:16px;z-index:9998;">
-  <button onclick="openAdmin()" style="background:rgba(255,77,109,0.08);border:1px solid rgba(255,77,109,0.2);color:rgba(255,77,109,0.5);font-size:10px;font-weight:700;letter-spacing:1px;padding:6px 12px;border-radius:6px;cursor:pointer;font-family:'Oxanium',sans-serif;transition:all .2s;">🔐 ADMIN</button>
-</div>
+<div class="toast" id="toast"></div>
+<button class="adm-btn" onclick="openAdmin()">🔐 ADMIN</button>
 
-<div class="toast" id="toast-msg"></div>
+<script>
+// ═══════════════════════════════════
+// CONFIGURAÇÕES
+// ═══════════════════════════════════
+const ADM_EMAIL = 'jemis430@gmail.com';
+const ADM_PASS  = 'Vickjemis12@';
 
+const WALLETS = {
+  usdt: { addr:'TPLNWYLZdhQN2YsvY91gSkdrvT3ynUnoaq', qr:'tron:TPLNWYLZdhQN2YsvY91gSkdrvT3ynUnoaq', label:'USDT · TRC20', netCls:'net-usdt', netTxt:'TRC20', qrLbl:'Pagar com USDT TRC20' },
+  btc:  { addr:'bc1qhw9ltz7cdv2dldjgne5v5l0azh32dz7kz439g7', qr:'bitcoin:bc1qhw9ltz7cdv2dldjgne5v5l0azh32dz7kz439g7', label:'BTC · Bitcoin', netCls:'net-btc', netTxt:'BTC', qrLbl:'Pagar com Bitcoin' }
+};
+
+let PLANS = {
+  Starter: { monthly:8,  daily:0.267, cycle:30, min:500   },
+  Silver:  { monthly:12, daily:0.4,   cycle:48, min:2500  },
+  Gold:    { monthly:18, daily:0.6,   cycle:60, min:10000 },
+  Diamond: { monthly:25, daily:0.833, cycle:30, min:50000 }
+};
+
+// ═══════════════════════════════════
+// BANCO DE DADOS (localStorage)
+// ═══════════════════════════════════
+function dbLoad(){
+  try{ return JSON.parse(localStorage.getItem('orb_db')||'{"users":[],"payments":[],"withdrawals":[],"uid":1}'); }
+  catch(e){ return {users:[],payments:[],withdrawals:[],uid:1}; }
+}
+function dbSave(d){ localStorage.setItem('orb_db', JSON.stringify(d)); }
+let DB = dbLoad();
+let ME = null; // usuário logado
+
+// ═══════════════════════════════════
+// NAVEGAÇÃO
+// ═══════════════════════════════════
+function goTo(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function switchTab(el, tabId){
+  el.closest('.tab-bar').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  const dash = el.closest('.screen');
+  dash.querySelectorAll('.content').forEach(c=>c.classList.add('hidden'));
+  document.getElementById(tabId).classList.remove('hidden');
+}
+
+function aTab(el, tabId){
+  document.querySelectorAll('#s-admin .tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('#s-admin .content').forEach(c=>c.classList.add('hidden'));
+  document.getElementById(tabId).classList.remove('hidden');
+}
+
+// ═══════════════════════════════════
+// AUTH
+// ═══════════════════════════════════
+function doLogin(){
+  const email = document.getElementById('l-email').value.trim();
+  const pass  = document.getElementById('l-pass').value;
+  const errEl = document.getElementById('login-err');
+  const lbl   = document.getElementById('login-lbl');
+  const sp    = document.getElementById('login-sp');
+  errEl.classList.remove('show');
+  lbl.textContent='Conectando...'; sp.classList.remove('hidden');
+
+  setTimeout(()=>{
+    lbl.textContent='Entrar'; sp.classList.add('hidden');
+
+    if(!email || !pass){ errEl.textContent='// Preencha todos os campos'; errEl.classList.add('show'); return; }
+
+    // Admin
+    if(email===ADM_EMAIL && pass===ADM_PASS){ goTo('s-admin'); renderAdmin(); toast('// Admin autorizado ✓'); return; }
+
+    // Usuário
+    DB = dbLoad();
+    const u = DB.users.find(x=>x.email===email && x.pass===pass);
+    if(!u){ errEl.textContent='// E-mail ou senha incorretos'; errEl.classList.add('show'); return; }
+    if(u.status==='banned'){ errEl.textContent='// Conta banida. Contate o suporte.'; errEl.classList.add('show'); return; }
+    if(u.status==='blocked'){ errEl.textContent='// Conta bloqueada temporariamente.'; errEl.classList.add('show'); return; }
+
+    ME = u;
+    applyYield();
+    loadDash();
+    goTo('s-dash');
+    toast('// Acesso autorizado ✓');
+  },900);
+}
+
+function doRegister(){
+  const name  = document.getElementById('r-name').value.trim();
+  const email = document.getElementById('r-email').value.trim().toLowerCase();
+  const pass  = document.getElementById('r-pass').value;
+  const pass2 = document.getElementById('r-pass2').value;
+  const eEl   = document.getElementById('reg-err');
+  const oEl   = document.getElementById('reg-ok');
+  eEl.classList.remove('show'); oEl.classList.remove('show');
+
+  if(!name||!email||!pass||!pass2){ eEl.textContent='// Preencha todos os campos'; eEl.classList.add('show'); return; }
+  if(pass!==pass2){ eEl.textContent='// Senhas não coincidem'; eEl.classList.add('show'); return; }
+  if(pass.length<8){ eEl.textContent='// Senha mínima: 8 caracteres'; eEl.classList.add('show'); return; }
+
+  DB = dbLoad();
+  if(DB.users.find(u=>u.email===email)){ eEl.textContent='// E-mail já cadastrado'; eEl.classList.add('show'); return; }
+
+  const u = { id:'USR-'+String(DB.uid).padStart(3,'0'), name, email, pass, plan:null, planStart:null, planEnd:null, balance:0, deposited:0, totalYield:0, lastYield:null, status:'active', joined:fmtDate(new Date()) };
+  DB.users.push(u); DB.uid++; dbSave(DB);
+
+  oEl.textContent='// Conta criada! Faça login ✓'; oEl.classList.add('show');
+  setTimeout(()=>goTo('s-login'),1600);
+}
+
+function doLogout(){ ME=null; goTo('s-login'); }
+
+// ═══════════════════════════════════
+// RENDIMENTO DIÁRIO
+// ═══════════════════════════════════
+function applyYield(){
+  if(!ME||!ME.plan||!ME.planStart) return;
+  const plan = PLANS[ME.plan]; if(!plan) return;
+  const today = fmtDate(new Date());
+  if(ME.lastYield===today) return;
+
+  const start = new Date(ME.planStart);
+  const end   = new Date(ME.planEnd);
+  const now   = new Date();
+  if(now>end) return;
+
+  const last     = ME.lastYield ? new Date(ME.lastYield) : start;
+  const diffDays = Math.max(0, Math.floor((now-last)/(86400000)));
+  if(diffDays<1) return;
+
+  const yld = parseFloat((ME.deposited * plan.daily/100 * diffDays).toFixed(2));
+  ME.balance     = parseFloat((ME.balance + yld).toFixed(2));
+  ME.totalYield  = parseFloat((ME.totalYield + yld).toFixed(2));
+  ME.lastYield   = today;
+
+  DB = dbLoad();
+  const idx = DB.users.findIndex(u=>u.id===ME.id);
+  if(idx>=0){ DB.users[idx]=ME; dbSave(DB); }
+}
+
+// ═══════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════
+function loadDash(){
+  if(!ME) return;
+  const plan = ME.plan ? PLANS[ME.plan] : null;
+  const ini  = ME.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+
+  // Navbar
+  document.getElementById('u-plan-badge').textContent = ME.plan || 'SEM PLANO';
+  document.getElementById('u-avatar').textContent = ini;
+
+  // Stats
+  document.getElementById('u-greeting').textContent = 'Olá, '+ME.name.split(' ')[0]+' 👋';
+  document.getElementById('u-subgreeting').textContent = '// Plano '+(ME.plan||'inativo')+' — Saldo atualizado';
+  document.getElementById('u-balance').textContent  = '$'+ME.balance.toFixed(2);
+  document.getElementById('u-yield').textContent    = '$'+ME.totalYield.toFixed(2);
+  document.getElementById('u-invested').textContent = '$'+ME.deposited.toFixed(2);
+
+  // Saldo saque
+  document.getElementById('wd-bal').textContent = '$'+ME.balance.toFixed(2);
+
+  if(plan && ME.planStart){
+    const start  = new Date(ME.planStart);
+    const end    = new Date(ME.planEnd);
+    const now    = new Date();
+    const total  = Math.ceil((end-start)/86400000);
+    const elapsed= Math.min(Math.ceil((now-start)/86400000), total);
+    const pct    = Math.round(elapsed/total*100);
+    const remain = Math.max(0, Math.ceil((end-now)/86400000));
+
+    document.getElementById('u-days').textContent      = remain+' dias';
+    document.getElementById('u-days-sub').textContent  = '→ '+fmtDate(end);
+    document.getElementById('u-cycle-pct').textContent = pct+'%';
+    document.getElementById('u-cycle-bar').style.width = pct+'%';
+    document.getElementById('u-cycle-info').textContent= elapsed+' dias decorridos / '+total+' total';
+    document.getElementById('u-c-start').textContent   = fmtDate(start);
+    document.getElementById('u-c-end').textContent     = fmtDate(end);
+    document.getElementById('u-c-roi').textContent     = '+'+plan.monthly+'%';
+    document.getElementById('u-bal-sub').textContent   = 'Plano '+ME.plan+' ativo';
+    document.getElementById('u-yield-sub').textContent = plan.daily.toFixed(3)+'%/dia';
+    document.getElementById('u-inv-sub').textContent   = 'Plano '+ME.plan;
+  } else {
+    document.getElementById('u-days').textContent = '—';
+    document.getElementById('u-bal-sub').textContent = 'Nenhum plano ativo';
+  }
+
+  // Transações
+  DB = dbLoad();
+  const pays = DB.payments.filter(p=>p.userId===ME.id);
+  const withs= DB.withdrawals.filter(w=>w.userId===ME.id);
+  const all  = [...pays.map(p=>({...p,tipo:'Depósito'})), ...withs.map(w=>({...w,tipo:'Saque'}))].sort((a,b)=>b.id.localeCompare(a.id)).slice(0,5);
+
+  const tbody1 = document.getElementById('u-txns');
+  const tbody2 = document.getElementById('u-history');
+  const allFull= [...pays.map(p=>({...p,tipo:'Depósito'})), ...withs.map(w=>({...w,tipo:'Saque'}))].sort((a,b)=>b.id.localeCompare(a.id));
+
+  const rowFn = p=>`<tr><td style="color:var(--text);">${p.tipo} — ${p.plan||p.tipo}</td><td style="color:${p.tipo==='Saque'?'var(--danger)':'var(--cyan)'};">${p.tipo==='Saque'?'-':''}$${Number(p.amount).toFixed(2)}</td><td>${p.date}</td><td><span class="badge badge-${p.status==='confirmed'||p.status==='approved'?'ok':p.status==='pending'?'pend':'fail'}">${p.status==='confirmed'||p.status==='approved'?'✓ Confirmado':p.status==='pending'?'⏳ Pendente':'✗ Rejeitado'}</span></td></tr>`;
+  tbody1.innerHTML = all.length ? all.map(rowFn).join('') : '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:16px;">Nenhuma transação ainda</td></tr>';
+
+  const rowFull = p=>`<tr><td style="color:var(--cyan);font-size:11px;">${p.id}</td><td style="color:var(--text);">${p.tipo}</td><td style="color:${p.tipo==='Saque'?'var(--danger)':'var(--cyan)'};">${p.tipo==='Saque'?'-':''}$${Number(p.amount).toFixed(2)}</td><td>${p.date}</td><td><span class="badge badge-${p.status==='confirmed'||p.status==='approved'?'ok':p.status==='pending'?'pend':'fail'}">${p.status==='confirmed'||p.status==='approved'?'✓ OK':p.status==='pending'?'⏳ Pendente':'✗ Rejeitado'}</span></td></tr>`;
+  tbody2.innerHTML = allFull.length ? allFull.map(rowFull).join('') : '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:16px;">Nenhuma transação ainda</td></tr>';
+
+  // Perfil
+  document.getElementById('p-av').textContent = ini;
+  document.getElementById('p-name').textContent = ME.name;
+  document.getElementById('p-email').textContent = ME.email;
+  document.getElementById('p-plan-badge').textContent = ME.plan||'SEM PLANO';
+  document.getElementById('p-name-in').value  = ME.name;
+  document.getElementById('p-email-in').value = ME.email;
+}
+
+// ═══════════════════════════════════
+// PAGAMENTO
+// ═══════════════════════════════════
+let curCoin='usdt', curAmount=0, curPlan='', timerInt=null;
+
+function selectPlan(name, amt){
+  curPlan=name; curAmount=amt;
+  document.getElementById('pay-plan').textContent=name;
+  document.getElementById('pay-amt').textContent='$'+Number(amt).toLocaleString('pt-BR',{minimumFractionDigits:2});
+  goTo('s-pay');
+  setCoin('usdt');
+  startTimer(30*60);
+}
+
+function setCoin(c){
+  curCoin=c;
+  const w=WALLETS[c];
+  document.getElementById('cb-usdt').className='coin-btn'+(c==='usdt'?' sel-usdt':'');
+  document.getElementById('cb-btc').className='coin-btn'+(c==='btc'?' sel-btc':'');
+  document.getElementById('pay-addr').textContent=w.addr;
+  document.getElementById('pay-cur').textContent=w.label;
+  document.getElementById('qr-lbl').textContent=w.qrLbl;
+  const nt=document.getElementById('pay-net');
+  nt.textContent=w.netTxt; nt.className='net-tag '+w.netCls;
+  document.getElementById('pay-exact').textContent=c==='usdt'?curAmount+' USDT':'≈ '+(curAmount/62000).toFixed(6)+' BTC';
+  genQR(w.qr);
+}
+
+function genQR(data){
+  const el=document.getElementById('qr-out'); el.innerHTML='';
+  new QRCode(el,{text:data,width:150,height:150,colorDark:'#000',colorLight:'#fff',correctLevel:QRCode.CorrectLevel.M});
+}
+
+function copyAddr(){
+  navigator.clipboard.writeText(document.getElementById('pay-addr').textContent).then(()=>toast('// Endereço copiado ✓')).catch(()=>toast('// Endereço copiado ✓'));
+}
+
+function startTimer(s){
+  clearInterval(timerInt);
+  const el=document.getElementById('pay-timer');
+  timerInt=setInterval(()=>{
+    if(s<=0){clearInterval(timerInt);el.textContent='00:00';el.style.color='var(--danger)';return;}
+    s--;
+    el.textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+    el.style.color=s<120?'var(--danger)':'var(--cyan)';
+  },1000);
+}
+
+function previewFile(inp){
+  if(inp.files&&inp.files[0]){
+    document.getElementById('file-name').textContent=inp.files[0].name;
+    document.getElementById('file-prev').style.display='flex';
+  }
+}
+function clearFile(){ document.getElementById('pay-file').value=''; document.getElementById('file-prev').style.display='none'; }
+
+function submitProof(){
+  const hash=document.getElementById('pay-hash').value.trim();
+  const file=document.getElementById('pay-file').files[0];
+  if(!hash&&!file){ toast('// Informe o hash ou envie comprovante!'); return; }
+  if(!ME){ toast('// Faça login primeiro!'); return; }
+
+  DB=dbLoad();
+  DB.payments.push({ id:'TXN-'+String(DB.payments.length+1).padStart(4,'0'), userId:ME.id, user:ME.name, email:ME.email, plan:curPlan, amount:curAmount, coin:curCoin.toUpperCase(), hash:hash||'—', file:file?file.name:'—', date:fmtDate(new Date()), status:'pending' });
+  dbSave(DB);
+  toast('// Comprovante enviado! Aguardando aprovação ✓');
+  setTimeout(()=>goTo('s-dash'),1800);
+  document.getElementById('pay-hash').value=''; clearFile();
+}
+
+// ═══════════════════════════════════
+// SAQUE
+// ═══════════════════════════════════
+function doWithdraw(){
+  const amt  = Number(document.getElementById('wd-amount').value);
+  const addr = document.getElementById('wd-addr').value.trim();
+  const net  = document.getElementById('wd-net').value;
+  if(!amt||amt<50){ toast('// Mínimo $50!'); return; }
+  if(!addr){ toast('// Informe o endereço!'); return; }
+  if(!ME){ toast('// Faça login!'); return; }
+  if(amt>ME.balance){ toast('// Saldo insuficiente!'); return; }
+
+  DB=dbLoad();
+  DB.withdrawals.push({ id:'WDR-'+String(DB.withdrawals.length+1).padStart(4,'0'), userId:ME.id, user:ME.name, email:ME.email, amount:amt, coin:net.includes('BTC')?'BTC':'USDT', wallet:addr, walletS:addr.slice(0,10)+'...'+addr.slice(-4), date:fmtDate(new Date()), status:'pending' });
+  dbSave(DB);
+  toast('// Saque solicitado! Aguardando aprovação ✓');
+  document.getElementById('wd-amount').value=''; document.getElementById('wd-addr').value='';
+  loadDash();
+}
+
+// Atualizar preview de saque
+document.addEventListener('DOMContentLoaded',()=>{
+  const amtEl=document.getElementById('wd-amount');
+  if(amtEl) amtEl.addEventListener('input',()=>{
+    const v=Number(amtEl.value)||0;
+    const fee=parseFloat((v*0.01).toFixed(2));
+    const net=parseFloat((v-fee).toFixed(2));
+    document.getElementById('wd-fee').textContent='$'+fee.toFixed(2);
+    document.getElementById('wd-net-val').textContent='$'+Math.max(0,net).toFixed(2);
+  });
+});
+
+// ═══════════════════════════════════
+// PERFIL
+// ═══════════════════════════════════
+function saveProfile(){
+  if(!ME) return;
+  const name=document.getElementById('p-name-in').value.trim();
+  const email=document.getElementById('p-email-in').value.trim();
+  if(!name||!email){ toast('// Preencha os campos!'); return; }
+  ME.name=name; ME.email=email;
+  DB=dbLoad(); const idx=DB.users.findIndex(u=>u.id===ME.id);
+  if(idx>=0){ DB.users[idx]=ME; dbSave(DB); }
+  loadDash(); toast('// Dados atualizados ✓');
+}
+
+function changePass(){
+  const old=document.getElementById('p-old-pass').value;
+  const nw=document.getElementById('p-new-pass').value;
+  const cf=document.getElementById('p-conf-pass').value;
+  if(!ME) return;
+  if(old!==ME.pass){ toast('// Senha atual incorreta!'); return; }
+  if(nw.length<8){ toast('// Nova senha muito curta!'); return; }
+  if(nw!==cf){ toast('// Senhas não coincidem!'); return; }
+  ME.pass=nw;
+  DB=dbLoad(); const idx=DB.users.findIndex(u=>u.id===ME.id);
+  if(idx>=0){ DB.users[idx]=ME; dbSave(DB); }
+  toast('// Senha alterada ✓');
+  document.getElementById('p-old-pass').value=''; document.getElementById('p-new-pass').value=''; document.getElementById('p-conf-pass').value='';
+}
+
+// ═══════════════════════════════════
+// ADMIN
+// ═══════════════════════════════════
+function openAdmin(){
+  const email=prompt('🔐 E-mail admin:'); if(!email) return;
+  const pass=prompt('🔑 Senha:'); if(!pass) return;
+  if(email.trim()===ADM_EMAIL && pass===ADM_PASS){ goTo('s-admin'); renderAdmin(); }
+  else toast('// Acesso negado ✗');
+}
+
+function renderAdmin(){
+  DB=dbLoad();
+  const users  = DB.users;
+  const pays   = DB.payments;
+  const withs  = DB.withdrawals;
+  const active = users.filter(u=>u.status==='active').length;
+  const conf   = pays.filter(p=>p.status==='confirmed').length;
+  const pendW  = withs.filter(w=>w.status==='pending').length;
+  const pendP  = pays.filter(p=>p.status==='pending').length;
+
+  document.getElementById('a-s-users').textContent = users.length;
+  document.getElementById('a-s-active').textContent= active;
+  document.getElementById('a-s-pays').textContent  = conf;
+  document.getElementById('a-s-withs').textContent = pendW;
+
+  // Alertas
+  const alerts=[];
+  if(pendP>0) alerts.push(`⚠ ${pendP} pagamento(s) aguardando aprovação`);
+  if(pendW>0) alerts.push(`⚠ ${pendW} saque(s) aguardando aprovação`);
+  const aEl=document.getElementById('a-alerts');
+  aEl.innerHTML=alerts.map(a=>`<div style="background:rgba(247,147,26,0.08);border:1px solid rgba(247,147,26,0.2);color:var(--orange);padding:9px 12px;border-radius:6px;font-size:11px;font-weight:600;">${a}</div>`).join('')||'<div style="color:var(--muted);font-size:11px;">Nenhum alerta no momento ✓</div>';
+
+  // Últimos cadastros
+  document.getElementById('a-recent').innerHTML = users.length
+    ? users.slice().reverse().slice(0,5).map(u=>`<tr><td style="color:var(--text);">${u.name}</td><td style="font-size:11px;">${u.email}</td><td>${u.plan?'<span class="badge badge-ok">'+u.plan+'</span>':'<span class="badge badge-fail">—</span>'}</td><td style="font-size:11px;">${u.joined}</td><td><span class="badge ${u.status==='active'?'badge-ok':u.status==='blocked'?'badge-warn':'badge-fail'}">${u.status==='active'?'✓ Ativo':u.status==='blocked'?'⏸ Bloqueado':'✗ Banido'}</span></td></tr>`).join('')
+    : '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:16px;">Nenhum usuário ainda</td></tr>';
+
+  // Usuários
+  document.getElementById('a-users-body').innerHTML = users.length
+    ? users.map((u,i)=>`<tr><td style="color:var(--cyan);font-size:10px;">${u.id}</td><td style="color:var(--text);">${u.name}</td><td style="font-size:11px;">${u.email}</td><td>${u.plan?'<span class="badge badge-ok">'+u.plan+'</span>':'—'}</td><td style="color:var(--green);font-weight:700;">$${Number(u.balance||0).toFixed(2)}</td><td><span class="badge ${u.status==='active'?'badge-ok':u.status==='blocked'?'badge-warn':'badge-fail'}">${u.status==='active'?'✓ Ativo':u.status==='blocked'?'⏸ Bloq':'✗ Banido'}</span></td><td><button onclick="openUserEdit(${i})" style="background:var(--cyan-dim);border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-size:10px;padding:4px 10px;border-radius:4px;cursor:pointer;font-family:'Oxanium',sans-serif;">✏️ Editar</button></td></tr>`).join('')
+    : '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:16px;">Nenhum usuário ainda</td></tr>';
+
+  // Pagamentos
+  document.getElementById('a-pays-body').innerHTML = pays.length
+    ? pays.slice().reverse().map((p,i)=>{ const ri=pays.length-1-i; return `<tr><td style="color:var(--cyan);font-size:10px;">${p.id}</td><td style="color:var(--text);">${p.user}<br><span style="font-size:10px;color:var(--muted);">${p.email}</span></td><td>${p.plan}</td><td style="color:var(--orange);font-weight:700;">$${Number(p.amount).toFixed(2)}</td><td><span class="badge ${p.coin==='USDT'?'badge-ok':'badge-warn'}">${p.coin}</span></td><td style="font-size:10px;color:var(--muted);max-width:90px;overflow:hidden;text-overflow:ellipsis;">${p.hash||'—'}</td><td style="font-size:11px;">${p.date}</td><td>${p.status==='pending'?`<div style="display:flex;flex-direction:column;gap:4px;"><button onclick="approvePay(${ri})" class="btn btn-success btn-sm">✓ Ativar</button><button onclick="rejectPay(${ri})" class="btn btn-danger btn-sm">✗ Rejeitar</button></div>`:`<span class="badge ${p.status==='confirmed'?'badge-ok':'badge-fail'}">${p.status==='confirmed'?'✓ Ativo':'✗ Rejeit.'}</span>`}</td></tr>`; }).join('')
+    : '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:16px;">Nenhum pagamento ainda</td></tr>';
+
+  // Saques
+  document.getElementById('a-withs-body').innerHTML = withs.length
+    ? withs.slice().reverse().map((w,i)=>{ const ri=withs.length-1-i; return `<tr><td style="color:var(--cyan);font-size:10px;">${w.id}</td><td style="color:var(--text);">${w.user}<br><span style="font-size:10px;color:var(--muted);">${w.email}</span></td><td style="color:var(--orange);font-weight:700;">$${Number(w.amount).toFixed(2)}</td><td><span class="badge ${w.coin==='USDT'?'badge-ok':'badge-warn'}">${w.coin}</span></td><td style="font-size:10px;color:var(--muted);">${w.walletS||w.wallet}</td><td style="font-size:11px;">${w.date}</td><td>${w.status==='pending'?`<div style="display:flex;flex-direction:column;gap:4px;"><button onclick="approveWith(${ri})" class="btn btn-success btn-sm">✓ Aprovar</button><button onclick="rejectWith(${ri})" class="btn btn-danger btn-sm">✗ Rejeitar</button></div>`:`<span class="badge ${w.status==='approved'?'badge-ok':'badge-fail'}">${w.status==='approved'?'✓ Aprovado':'✗ Rejeit.'}</span>`}</td></tr>`; }).join('')
+    : '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:16px;">Nenhum pedido ainda</td></tr>';
+
+  // Planos
+  document.getElementById('a-plans-body').innerHTML = Object.entries(PLANS).map(([k,p])=>`<tr><td style="color:var(--white);font-weight:700;">${k}</td><td style="color:var(--cyan);font-weight:700;">${p.monthly}%</td><td style="color:var(--green);">${p.daily.toFixed(3)}%</td><td>${p.cycle} dias</td><td>$${Number(p.min).toLocaleString()}</td><td>${DB.users.filter(u=>u.plan===k).length}</td><td><button onclick="openPlanEdit('${k}')" style="background:var(--cyan-dim);border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-size:10px;padding:4px 10px;border-radius:4px;cursor:pointer;font-family:'Oxanium',sans-serif;">✏️ Editar</button></td></tr>`).join('');
+}
+
+// ═══════════════════════════════════
+// AÇÕES ADMIN
+// ═══════════════════════════════════
+function approvePay(i){
+  DB=dbLoad();
+  const p=DB.payments[i];
+  if(!p){ toast('// Erro: pagamento não encontrado'); return; }
+  const plan=PLANS[p.plan];
+  if(!plan){ toast('// Plano inválido'); return; }
+  const u=DB.users.find(x=>x.id===p.userId);
+  if(!u){ toast('// Usuário não encontrado'); return; }
+
+  u.plan=p.plan; u.deposited=p.amount; u.balance=p.amount; u.totalYield=0; u.lastYield=null;
+  u.planStart=new Date().toISOString();
+  const end=new Date(); end.setDate(end.getDate()+plan.cycle);
+  u.planEnd=end.toISOString();
+  DB.payments[i].status='confirmed';
+  const ui=DB.users.findIndex(x=>x.id===u.id); if(ui>=0) DB.users[ui]=u;
+  dbSave(DB); renderAdmin();
+  toast('// Pagamento aprovado — plano '+p.plan+' ativado ✓');
+}
+
+function rejectPay(i){
+  DB=dbLoad(); DB.payments[i].status='rejected'; dbSave(DB); renderAdmin(); toast('// Pagamento rejeitado ✗');
+}
+
+function approveWith(i){
+  DB=dbLoad();
+  const w=DB.withdrawals[i];
+  const u=DB.users.find(x=>x.id===w.userId);
+  if(u){ u.balance=parseFloat(Math.max(0,u.balance-w.amount).toFixed(2)); const ui=DB.users.findIndex(x=>x.id===u.id); if(ui>=0) DB.users[ui]=u; }
+  DB.withdrawals[i].status='approved'; dbSave(DB); renderAdmin(); toast('// Saque aprovado ✓');
+}
+
+function rejectWith(i){
+  DB=dbLoad(); DB.withdrawals[i].status='rejected'; dbSave(DB); renderAdmin(); toast('// Saque rejeitado ✗');
+}
+
+// ═══════════════════════════════════
+// EDITAR USUÁRIO
+// ═══════════════════════════════════
+function openUserEdit(i){
+  DB=dbLoad(); const u=DB.users[i];
+  document.getElementById('m-u-id').value     = i;
+  document.getElementById('m-u-name').value   = u.name;
+  document.getElementById('m-u-email').value  = u.email;
+  document.getElementById('m-u-balance').value= u.balance||0;
+  document.getElementById('m-u-plan').value   = u.plan||'';
+  document.getElementById('m-u-status').value = u.status;
+  document.getElementById('m-u-pass').value   = '';
+  openModal('m-user');
+}
+
+function saveUserEdit(){
+  DB=dbLoad();
+  const i=Number(document.getElementById('m-u-id').value);
+  const u=DB.users[i]; if(!u) return;
+  u.name   = document.getElementById('m-u-name').value.trim()||u.name;
+  u.email  = document.getElementById('m-u-email').value.trim()||u.email;
+  u.balance= parseFloat(document.getElementById('m-u-balance').value)||0;
+  u.plan   = document.getElementById('m-u-plan').value||null;
+  u.status = document.getElementById('m-u-status').value;
+  const np = document.getElementById('m-u-pass').value; if(np) u.pass=np;
+  DB.users[i]=u; dbSave(DB);
+  closeModal('m-user'); renderAdmin(); toast('// Usuário atualizado ✓');
+}
+
+// ═══════════════════════════════════
+// EDITAR PLANO
+// ═══════════════════════════════════
+function openPlanEdit(name){
+  const p=PLANS[name];
+  document.getElementById('m-p-name').value   = name;
+  document.getElementById('m-p-monthly').value= p.monthly;
+  document.getElementById('m-p-cycle').value  = p.cycle;
+  document.getElementById('m-p-min').value    = p.min;
+  openModal('m-plan');
+}
+
+function savePlanEdit(){
+  const name=document.getElementById('m-p-name').value;
+  PLANS[name].monthly = Number(document.getElementById('m-p-monthly').value)||PLANS[name].monthly;
+  PLANS[name].daily   = parseFloat((PLANS[name].monthly/30).toFixed(3));
+  PLANS[name].cycle   = Number(document.getElementById('m-p-cycle').value)||PLANS[name].cycle;
+  PLANS[name].min     = Number(document.getElementById('m-p-min').value)||PLANS[name].min;
+  closeModal('m-plan'); renderAdmin(); toast('// Plano '+name+' atualizado ✓');
+}
+
+// ═══════════════════════════════════
+// MODAIS
+// ═══════════════════════════════════
+function openModal(id){ document.getElementById(id).style.display='flex'; }
+function closeModal(id){ document.getElementById(id).style.display='none'; }
+
+// ═══════════════════════════════════
+// UTILS
+// ═══════════════════════════════════
+function fmtDate(d){ return d.toLocaleDateString('pt-BR'); }
+
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),3000);
+}
+
+// Enter no login
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter' && document.getElementById('s-login').classList.contains('active')) doLogin();
+});
+</script>
 </body>
 </html>
