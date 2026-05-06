@@ -735,8 +735,8 @@ tr:hover td{background:rgba(0,212,255,0.015);}
       <h2>Acessar plataforma</h2>
       <p class="sub">Entre com suas credenciais para continuar</p>
       <div class="alert alert-error" id="login-err">// Credenciais inválidas</div>
-      <div class="field"><label>E-mail</label><input type="email" id="l-email" placeholder="usuario@email.com" value="demo@orbitrex.io"></div>
-      <div class="field"><label>Senha</label><input type="password" id="l-pass" placeholder="••••••••" value="demo123"></div>
+      <div class="field"><label>E-mail</label><input type="email" id="l-email" placeholder="usuario@email.com"></div>
+      <div class="field"><label>Senha</label><input type="password" id="l-pass" placeholder="••••••••"></div>
       <button class="btn btn-primary" onclick="doLogin()">
         <span id="login-lbl">Entrar</span>
         <div class="spinner hidden" id="login-spin"></div>
@@ -939,7 +939,7 @@ tr:hover td{background:rgba(0,212,255,0.015);}
           <div class="flex-between mb8"><span>Network fee (~1%)</span><span>-$1,50</span></div>
           <div class="flex-between" style="font-weight:700;color:var(--white);border-top:1px solid var(--border);padding-top:8px;margin-top:4px;"><span>You receive</span><span style="color:var(--green);">$148,50</span></div>
         </div>
-        <button class="btn btn-primary" onclick="toast('// Withdrawal requested ✓ Processing within 24h')">Confirm Withdrawal</button>
+        <button class="btn btn-primary" onclick="requestWithdraw()">Confirm Withdrawal</button>
       </div>
       <div class="card">
         <h3 style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);margin-bottom:18px;">Info</h3>
@@ -1051,7 +1051,7 @@ tr:hover td{background:rgba(0,212,255,0.015);}
       <div class="profile-av">JB</div>
       <div class="profile-info">
         <h3>Francisco Jemison B. da Silva</h3>
-        <p>demo@orbitrex.io · Member since Mar 2025</p>
+        <p>seu@email.com · Membro ativo</p>
         <div style="margin-top:8px;"><span class="pill">SILVER PLAN ACTIVE</span></div>
       </div>
     </div>
@@ -1059,7 +1059,7 @@ tr:hover td{background:rgba(0,212,255,0.015);}
       <div class="card">
         <h3 style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);margin-bottom:20px;">Personal Data</h3>
         <div class="field"><label>Full name</label><input type="text" value="Francisco Jemison B. da Silva"></div>
-        <div class="field"><label>E-mail</label><input type="email" value="demo@orbitrex.io"></div>
+        <div class="field"><label>E-mail</label><input type="email" placeholder="seu@email.com"></div>
         <div class="field"><label>Phone</label><input type="tel" placeholder="+55 (85) 99999-9999"></div>
         <button class="btn btn-primary" onclick="toast('// Profile updated ✓')">Save Changes</button>
       </div>
@@ -1260,6 +1260,41 @@ tr:hover td{background:rgba(0,212,255,0.015);}
     setTimeout(()=>show('s-dash'), 2000);
     document.getElementById('pay-hash').value = '';
     clearFile();
+  }
+
+  function requestWithdraw(){
+    const amount = document.querySelector('#tab-withdraw input[type=number]').value;
+    const address = document.querySelector('#tab-withdraw input[type=text]').value.trim();
+
+    if(!amount || Number(amount) <= 0){
+      toast('// Informe o valor do saque!');
+      return;
+    }
+    if(Number(amount) < 50){
+      toast('// Valor mínimo de saque é $50!');
+      return;
+    }
+    if(!address){
+      toast('// Informe o endereço da carteira!');
+      return;
+    }
+    if(Number(amount) > 340){
+      toast('// Saldo insuficiente!');
+      return;
+    }
+
+    // Adiciona ao painel admin
+    ADMIN_DATA.withdrawals.unshift({
+      id: 'WDR-' + String(Date.now()).slice(-4),
+      user: 'Usuário',
+      amount: '$' + Number(amount).toFixed(2),
+      coin: document.querySelector('#tab-withdraw select').value.includes('BTC') ? 'BTC' : 'USDT',
+      wallet: address.slice(0,10) + '...' + address.slice(-4),
+      date: new Date().toLocaleDateString('pt-BR'),
+      status: 'pending'
+    });
+
+    toast('// Saque solicitado! Aguardando aprovação ✓');
   }
 
   function toggleFaq(btn){
