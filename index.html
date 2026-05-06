@@ -815,7 +815,7 @@ tr:hover td{background:rgba(0,212,255,0.015);}
       <div class="logo-text-wrap"><span class="logo-name">Orbitrex</span><span class="logo-tag">AI · Technology · Growth</span></div>
     </div>
     <div class="nav-right">
-      <span class="pill" id="nav-plan">PLAN SILVER</span>
+      <span class="pill" id="nav-plan-badge">—</span>
       <div class="avatar" onclick="show('s-profile')" title="Perfil">JB</div>
       <button class="btn btn-ghost btn-sm" onclick="show('s-login')">Exit</button>
     </div>
@@ -830,8 +830,8 @@ tr:hover td{background:rgba(0,212,255,0.015);}
 
   <!-- HOME -->
   <div class="dash-body" id="tab-home">
-    <h1 class="page-title">Dashboard</h1>
-    <p class="page-sub">// Bem-vindo de volta, Francisco — todos os sistemas operacionais</p>
+    <h1 class="page-title" id="dash-greeting">Dashboard</h1>
+    <p class="page-sub">// Todos os sistemas operacionais</p>
     <div class="stats">
       <div class="stat"><div class="stat-icon">◎</div><div class="stat-val">$2.840,00</div><div class="stat-lbl">Total Balance</div><div class="stat-change">↑ +12.4% this month</div></div>
       <div class="stat grn"><div class="stat-icon">⬡</div><div class="stat-val">$340,00</div><div class="stat-lbl">Profit Share</div><div class="stat-change">↑ +8.7% this week</div></div>
@@ -842,13 +842,13 @@ tr:hover td{background:rgba(0,212,255,0.015);}
       <div class="card card-glow">
         <div class="flex-between mb16"><h3 style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);">Cycle Progress</h3><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan)">62%</span></div>
         <div style="background:var(--surface);border-radius:4px;height:6px;overflow:hidden;">
-          <div style="background:linear-gradient(90deg,var(--violet),var(--cyan));height:100%;width:62%;border-radius:4px;box-shadow:0 0 8px var(--cyan-glow);"></div>
+          <div id="cycle-bar" style="background:linear-gradient(90deg,var(--violet),var(--cyan));height:100%;width:0%;border-radius:4px;box-shadow:0 0 8px var(--cyan-glow);transition:width 1s ease;"></div>
         </div>
-        <p style="color:var(--muted);font-size:11px;margin-top:10px;font-family:'JetBrains Mono',monospace;">30 days remaining / 48 total</p>
+        <p id="cycle-remain" style="color:var(--muted);font-size:11px;margin-top:10px;font-family:'JetBrains Mono',monospace;">— dias</p>
         <div style="display:flex;gap:20px;margin-top:20px;">
-          <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;">Start</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;">Apr 25</div></div>
-          <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;">End</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;">Jun 12</div></div>
-          <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;">ROI</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green);">+13.6%</div></div>
+          <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;">Start</div><div id="cycle-start" style="font-family:'JetBrains Mono',monospace;font-size:12px;">—</div></div>
+          <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;">End</div><div id="cycle-end" style="font-family:'JetBrains Mono',monospace;font-size:12px;">—</div></div>
+          <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;">ROI</div><div id="cycle-roi" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green);">—</div></div>
         </div>
       </div>
       <div class="card">
@@ -863,11 +863,7 @@ tr:hover td{background:rgba(0,212,255,0.015);}
     <div class="table-wrap">
       <div class="table-head"><h3>Recent Transactions</h3><button class="btn btn-ghost btn-sm" onclick="switchTabByName('tab-history')">View all →</button></div>
       <table><thead><tr><th>Type</th><th>Amount</th><th>Date</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td style="color:var(--text);">Deposit — Silver Plan</td><td style="color:var(--cyan);">$2.500,00</td><td>25/04/2025</td><td><span class="status-pill st-ok">✓ Confirmed</span></td></tr>
-        <tr><td style="color:var(--text);">Profit Share</td><td style="color:var(--green);">+$187,50</td><td>02/05/2025</td><td><span class="status-pill st-ok">✓ Paid</span></td></tr>
-        <tr><td style="color:var(--text);">Profit Share</td><td style="color:var(--green);">+$152,50</td><td>25/04/2025</td><td><span class="status-pill st-ok">✓ Paid</span></td></tr>
-      </tbody></table>
+      <tbody id="user-history-body"><tr><td colspan="4" style="text-align:center;color:var(--muted);padding:20px;">Nenhuma transação ainda</td></tr></tbody></table>
     </div>
   </div>
 
@@ -1078,11 +1074,577 @@ tr:hover td{background:rgba(0,212,255,0.015);}
 <div class="toast" id="toast-msg"></div>
 
 <script>
-  const WALLETS = {
-    usdt:{address:'TPLNWYLZdhQN2YsvY91gSkdrvT3ynUnoaq',qrData:'tron:TPLNWYLZdhQN2YsvY91gSkdrvT3ynUnoaq',label:'USDT · TRC20 Network',tag:'tag-usdt',tagText:'TRC20',qrLabel:'Scan to pay with USDT TRC20',unit:'USDT'},
-    btc:{address:'bc1qhw9ltz7cdv2dldjgne5v5l0azh32dz7kz439g7',qrData:'bitcoin:bc1qhw9ltz7cdv2dldjgne5v5l0azh32dz7kz439g7',label:'BTC · Bitcoin Network',tag:'tag-btc',tagText:'BTC',qrLabel:'Scan to pay with Bitcoin',unit:'BTC'}
+
+  const ADMIN_EMAIL = 'jemis430@gmail.com';
+  let   ADMIN_PASS  = 'Vickjemis12@';
+
+  // Planos com % diária calculada
+  let PLANS = {
+    Starter: { name:'Starter', monthly:8,  daily:0.267, cycle:30, min:500   },
+    Silver:  { name:'Silver',  monthly:12, daily:0.4,   cycle:48, min:2500  },
+    Gold:    { name:'Gold',    monthly:18, daily:0.6,   cycle:60, min:10000 },
+    Diamond: { name:'Diamond', monthly:25, daily:0.833, cycle:30, min:50000 }
   };
-  let currentCoin='usdt', currentAmount=2500, timerInterval=null;
+
+  // Carregar ou inicializar dados
+  function loadData(){
+    const d = localStorage.getItem('orbitrex_data');
+    return d ? JSON.parse(d) : {
+      users: [],
+      payments: [],
+      withdrawals: [],
+      nextUserId: 1
+    };
+  }
+
+  function saveData(data){
+    localStorage.setItem('orbitrex_data', JSON.stringify(data));
+  }
+
+  let DB = loadData();
+
+  // Usuário logado
+  let currentUser = null;
+
+  // ══ AUTH ════════════════════════════════
+  function doLogin(){
+    const email = document.getElementById('l-email').value.trim();
+    const pass  = document.getElementById('l-pass').value;
+    const lbl   = document.getElementById('login-lbl');
+    const spin  = document.getElementById('login-spin');
+    const err   = document.getElementById('login-err');
+    err.classList.remove('show');
+    lbl.textContent='Conectando...'; spin.classList.remove('hidden');
+
+    setTimeout(()=>{
+      spin.classList.add('hidden'); lbl.textContent='Entrar';
+
+      // Checar admin
+      if(email === ADMIN_EMAIL && pass === ADMIN_PASS){
+        show('s-admin'); renderAdmin();
+        return;
+      }
+
+      // Checar usuário
+      const user = DB.users.find(u => u.email===email && u.password===pass);
+      if(user){
+        if(user.status==='banned'){ err.textContent='// Conta banida. Entre em contato com o suporte.'; err.classList.add('show'); return; }
+        if(user.status==='blocked'){ err.textContent='// Conta bloqueada temporariamente.'; err.classList.add('show'); return; }
+        currentUser = user;
+        applyDailyYield(user);
+        loadDashboard(user);
+        show('s-dash');
+        toast('// Acesso autorizado ✓');
+      } else {
+        err.textContent='// E-mail ou senha incorretos.';
+        err.classList.add('show');
+      }
+    }, 1000);
+  }
+
+  function doRegister(){
+    const name  = document.getElementById('r-name').value.trim();
+    const email = document.getElementById('r-email').value.trim();
+    const pass  = document.getElementById('r-pass').value;
+    const pass2 = document.getElementById('r-pass2').value;
+    const err   = document.getElementById('reg-err');
+    const ok    = document.getElementById('reg-ok');
+    err.classList.remove('show'); ok.classList.remove('show');
+
+    if(!name||!email||!pass||!pass2){ err.textContent='// Preencha todos os campos'; err.classList.add('show'); return; }
+    if(pass!==pass2){ err.textContent='// Senhas não coincidem'; err.classList.add('show'); return; }
+    if(pass.length<8){ err.textContent='// Senha mínima: 8 caracteres'; err.classList.add('show'); return; }
+    if(DB.users.find(u=>u.email===email)){ err.textContent='// E-mail já cadastrado'; err.classList.add('show'); return; }
+
+    const newUser = {
+      id: 'USR-' + String(DB.nextUserId).padStart(3,'0'),
+      name, email, password: pass,
+      plan: null, planStart: null, planEnd: null,
+      balance: 0, totalYield: 0,
+      status: 'active',
+      joined: new Date().toLocaleDateString('pt-BR'),
+      lastYieldDate: null
+    };
+    DB.users.push(newUser);
+    DB.nextUserId++;
+    saveData(DB);
+
+    ok.textContent='// Conta criada com sucesso ✓';
+    ok.classList.add('show');
+    setTimeout(()=>show('s-login'), 1500);
+  }
+
+  // ══ RENDIMENTO DIÁRIO ══════════════════
+  function applyDailyYield(user){
+    if(!user.plan || !user.planStart) return;
+    const plan = PLANS[user.plan];
+    if(!plan) return;
+
+    const today = new Date().toDateString();
+    if(user.lastYieldDate === today) return; // Já aplicou hoje
+
+    const start = new Date(user.planStart);
+    const now   = new Date();
+    const end   = new Date(user.planEnd);
+
+    if(now > end) return; // Ciclo encerrado
+
+    // Calcular dias desde último yield
+    const lastDate = user.lastYieldDate ? new Date(user.lastYieldDate) : start;
+    const diffDays = Math.floor((now - lastDate) / (1000 * 60 * 60 * 24));
+
+    if(diffDays < 1) return;
+
+    const yieldAmount = (user.balance * plan.daily / 100) * diffDays;
+    user.balance     += yieldAmount;
+    user.totalYield  += yieldAmount;
+    user.lastYieldDate = today;
+
+    // Salvar
+    const idx = DB.users.findIndex(u=>u.id===user.id);
+    if(idx >= 0){ DB.users[idx] = user; saveData(DB); }
+  }
+
+  // ══ DASHBOARD ══════════════════════════
+  function loadDashboard(user){
+    const plan = user.plan ? PLANS[user.plan] : null;
+
+    // Stats
+    document.getElementById('dash-balance').textContent  = '$' + user.balance.toFixed(2);
+    document.getElementById('dash-yield').textContent    = '$' + user.totalYield.toFixed(2);
+    document.getElementById('dash-invested').textContent = user.plan ? '$' + (user.balance - user.totalYield).toFixed(2) : '$0.00';
+    document.getElementById('dash-plan').textContent     = user.plan || '—';
+    document.getElementById('nav-plan-badge').textContent= user.plan ? user.plan.toUpperCase() : 'SEM PLANO';
+
+    // Avatar
+    const initials = user.name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+    document.querySelectorAll('.avatar').forEach(a=>a.textContent=initials);
+
+    // Progresso do ciclo
+    if(user.plan && user.planStart){
+      const start    = new Date(user.planStart);
+      const end      = new Date(user.planEnd);
+      const now      = new Date();
+      const total    = (end - start) / (1000*60*60*24);
+      const elapsed  = Math.min((now - start) / (1000*60*60*24), total);
+      const pct      = Math.round((elapsed/total)*100);
+      const remain   = Math.max(0, Math.ceil((end - now) / (1000*60*60*24)));
+
+      document.getElementById('cycle-pct').textContent   = pct + '%';
+      document.getElementById('cycle-bar').style.width   = pct + '%';
+      document.getElementById('cycle-remain').textContent= remain + ' dias restantes de ' + Math.round(total) + ' totais';
+      document.getElementById('cycle-start').textContent = start.toLocaleDateString('pt-BR');
+      document.getElementById('cycle-end').textContent   = end.toLocaleDateString('pt-BR');
+      document.getElementById('cycle-roi').textContent   = '+' + plan.monthly + '%';
+    }
+
+    // Nome
+    const firstName = user.name.split(' ')[0];
+    document.getElementById('dash-greeting').textContent = 'Bem-vindo, ' + firstName + ' 👋';
+
+    // Histórico
+    loadUserHistory(user);
+  }
+
+  function loadUserHistory(user){
+    const payments = DB.payments.filter(p=>p.userId===user.id);
+    const tbody = document.getElementById('user-history-body');
+    if(!tbody) return;
+    if(payments.length===0){
+      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--muted);padding:20px;">Nenhuma transação ainda</td></tr>';
+      return;
+    }
+    tbody.innerHTML = payments.slice(0,5).map(p=>`
+      <tr>
+        <td style="color:var(--text);">Depósito — ${p.plan}</td>
+        <td style="color:var(--cyan);">$${Number(p.amount).toFixed(2)}</td>
+        <td>${p.date}</td>
+        <td><span class="status-pill ${p.status==='confirmed'?'st-ok':'st-pend'}">${p.status==='confirmed'?'✓ Confirmado':'⏳ Pendente'}</span></td>
+      </tr>
+    `).join('');
+  }
+
+  // ══ PAGAMENTO ══════════════════════════
+  function selectPlan(name, amount){
+    currentAmount = Number(amount);
+    currentPlanName = name;
+    document.getElementById('pay-plan-name').textContent = name;
+    document.getElementById('pay-amount').textContent = '$' + Number(amount).toLocaleString('pt-BR',{minimumFractionDigits:2});
+    show('s-payment');
+    selectCoin('usdt');
+    startTimer(30*60);
+  }
+
+  function submitPayment(){
+    const hash = document.getElementById('pay-hash').value.trim();
+    const file = document.getElementById('pay-proof').files[0];
+
+    if(!hash && !file){ toast('// Informe o hash ou envie um comprovante!'); return; }
+    if(!currentUser){ toast('// Faça login primeiro!'); return; }
+
+    const payment = {
+      id:     'TXN-' + String(DB.payments.length+1).padStart(4,'0'),
+      userId: currentUser.id,
+      user:   currentUser.name,
+      email:  currentUser.email,
+      plan:   currentPlanName,
+      amount: currentAmount,
+      coin:   currentCoin.toUpperCase(),
+      hash:   hash || '—',
+      file:   file ? file.name : '—',
+      date:   new Date().toLocaleDateString('pt-BR'),
+      status: 'pending'
+    };
+
+    DB.payments.push(payment);
+    saveData(DB);
+
+    toast('// Comprovante enviado! Aguardando aprovação ✓');
+    setTimeout(()=>show('s-dash'), 2000);
+    document.getElementById('pay-hash').value='';
+    clearFile();
+  }
+
+  // ══ SAQUE ══════════════════════════════
+  function requestWithdraw(){
+    const amountEl  = document.querySelector('#tab-withdraw input[type=number]');
+    const addressEl = document.querySelector('#tab-withdraw input[type=text]');
+    const networkEl = document.querySelector('#tab-withdraw select');
+
+    if(!amountEl||!addressEl||!networkEl) return;
+    const amount  = Number(amountEl.value);
+    const address = addressEl.value.trim();
+
+    if(!amount || amount<=0){ toast('// Informe o valor!'); return; }
+    if(amount < 50){ toast('// Mínimo de $50!'); return; }
+    if(!address){ toast('// Informe o endereço!'); return; }
+    if(!currentUser){ toast('// Faça login!'); return; }
+    if(amount > currentUser.balance){ toast('// Saldo insuficiente!'); return; }
+
+    const withdrawal = {
+      id:     'WDR-' + String(DB.withdrawals.length+1).padStart(4,'0'),
+      userId: currentUser.id,
+      user:   currentUser.name,
+      email:  currentUser.email,
+      amount: amount,
+      coin:   networkEl.value.includes('BTC')?'BTC':'USDT',
+      wallet: address,
+      walletShort: address.slice(0,10)+'...'+address.slice(-4),
+      date:   new Date().toLocaleDateString('pt-BR'),
+      status: 'pending'
+    };
+
+    DB.withdrawals.push(withdrawal);
+    saveData(DB);
+    toast('// Saque solicitado! Aguardando aprovação ✓');
+
+    amountEl.value=''; addressEl.value='';
+  }
+
+  // ══ ADMIN ══════════════════════════════
+  function openAdmin(){
+    const email = prompt('🔐 E-mail admin:');
+    if(!email) return;
+    const pass = prompt('🔑 Senha:');
+    if(!pass) return;
+    if(email.trim()===ADMIN_EMAIL && pass===ADMIN_PASS){ show('s-admin'); renderAdmin(); }
+    else { toast('// Acesso negado ✗'); }
+  }
+
+  function renderAdmin(){
+    renderAdminOverview();
+    renderAdminUsers();
+    renderAdminPayments();
+    renderAdminWithdrawals();
+    renderAdminPlans();
+  }
+
+  function renderAdminOverview(){
+    const total    = DB.users.length;
+    const active   = DB.users.filter(u=>u.status==='active').length;
+    const paidConf = DB.payments.filter(p=>p.status==='confirmed').length;
+    const pendWith = DB.withdrawals.filter(w=>w.status==='pending').length;
+    const pendPay  = DB.payments.filter(p=>p.status==='pending').length;
+
+    document.getElementById('adm-stat-users').textContent       = total;
+    document.getElementById('adm-stat-active').textContent      = active;
+    document.getElementById('adm-stat-deposits').textContent    = paidConf;
+    document.getElementById('adm-stat-withdrawals').textContent = pendWith;
+
+    // Alertas
+    const alerts = [];
+    if(pendPay > 0)  alerts.push(`⚠ ${pendPay} pagamento(s) aguardando aprovação`);
+    if(pendWith > 0) alerts.push(`⚠ ${pendWith} saque(s) aguardando aprovação`);
+    const alertBox = document.getElementById('adm-alerts');
+    if(alertBox){
+      alertBox.innerHTML = alerts.length > 0
+        ? alerts.map(a=>`<div style="background:rgba(247,147,26,0.1);border:1px solid rgba(247,147,26,0.2);color:#F7931A;padding:10px 14px;border-radius:6px;font-size:12px;font-weight:600;">${a}</div>`).join('')
+        : '<div style="color:var(--muted);font-size:12px;">Nenhum alerta no momento ✓</div>';
+    }
+
+    // Últimos cadastros
+    const recent = document.getElementById('adm-recent-users');
+    if(recent){
+      recent.innerHTML = DB.users.length===0
+        ? '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:20px;">Nenhum usuário ainda</td></tr>'
+        : DB.users.slice(-5).reverse().map(u=>`
+        <tr>
+          <td style="color:var(--text)">${u.name}</td>
+          <td style="font-size:11px;">${u.email}</td>
+          <td>${u.plan ? '<span class="pill" style="font-size:9px;">'+u.plan+'</span>' : '<span style="color:var(--muted);font-size:11px;">—</span>'}</td>
+          <td style="font-size:11px;">${u.joined}</td>
+          <td><span class="status-pill ${u.status==='active'?'st-ok':u.status==='blocked'?'st-pend':'st-fail'}">${u.status==='active'?'✓ Ativo':u.status==='blocked'?'⏸ Bloqueado':'✗ Banido'}</span></td>
+        </tr>`).join('');
+    }
+  }
+
+  function renderAdminUsers(){
+    const tbody = document.getElementById('adm-users-body');
+    if(!tbody) return;
+    tbody.innerHTML = DB.users.length===0
+      ? '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px;">Nenhum usuário cadastrado ainda</td></tr>'
+      : DB.users.map((u,i)=>`
+      <tr>
+        <td style="color:var(--cyan);font-size:11px;">${u.id}</td>
+        <td style="color:var(--text);font-size:12px;">${u.name}</td>
+        <td style="font-size:11px;">${u.email}</td>
+        <td>${u.plan ? '<span class="pill" style="font-size:9px;">'+u.plan+'</span>' : '—'}</td>
+        <td style="font-size:11px;">${u.joined}</td>
+        <td style="color:var(--green);font-weight:700;">$${Number(u.balance||0).toFixed(2)}</td>
+        <td><span class="status-pill ${u.status==='active'?'st-ok':u.status==='blocked'?'st-pend':'st-fail'}">${u.status==='active'?'✓ Ativo':u.status==='blocked'?'⏸ Bloqueado':'✗ Banido'}</span></td>
+        <td>
+          <button onclick="openUserEdit(${i})" style="background:var(--cyan-dim);border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-size:10px;padding:4px 10px;border-radius:4px;cursor:pointer;font-family:'Oxanium',sans-serif;">✏️ Editar</button>
+        </td>
+      </tr>`).join('');
+  }
+
+  function renderAdminPayments(){
+    const tbody = document.getElementById('adm-payments-body');
+    if(!tbody) return;
+    tbody.innerHTML = DB.payments.length===0
+      ? '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px;">Nenhum pagamento ainda</td></tr>'
+      : DB.payments.slice().reverse().map((p,i)=>{
+          const realIdx = DB.payments.length - 1 - i;
+          return `<tr>
+            <td style="color:var(--cyan);font-size:11px;">${p.id}</td>
+            <td style="color:var(--text);font-size:12px;">${p.user}</td>
+            <td style="font-size:11px;">${p.plan}</td>
+            <td style="color:var(--gold);font-weight:700;">$${Number(p.amount).toFixed(2)}</td>
+            <td><span class="status-pill ${p.coin==='USDT'?'st-ok':'st-pend'}">${p.coin}</span></td>
+            <td style="font-size:10px;color:var(--muted);max-width:100px;overflow:hidden;text-overflow:ellipsis;">${p.hash||'—'}</td>
+            <td style="font-size:11px;">${p.date}</td>
+            <td>
+              ${p.status==='pending'
+                ? `<div style="display:flex;flex-direction:column;gap:4px;">
+                    <button onclick="approvePayment(${realIdx})" style="background:rgba(0,255,178,0.1);border:1px solid rgba(0,255,178,0.3);color:var(--green);font-size:11px;font-weight:700;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:'Oxanium',sans-serif;">✓ Ativar</button>
+                    <button onclick="rejectPayment(${realIdx})" style="background:rgba(255,77,109,0.1);border:1px solid rgba(255,77,109,0.3);color:var(--danger);font-size:11px;font-weight:700;padding:5px 10px;border-radius:4px;cursor:pointer;font-family:'Oxanium',sans-serif;">✗ Rejeitar</button>
+                  </div>`
+                : `<span class="status-pill ${p.status==='confirmed'?'st-ok':'st-fail'}">${p.status==='confirmed'?'✓ Ativo':'✗ Rejeitado'}</span>`
+              }
+            </td>
+          </tr>`;
+        }).join('');
+  }
+
+  function renderAdminWithdrawals(){
+    const tbody = document.getElementById('adm-with-body');
+    if(!tbody) return;
+    tbody.innerHTML = DB.withdrawals.length===0
+      ? '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px;">Nenhum pedido de saque ainda</td></tr>'
+      : DB.withdrawals.slice().reverse().map((w,i)=>{
+          const realIdx = DB.withdrawals.length - 1 - i;
+          return `<tr>
+            <td style="color:var(--cyan);font-size:11px;">${w.id}</td>
+            <td>
+              <div style="color:var(--text);font-size:12px;">${w.user}</div>
+              <div style="font-size:10px;color:var(--muted);">${w.email}</div>
+            </td>
+            <td style="color:var(--gold);font-weight:700;">$${Number(w.amount).toFixed(2)}</td>
+            <td><span class="status-pill ${w.coin==='USDT'?'st-ok':'st-pend'}">${w.coin}</span></td>
+            <td style="font-size:10px;color:var(--muted);max-width:100px;overflow:hidden;text-overflow:ellipsis;">${w.walletShort||w.wallet}</td>
+            <td style="font-size:11px;">${w.date}</td>
+            <td>
+              ${w.status==='pending'
+                ? `<div style="display:flex;flex-direction:column;gap:4px;">
+                    <button onclick="approveWith(${realIdx})" style="background:rgba(0,255,178,0.1);border:1px solid rgba(0,255,178,0.3);color:var(--green);font-size:11px;font-weight:700;padding:6px 12px;border-radius:5px;cursor:pointer;font-family:'Oxanium',sans-serif;width:100%;">✓ Aprovar</button>
+                    <button onclick="rejectWith(${realIdx})" style="background:rgba(255,77,109,0.1);border:1px solid rgba(255,77,109,0.3);color:var(--danger);font-size:11px;font-weight:700;padding:6px 12px;border-radius:5px;cursor:pointer;font-family:'Oxanium',sans-serif;width:100%;">✗ Rejeitar</button>
+                  </div>`
+                : `<span class="status-pill ${w.status==='approved'?'st-ok':'st-fail'}">${w.status==='approved'?'✓ Aprovado':'✗ Rejeitado'}</span>`
+              }
+            </td>
+          </tr>`;
+        }).join('');
+  }
+
+  function renderAdminPlans(){
+    const tbody = document.getElementById('adm-plans-body');
+    if(!tbody) return;
+    tbody.innerHTML = Object.values(PLANS).map(p=>`
+      <tr>
+        <td style="color:var(--text);font-weight:700;">${p.name}</td>
+        <td style="color:var(--cyan);font-weight:700;">${p.monthly}%</td>
+        <td style="color:var(--green);">${p.daily.toFixed(3)}%</td>
+        <td>${p.cycle} dias</td>
+        <td>$${Number(p.min).toLocaleString()}</td>
+        <td>${DB.users.filter(u=>u.plan===p.name).length}</td>
+        <td>
+          <button onclick="editPlan('${p.name}')" style="background:var(--cyan-dim);border:1px solid rgba(0,212,255,0.2);color:var(--cyan);font-size:10px;padding:4px 10px;border-radius:4px;cursor:pointer;font-family:'Oxanium',sans-serif;">✏️ Editar</button>
+        </td>
+      </tr>`).join('');
+  }
+
+  // ══ AÇÕES ADMIN ════════════════════════
+  function approvePayment(i){
+    const p    = DB.payments[i];
+    const user = DB.users.find(u=>u.id===p.userId);
+    if(!user){ toast('// Usuário não encontrado'); return; }
+
+    const plan = PLANS[p.plan];
+    if(!plan){ toast('// Plano inválido'); return; }
+
+    // Ativar plano
+    user.plan       = p.plan;
+    user.balance    = p.amount;
+    user.totalYield = 0;
+    user.planStart  = new Date().toISOString();
+    const end = new Date();
+    end.setDate(end.getDate() + plan.cycle);
+    user.planEnd       = end.toISOString();
+    user.lastYieldDate = null;
+
+    DB.payments[i].status = 'confirmed';
+    const idx = DB.users.findIndex(u=>u.id===user.id);
+    if(idx>=0) DB.users[idx] = user;
+    saveData(DB);
+
+    renderAdminPayments(); renderAdminOverview(); renderAdminUsers();
+    toast('// Pagamento aprovado — plano '+p.plan+' ativado ✓');
+  }
+
+  function rejectPayment(i){
+    DB.payments[i].status='rejected';
+    saveData(DB);
+    renderAdminPayments(); renderAdminOverview();
+    toast('// Pagamento rejeitado ✗');
+  }
+
+  function approveWith(i){
+    const w    = DB.withdrawals[i];
+    const user = DB.users.find(u=>u.id===w.userId);
+    if(user){
+      user.balance = Math.max(0, user.balance - w.amount);
+      const idx = DB.users.findIndex(u=>u.id===user.id);
+      if(idx>=0) DB.users[idx]=user;
+    }
+    DB.withdrawals[i].status='approved';
+    saveData(DB);
+    renderAdminWithdrawals(); renderAdminOverview(); renderAdminUsers();
+    toast('// Saque aprovado — saldo debitado ✓');
+  }
+
+  function rejectWith(i){
+    DB.withdrawals[i].status='rejected';
+    saveData(DB);
+    renderAdminWithdrawals(); renderAdminOverview();
+    toast('// Saque rejeitado ✗');
+  }
+
+  // ══ EDITAR USUÁRIO ═════════════════════
+  function openUserEdit(i){
+    const u = DB.users[i];
+    document.getElementById('edit-user-idx').value    = i;
+    document.getElementById('edit-user-name').value   = u.name;
+    document.getElementById('edit-user-email').value  = u.email;
+    document.getElementById('edit-user-balance').value= u.balance||0;
+    document.getElementById('edit-user-plan').value   = u.plan||'';
+    document.getElementById('edit-user-status').value = u.status;
+    document.getElementById('edit-user-pass').value   = '';
+    document.getElementById('edit-user-modal').style.display='flex';
+  }
+
+  function saveUserEdit(){
+    const i      = Number(document.getElementById('edit-user-idx').value);
+    const u      = DB.users[i];
+    u.name       = document.getElementById('edit-user-name').value.trim() || u.name;
+    u.email      = document.getElementById('edit-user-email').value.trim() || u.email;
+    u.balance    = Number(document.getElementById('edit-user-balance').value) || 0;
+    u.plan       = document.getElementById('edit-user-plan').value || null;
+    u.status     = document.getElementById('edit-user-status').value;
+    const newPass= document.getElementById('edit-user-pass').value;
+    if(newPass) u.password = newPass;
+    DB.users[i] = u;
+    saveData(DB);
+    closeEditModal();
+    renderAdminUsers(); renderAdminOverview();
+    toast('// Usuário atualizado ✓');
+  }
+
+  function closeEditModal(){ document.getElementById('edit-user-modal').style.display='none'; }
+
+  // ══ EDITAR PLANO ═══════════════════════
+  function editPlan(name){
+    const p = PLANS[name];
+    document.getElementById('edit-plan-name').value    = name;
+    document.getElementById('edit-plan-monthly').value = p.monthly;
+    document.getElementById('edit-plan-cycle').value   = p.cycle;
+    document.getElementById('edit-plan-min').value     = p.min;
+    document.getElementById('edit-plan-modal').style.display='flex';
+  }
+
+  function savePlanEdit(){
+    const name    = document.getElementById('edit-plan-name').value;
+    const monthly = Number(document.getElementById('edit-plan-monthly').value);
+    const cycle   = Number(document.getElementById('edit-plan-cycle').value);
+    const min     = Number(document.getElementById('edit-plan-min').value);
+    PLANS[name].monthly = monthly;
+    PLANS[name].daily   = parseFloat((monthly / 30).toFixed(3));
+    PLANS[name].cycle   = cycle;
+    PLANS[name].min     = min;
+    closePlanModal();
+    renderAdminPlans();
+    toast('// Plano '+name+' atualizado ✓');
+  }
+
+  function closePlanModal(){ document.getElementById('edit-plan-modal').style.display='none'; }
+
+  // ══ NAVEGAÇÃO ══════════════════════════
+  function show(id){
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0,0);
+    if(id==='s-payment') setTimeout(()=>selectCoin('usdt'),80);
+  }
+
+  function switchTab(el,tabId){
+    document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('#s-dash .dash-body').forEach(t=>t.classList.add('hidden'));
+    document.getElementById(tabId).classList.remove('hidden');
+  }
+
+  function switchTabByName(tabId){
+    const map={'tab-home':0,'tab-plans':1,'tab-history':2,'tab-withdraw':3};
+    document.querySelectorAll('#s-dash .dash-body').forEach(b=>b.classList.add('hidden'));
+    document.getElementById(tabId).classList.remove('hidden');
+    const tabs=document.querySelectorAll('.nav-tab');
+    tabs.forEach(t=>t.classList.remove('active'));
+    if(tabs[map[tabId]])tabs[map[tabId]].classList.add('active');
+  }
+
+  function switchAdminTab(el,tabId){
+    document.querySelectorAll('.adm-tab').forEach(t=>t.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('.adm-body').forEach(t=>t.classList.add('hidden'));
+    document.getElementById(tabId).classList.remove('hidden');
+  }
+
+  // ══ UTILS ══════════════════════════════
+  let currentCoin='usdt', currentAmount=2500, currentPlanName='Silver', timerInterval=null;
+
+  const WALLETS={
+    usdt:{address:'TPLNWYLZdhQN2YsvY91gSkdrvT3ynUnoaq',qrData:'tron:TPLNWYLZdhQN2YsvY91gSkdrvT3ynUnoaq',label:'USDT · TRC20',tag:'tag-usdt',tagText:'TRC20',qrLabel:'Scan to pay with USDT TRC20'},
+    btc:{address:'bc1qhw9ltz7cdv2dldjgne5v5l0azh32dz7kz439g7',qrData:'bitcoin:bc1qhw9ltz7cdv2dldjgne5v5l0azh32dz7kz439g7',label:'BTC · Bitcoin',tag:'tag-btc',tagText:'BTC',qrLabel:'Scan to pay with Bitcoin'}
+  };
 
   function generateQR(coin){
     const c=document.getElementById('qr-container');
@@ -1104,66 +1666,6 @@ tr:hover td{background:rgba(0,212,255,0.015);}
     generateQR(coin);
   }
 
-  function selectPlan(name,amount){
-    currentAmount=Number(amount);
-    document.getElementById('pay-plan-name').textContent=name;
-    document.getElementById('pay-amount').textContent='$'+Number(amount).toLocaleString('pt-BR',{minimumFractionDigits:2});
-    show('s-payment');
-    selectCoin('usdt');
-    startTimer(30*60);
-  }
-
-  function show(id){
-    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    window.scrollTo(0,0);
-    if(id==='s-payment') setTimeout(()=>selectCoin(currentCoin),80);
-  }
-
-  function switchTab(el,tabId){
-    document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-    el.classList.add('active');
-    document.querySelectorAll('#s-dash .dash-body').forEach(t=>t.classList.add('hidden'));
-    document.getElementById(tabId).classList.remove('hidden');
-  }
-
-  function switchTabByName(tabId){
-    const map={'tab-home':0,'tab-plans':1,'tab-history':2,'tab-withdraw':3};
-    document.querySelectorAll('#s-dash .dash-body').forEach(b=>b.classList.add('hidden'));
-    document.getElementById(tabId).classList.remove('hidden');
-    const tabs=document.querySelectorAll('.nav-tab');
-    tabs.forEach(t=>t.classList.remove('active'));
-    if(tabs[map[tabId]])tabs[map[tabId]].classList.add('active');
-  }
-
-  function doLogin(){
-    const email=document.getElementById('l-email').value;
-    const pass=document.getElementById('l-pass').value;
-    const lbl=document.getElementById('login-lbl');
-    const spin=document.getElementById('login-spin');
-    const err=document.getElementById('login-err');
-    err.classList.remove('show'); lbl.textContent='Connecting...'; spin.classList.remove('hidden');
-    setTimeout(()=>{
-      spin.classList.add('hidden'); lbl.textContent='Entrar';
-      if(email&&pass){show('s-dash');toast('// Access granted ✓');}
-      else err.classList.add('show');
-    },1200);
-  }
-
-  function doRegister(){
-    const name=document.getElementById('r-name').value;
-    const email=document.getElementById('r-email').value;
-    const pass=document.getElementById('r-pass').value;
-    const pass2=document.getElementById('r-pass2').value;
-    const err=document.getElementById('reg-err'); const ok=document.getElementById('reg-ok');
-    err.classList.remove('show'); ok.classList.remove('show');
-    if(!name||!email||!pass||!pass2){err.textContent='// Preencha todos os campos';err.classList.add('show');return;}
-    if(pass!==pass2){err.textContent='// Senhas não coincidem';err.classList.add('show');return;}
-    if(pass.length<8){err.textContent='// Senha muito curta — mín. 8 caracteres';err.classList.add('show');return;}
-    ok.classList.add('show');
-    setTimeout(()=>show('s-login'),1500);
-  }
-
   function startTimer(seconds){
     clearInterval(timerInterval);
     const el=document.getElementById('timer-val');
@@ -1177,9 +1679,33 @@ tr:hover td{background:rgba(0,212,255,0.015);}
     },1000);
   }
 
+  function previewFile(input){
+    if(input.files&&input.files[0]){
+      const fp=document.getElementById('file-preview');
+      document.getElementById('file-name').textContent=input.files[0].name;
+      fp.style.display='flex';
+    }
+  }
+
+  function clearFile(){
+    document.getElementById('pay-proof').value='';
+    document.getElementById('file-preview').style.display='none';
+  }
+
+  function handleDrop(e){
+    e.preventDefault();
+    document.getElementById('upload-area').style.borderColor='var(--border2)';
+    const files=e.dataTransfer.files;
+    if(files.length>0){
+      const dt=new DataTransfer(); dt.items.add(files[0]);
+      const input=document.getElementById('pay-proof');
+      input.files=dt.files; previewFile(input);
+    }
+  }
+
   function copyAddr(){
     const addr=document.getElementById('wallet-addr').textContent;
-    navigator.clipboard.writeText(addr).then(()=>toast('// Address copied ✓')).catch(()=>toast('// Address copied ✓'));
+    navigator.clipboard.writeText(addr).then(()=>toast('// Endereço copiado ✓')).catch(()=>toast('// Endereço copiado ✓'));
   }
 
   function toast(msg){
@@ -1188,113 +1714,10 @@ tr:hover td{background:rgba(0,212,255,0.015);}
     setTimeout(()=>el.classList.remove('show'),3000);
   }
 
-  // ══ COMPROVANTE ═════════════════════════
-  let pendingProofs = [];
-
-  function previewFile(input){
-    if(input.files && input.files[0]){
-      const fp = document.getElementById('file-preview');
-      const fn = document.getElementById('file-name');
-      fn.textContent = input.files[0].name;
-      fp.style.display = 'flex';
-    }
-  }
-
-  function clearFile(){
-    document.getElementById('pay-proof').value = '';
-    document.getElementById('file-preview').style.display = 'none';
-  }
-
-  function handleDrop(e){
-    e.preventDefault();
-    document.getElementById('upload-area').style.borderColor = 'var(--border2)';
-    const files = e.dataTransfer.files;
-    if(files.length > 0){
-      const dt = new DataTransfer();
-      dt.items.add(files[0]);
-      const input = document.getElementById('pay-proof');
-      input.files = dt.files;
-      previewFile(input);
-    }
-  }
-
-  function submitPayment(){
-    const hash  = document.getElementById('pay-hash').value.trim();
-    const file  = document.getElementById('pay-proof').files[0];
-    const plan  = document.getElementById('pay-plan-name').textContent;
-    const amount= document.getElementById('pay-amount').textContent;
-
-    if(!hash && !file){
-      toast('// Informe o hash ou envie um comprovante!');
-      return;
-    }
-
-    // Salva para o painel admin
-    const proof = {
-      id: 'PRF-' + String(pendingProofs.length + 1).padStart(3,'0'),
-      user: 'Usuário',
-      plan: plan,
-      amount: amount,
-      coin: currentCoin.toUpperCase(),
-      hash: hash || '—',
-      file: file ? file.name : '—',
-      date: new Date().toLocaleDateString('pt-BR'),
-      status: 'pending'
-    };
-    pendingProofs.push(proof);
-
-    // Adiciona ao painel admin
-    ADMIN_DATA.payments.unshift({
-      id: proof.id,
-      user: proof.user,
-      plan: proof.plan,
-      amount: proof.amount,
-      coin: proof.coin,
-      date: proof.date,
-      status: 'pending',
-      hash: proof.hash,
-      file: proof.file
-    });
-
-    toast('// Comprovante enviado! Aguardando aprovação ✓');
-    setTimeout(()=>show('s-dash'), 2000);
-    document.getElementById('pay-hash').value = '';
-    clearFile();
-  }
-
-  function requestWithdraw(){
-    const amount = document.querySelector('#tab-withdraw input[type=number]').value;
-    const address = document.querySelector('#tab-withdraw input[type=text]').value.trim();
-
-    if(!amount || Number(amount) <= 0){
-      toast('// Informe o valor do saque!');
-      return;
-    }
-    if(Number(amount) < 50){
-      toast('// Valor mínimo de saque é $50!');
-      return;
-    }
-    if(!address){
-      toast('// Informe o endereço da carteira!');
-      return;
-    }
-    if(Number(amount) > 340){
-      toast('// Saldo insuficiente!');
-      return;
-    }
-
-    // Adiciona ao painel admin
-    ADMIN_DATA.withdrawals.unshift({
-      id: 'WDR-' + String(Date.now()).slice(-4),
-      user: 'Usuário',
-      amount: '$' + Number(amount).toFixed(2),
-      coin: document.querySelector('#tab-withdraw select').value.includes('BTC') ? 'BTC' : 'USDT',
-      wallet: address.slice(0,10) + '...' + address.slice(-4),
-      date: new Date().toLocaleDateString('pt-BR'),
-      status: 'pending'
-    });
-
-    toast('// Saque solicitado! Aguardando aprovação ✓');
+  function viewUser(name){
+    const u = DB.users.find(u=>u.name===name);
+    if(!u){ toast('// Usuário não encontrado'); return; }
+    openUserEdit(DB.users.indexOf(u));
   }
 
   function toggleFaq(btn){
@@ -1310,172 +1733,8 @@ tr:hover td{background:rgba(0,212,255,0.015);}
     if(e.key==='Enter'&&document.getElementById('s-login').classList.contains('active'))doLogin();
   });
 
-  // ══ ADMIN ════════════════════════════════
-  const ADMIN_EMAIL = 'jemis430@gmail.com';
-  const ADMIN_PASS  = 'Vickjemis12@';
-
-  function openAdmin(){
-    const email = prompt('🔐 E-mail admin:');
-    if(!email) return;
-    const pass = prompt('🔑 Senha:');
-    if(!pass) return;
-    if(email.trim()===ADMIN_EMAIL && pass===ADMIN_PASS){ show('s-admin'); renderAdmin(); }
-    else { toast('// Acesso negado ✗'); }
-  }
-
-  // Dados demo do admin
-  const ADMIN_DATA = {
-    users: [
-      {id:'USR-001',name:'Francisco Jemison',email:'demo@orbitrex.io',plan:'Silver',status:'active',joined:'25/04/2025',balance:'$2.840,00'},
-      {id:'USR-002',name:'Carlos Mendes',email:'carlos@gmail.com',plan:'Gold',status:'active',joined:'12/04/2025',balance:'$18.200,00'},
-      {id:'USR-003',name:'Ana Paula Silva',email:'ana@hotmail.com',plan:'Starter',status:'active',joined:'01/05/2025',balance:'$620,00'},
-      {id:'USR-004',name:'Roberto Lima',email:'roberto@outlook.com',plan:'Diamond',status:'active',joined:'10/03/2025',balance:'$67.500,00'},
-      {id:'USR-005',name:'Maria Santos',email:'maria@gmail.com',plan:'Silver',status:'inactive',joined:'28/04/2025',balance:'$0,00'},
-      {id:'USR-006',name:'John Smith',email:'john@email.com',plan:'Starter',status:'active',joined:'03/05/2025',balance:'$540,00'},
-      {id:'USR-007',name:'Amara Diallo',email:'amara@mail.com',plan:'Gold',status:'active',joined:'18/04/2025',balance:'$12.300,00'},
-    ],
-    payments: [
-      {id:'TXN-0041',user:'Francisco Jemison',plan:'Silver',amount:'$2.500,00',coin:'USDT',date:'25/04/2025',status:'confirmed'},
-      {id:'TXN-0040',user:'Carlos Mendes',plan:'Gold',amount:'$10.000,00',coin:'BTC',date:'12/04/2025',status:'confirmed'},
-      {id:'TXN-0039',user:'Ana Paula Silva',plan:'Starter',amount:'$500,00',coin:'USDT',date:'01/05/2025',status:'confirmed'},
-      {id:'TXN-0038',user:'Roberto Lima',plan:'Diamond',amount:'$50.000,00',coin:'BTC',date:'10/03/2025',status:'confirmed'},
-      {id:'TXN-0037',user:'Maria Santos',plan:'Silver',amount:'$2.500,00',coin:'USDT',date:'28/04/2025',status:'pending'},
-      {id:'TXN-0036',user:'John Smith',plan:'Starter',amount:'$500,00',coin:'USDT',date:'03/05/2025',status:'confirmed'},
-      {id:'TXN-0035',user:'Amara Diallo',plan:'Gold',amount:'$10.000,00',coin:'USDT',date:'18/04/2025',status:'confirmed'},
-    ],
-    withdrawals: [
-      {id:'WDR-0019',user:'Francisco Jemison',amount:'$340,00',coin:'USDT',wallet:'TPLNWYLZd...Unoaq',date:'05/05/2025',status:'pending'},
-      {id:'WDR-0018',user:'Carlos Mendes',amount:'$1.200,00',coin:'BTC',wallet:'bc1qhw9lt...9g7',date:'04/05/2025',status:'pending'},
-      {id:'WDR-0017',user:'Amara Diallo',amount:'$800,00',coin:'USDT',wallet:'TRX7dKPm...Y4Kp',date:'03/05/2025',status:'approved'},
-      {id:'WDR-0016',user:'Roberto Lima',amount:'$5.000,00',coin:'BTC',wallet:'bc1qhw9lt...9g7',date:'02/05/2025',status:'approved'},
-      {id:'WDR-0015',user:'Ana Paula Silva',amount:'$120,00',coin:'USDT',wallet:'TRX8dKPm...Y5Lp',date:'01/05/2025',status:'rejected'},
-    ]
-  };
-
-  let adminTab = 'adm-overview';
-
-  function renderAdmin(){
-    renderAdminOverview();
-    renderAdminUsers();
-    renderAdminPayments();
-    renderAdminWithdrawals();
-  }
-
-  function renderAdminOverview(){
-    const totalUsers = ADMIN_DATA.users.length;
-    const activeUsers = ADMIN_DATA.users.filter(u=>u.status==='active').length;
-    const totalDeposits = ADMIN_DATA.payments.filter(p=>p.status==='confirmed').length;
-    const pendingWith = ADMIN_DATA.withdrawals.filter(w=>w.status==='pending').length;
-    document.getElementById('adm-stat-users').textContent = totalUsers;
-    document.getElementById('adm-stat-active').textContent = activeUsers;
-    document.getElementById('adm-stat-deposits').textContent = totalDeposits;
-    document.getElementById('adm-stat-withdrawals').textContent = pendingWith;
-    if(document.getElementById('adm-pend-badge')) document.getElementById('adm-pend-badge').textContent = pendingWith;
-    const recent = document.getElementById('adm-recent-users');
-    if(recent){
-      recent.innerHTML = ADMIN_DATA.users.slice(0,5).map(u=>`
-        <tr>
-          <td style="color:var(--text)">${u.name}</td>
-          <td>${u.email}</td>
-          <td><span class="pill" style="font-size:9px;">${u.plan}</span></td>
-          <td>${u.joined}</td>
-          <td><span class="status-pill ${u.status==='active'?'st-ok':'st-fail'}">${u.status==='active'?'✓ Ativo':'✗ Inativo'}</span></td>
-        </tr>
-      `).join('');
-    }
-  }
-
-  function renderAdminUsers(){
-    const tbody = document.getElementById('adm-users-body');
-    tbody.innerHTML = ADMIN_DATA.users.map(u=>`
-      <tr>
-        <td style="color:var(--cyan)">${u.id}</td>
-        <td style="color:var(--text)">${u.name}</td>
-        <td>${u.email}</td>
-        <td><span class="pill" style="font-size:9px;">${u.plan}</span></td>
-        <td>${u.joined}</td>
-        <td style="color:var(--green)">${u.balance}</td>
-        <td><span class="status-pill ${u.status==='active'?'st-ok':'st-fail'}">${u.status==='active'?'✓ Ativo':'✗ Inativo'}</span></td>
-      </tr>
-    `).join('');
-  }
-
-  function renderAdminPayments(){
-    const tbody = document.getElementById('adm-payments-body');
-    tbody.innerHTML = ADMIN_DATA.payments.map((p,i)=>`
-      <tr>
-        <td style="color:var(--cyan)">${p.id}</td>
-        <td style="color:var(--text)">${p.user}</td>
-        <td>${p.plan}</td>
-        <td style="color:var(--gold)">${p.amount}</td>
-        <td><span class="status-pill ${p.coin==='USDT'?'st-ok':'st-pend'}">${p.coin}</span></td>
-        <td style="font-size:10px;color:var(--muted);max-width:120px;overflow:hidden;text-overflow:ellipsis;">${p.hash||'—'}</td>
-        <td>${p.file&&p.file!=='—'?'<span style="color:var(--cyan);font-size:11px;">📎 '+p.file+'</span>':'—'}</td>
-        <td>
-          ${p.status==='pending'
-            ? `<button onclick="approvePayment(${i})" style="background:rgba(0,255,178,0.1);border:1px solid rgba(0,255,178,0.2);color:var(--green);font-size:10px;padding:4px 10px;border-radius:4px;cursor:pointer;font-family:'Oxanium',sans-serif;margin-right:4px;">✓ Aprovar</button>
-               <button onclick="rejectPayment(${i})" style="background:rgba(255,77,109,0.1);border:1px solid rgba(255,77,109,0.2);color:var(--danger);font-size:10px;padding:4px 10px;border-radius:4px;cursor:pointer;font-family:'Oxanium',sans-serif;">✗ Rejeitar</button>`
-            : `<span class="status-pill ${p.status==='confirmed'?'st-ok':'st-fail'}">${p.status==='confirmed'?'✓ Confirmado':'✗ Rejeitado'}</span>`
-          }
-        </td>
-      </tr>
-    `).join('');
-  }
-
-  function approvePayment(i){
-    ADMIN_DATA.payments[i].status='confirmed';
-    renderAdminPayments(); renderAdminOverview();
-    toast('// Pagamento aprovado — plano ativado ✓');
-  }
-
-  function rejectPayment(i){
-    ADMIN_DATA.payments[i].status='rejected';
-    renderAdminPayments(); renderAdminOverview();
-    toast('// Pagamento rejeitado ✗');
-  }
-
-  function renderAdminWithdrawals(){
-    const tbody = document.getElementById('adm-with-body');
-    tbody.innerHTML = ADMIN_DATA.withdrawals.map((w,i)=>`
-      <tr>
-        <td style="color:var(--cyan)">${w.id}</td>
-        <td style="color:var(--text)">${w.user}</td>
-        <td style="color:var(--gold)">${w.amount}</td>
-        <td>${w.coin}</td>
-        <td style="font-size:10px;color:var(--muted)">${w.wallet}</td>
-        <td>${w.date}</td>
-        <td>
-          ${w.status==='pending'
-            ? `<button onclick="approveWith(${i})" style="background:rgba(0,255,178,0.1);border:1px solid rgba(0,255,178,0.2);color:var(--green);font-size:10px;padding:4px 10px;border-radius:4px;cursor:pointer;font-family:'Oxanium',sans-serif;margin-right:4px;">✓ Aprovar</button>
-               <button onclick="rejectWith(${i})" style="background:rgba(255,77,109,0.1);border:1px solid rgba(255,77,109,0.2);color:var(--danger);font-size:10px;padding:4px 10px;border-radius:4px;cursor:pointer;font-family:'Oxanium',sans-serif;">✗ Rejeitar</button>`
-            : `<span class="status-pill ${w.status==='approved'?'st-ok':'st-fail'}">${w.status==='approved'?'✓ Aprovado':'✗ Rejeitado'}</span>`
-          }
-        </td>
-      </tr>
-    `).join('');
-  }
-
-  function approveWith(i){
-    ADMIN_DATA.withdrawals[i].status='approved';
-    renderAdminWithdrawals();
-    renderAdminOverview();
-    toast('// Saque aprovado ✓');
-  }
-
-  function rejectWith(i){
-    ADMIN_DATA.withdrawals[i].status='rejected';
-    renderAdminWithdrawals();
-    renderAdminOverview();
-    toast('// Saque rejeitado ✗');
-  }
-
-  function switchAdminTab(el, tabId){
-    document.querySelectorAll('.adm-tab').forEach(t=>t.classList.remove('active'));
-    el.classList.add('active');
-    document.querySelectorAll('.adm-body').forEach(t=>t.classList.add('hidden'));
-    document.getElementById(tabId).classList.remove('hidden');
-  }
 </script>
+
 
 <!-- ═══════════════════════════════
      ADMIN PANEL
@@ -1483,21 +1742,8 @@ tr:hover td{background:rgba(0,212,255,0.015);}
 <div class="screen dash-wrap" id="s-admin">
   <nav>
     <div class="logo">
-      <svg width="36" height="36" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="admlg" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#7B4FFF"/></linearGradient><linearGradient id="admlg2" x1="0" y1="48" x2="48" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FFF" stop-opacity="0.4"/><stop offset="100%" stop-color="#00D4FF" stop-opacity="0.4"/></linearGradient><filter id="admg"><feGaussianBlur stdDeviation="1.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-        <circle cx="24" cy="24" r="22" stroke="url(#admlg)" stroke-width="1.5" fill="none" opacity="0.6"/>
-        <ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#admlg)" stroke-width="1.2" fill="none" transform="rotate(-30 24 24)" opacity="0.8"/>
-        <ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#admlg)" stroke-width="1.2" fill="none" transform="rotate(30 24 24)" opacity="0.4"/>
-        <circle cx="24" cy="24" r="6" fill="url(#admlg)" filter="url(#admg)" opacity="0.9"/>
-        <circle cx="24" cy="24" r="3" fill="white" opacity="0.9"/>
-        <circle cx="42" cy="18" r="2.5" fill="#00D4FF" filter="url(#admg)"/>
-        <circle cx="8" cy="34" r="1.8" fill="#7B4FFF" filter="url(#admg)" opacity="0.8"/>
-        <circle cx="24" cy="24" r="10" fill="url(#admlg2)"/>
-      </svg>
-      <div class="logo-text-wrap">
-        <span class="logo-name">Orbitrex</span>
-        <span class="logo-tag" style="color:var(--danger);">ADMIN PANEL</span>
-      </div>
+      <svg width="36" height="36" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="admlg" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#7B4FFF"/></linearGradient><linearGradient id="admlg2" x1="0" y1="48" x2="48" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7B4FFF" stop-opacity="0.4"/><stop offset="100%" stop-color="#00D4FF" stop-opacity="0.4"/></linearGradient><filter id="admg"><feGaussianBlur stdDeviation="1.5" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="24" cy="24" r="22" stroke="url(#admlg)" stroke-width="1.5" fill="none" opacity="0.6"/><ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#admlg)" stroke-width="1.2" fill="none" transform="rotate(-30 24 24)" opacity="0.8"/><ellipse cx="24" cy="24" rx="20" ry="8" stroke="url(#admlg)" stroke-width="1.2" fill="none" transform="rotate(30 24 24)" opacity="0.4"/><circle cx="24" cy="24" r="6" fill="url(#admlg)" filter="url(#admg)" opacity="0.9"/><circle cx="24" cy="24" r="3" fill="white" opacity="0.9"/><circle cx="42" cy="18" r="2.5" fill="#00D4FF" filter="url(#admg)"/><circle cx="8" cy="34" r="1.8" fill="#7B4FFF" filter="url(#admg)" opacity="0.8"/><circle cx="24" cy="24" r="10" fill="url(#admlg2)"/></svg>
+      <div class="logo-text-wrap"><span class="logo-name">Orbitrex</span><span class="logo-tag" style="color:var(--danger);">ADMIN PANEL</span></div>
     </div>
     <div class="nav-right">
       <span class="pill" style="background:rgba(255,77,109,0.1);border-color:rgba(255,77,109,0.3);color:var(--danger);">🔐 ADMIN</span>
@@ -1510,156 +1756,132 @@ tr:hover td{background:rgba(0,212,255,0.015);}
     <button class="nav-tab adm-tab" onclick="switchAdminTab(this,'adm-users')"><span>👥</span> Usuários</button>
     <button class="nav-tab adm-tab" onclick="switchAdminTab(this,'adm-payments')"><span>💰</span> Pagamentos</button>
     <button class="nav-tab adm-tab" onclick="switchAdminTab(this,'adm-withdrawals')"><span>💸</span> Saques</button>
+    <button class="nav-tab adm-tab" onclick="switchAdminTab(this,'adm-plans')"><span>📊</span> Planos</button>
   </div>
 
   <!-- OVERVIEW -->
   <div class="dash-body adm-body" id="adm-overview">
-    <h1 class="page-title">Admin Overview</h1>
-    <p class="page-sub">// Resumo geral da plataforma em tempo real</p>
-
+    <h1 class="page-title">Overview</h1>
+    <p class="page-sub">// Painel de controle geral da plataforma</p>
+    <div id="adm-alerts" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;"></div>
     <div class="stats" style="margin-bottom:28px;">
-      <div class="stat">
-        <div class="stat-icon">👥</div>
-        <div class="stat-val" id="adm-stat-users">7</div>
-        <div class="stat-lbl">Total Usuários</div>
-        <div class="stat-change">↑ +3 esta semana</div>
-      </div>
-      <div class="stat grn">
-        <div class="stat-icon">✓</div>
-        <div class="stat-val" id="adm-stat-active">6</div>
-        <div class="stat-lbl">Usuários Ativos</div>
-        <div class="stat-change">↑ Planos ativos</div>
-      </div>
-      <div class="stat">
-        <div class="stat-icon">💰</div>
-        <div class="stat-val" id="adm-stat-deposits">6</div>
-        <div class="stat-lbl">Depósitos Confirmados</div>
-        <div class="stat-change" style="color:var(--cyan);">$73.500 total</div>
-      </div>
-      <div class="stat vio">
-        <div class="stat-icon">💸</div>
-        <div class="stat-val" id="adm-stat-withdrawals">2</div>
-        <div class="stat-lbl">Saques Pendentes</div>
-        <div class="stat-change" style="color:var(--danger);">⚠ Aguardando aprovação</div>
-      </div>
+      <div class="stat"><div class="stat-icon">👥</div><div class="stat-val" id="adm-stat-users">0</div><div class="stat-lbl">Total Usuários</div></div>
+      <div class="stat grn"><div class="stat-icon">✓</div><div class="stat-val" id="adm-stat-active">0</div><div class="stat-lbl">Ativos</div></div>
+      <div class="stat"><div class="stat-icon">💰</div><div class="stat-val" id="adm-stat-deposits">0</div><div class="stat-lbl">Pagamentos Confirmados</div></div>
+      <div class="stat vio"><div class="stat-icon">💸</div><div class="stat-val" id="adm-stat-withdrawals">0</div><div class="stat-lbl">Saques Pendentes</div></div>
     </div>
-
-    <div class="grid2">
-      <div class="card card-glow">
-        <h3 style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);margin-bottom:18px;">Distribuição de Planos</h3>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-size:12px;color:var(--text2);">Starter</span>
-            <div style="flex:1;margin:0 12px;background:var(--surface);border-radius:4px;height:6px;overflow:hidden;">
-              <div style="background:var(--muted);height:100%;width:28%;border-radius:4px;"></div>
-            </div>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text);">2</span>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-size:12px;color:var(--text2);">Silver</span>
-            <div style="flex:1;margin:0 12px;background:var(--surface);border-radius:4px;height:6px;overflow:hidden;">
-              <div style="background:var(--cyan);height:100%;width:42%;border-radius:4px;box-shadow:0 0 6px var(--cyan-glow);"></div>
-            </div>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text);">2</span>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-size:12px;color:var(--text2);">Gold</span>
-            <div style="flex:1;margin:0 12px;background:var(--surface);border-radius:4px;height:6px;overflow:hidden;">
-              <div style="background:var(--violet);height:100%;width:42%;border-radius:4px;"></div>
-            </div>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text);">2</span>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-size:12px;color:var(--text2);">Diamond</span>
-            <div style="flex:1;margin:0 12px;background:var(--surface);border-radius:4px;height:6px;overflow:hidden;">
-              <div style="background:var(--green);height:100%;width:14%;border-radius:4px;"></div>
-            </div>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text);">1</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3 style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text2);margin-bottom:18px;">Ações Rápidas</h3>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <button class="btn btn-ghost" onclick="switchAdminTab(document.querySelectorAll('.adm-tab')[3],'adm-withdrawals')">💸 Ver saques pendentes <span style="background:rgba(255,77,109,0.2);color:var(--danger);padding:2px 8px;border-radius:4px;font-size:11px;margin-left:4px;" id="adm-pend-badge">2</span></button>
-          <button class="btn btn-ghost" onclick="switchAdminTab(document.querySelectorAll('.adm-tab')[1],'adm-users')">👥 Ver todos os usuários</button>
-          <button class="btn btn-ghost" onclick="switchAdminTab(document.querySelectorAll('.adm-tab')[2],'adm-payments')">💰 Ver pagamentos</button>
-          <button class="btn btn-danger" onclick="show('s-login')">🔓 Sair do admin</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ÚLTIMOS CADASTROS -->
     <div class="table-wrap">
-      <div class="table-head"><h3>Últimos Cadastros</h3><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);">7 usuários</span></div>
-      <table>
-        <thead><tr><th>Nome</th><th>E-mail</th><th>Plano</th><th>Data</th><th>Status</th></tr></thead>
-        <tbody id="adm-recent-users"></tbody>
-      </table>
+      <div class="table-head"><h3>Últimos Cadastros</h3></div>
+      <table><thead><tr><th>Nome</th><th>E-mail</th><th>Plano</th><th>Cadastro</th><th>Status</th></tr></thead>
+      <tbody id="adm-recent-users"></tbody></table>
     </div>
   </div>
 
   <!-- USUÁRIOS -->
   <div class="dash-body adm-body hidden" id="adm-users">
     <h1 class="page-title">Usuários</h1>
-    <p class="page-sub">// Todos os usuários cadastrados na plataforma</p>
+    <p class="page-sub">// Gerencie todos os usuários — edite, bloqueie ou bania</p>
     <div class="table-wrap">
-      <div class="table-head">
-        <h3>Todos os Usuários</h3>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);" id="adm-user-count">7 registros</span>
-      </div>
-      <table>
-        <thead><tr><th>ID</th><th>Nome</th><th>E-mail</th><th>Plano</th><th>Cadastro</th><th>Saldo</th><th>Status</th></tr></thead>
-        <tbody id="adm-users-body"></tbody>
-      </table>
+      <div class="table-head"><h3>Todos os Usuários</h3></div>
+      <table><thead><tr><th>ID</th><th>Nome</th><th>E-mail</th><th>Plano</th><th>Cadastro</th><th>Saldo</th><th>Status</th><th>Ação</th></tr></thead>
+      <tbody id="adm-users-body"></tbody></table>
     </div>
   </div>
 
   <!-- PAGAMENTOS -->
   <div class="dash-body adm-body hidden" id="adm-payments">
     <h1 class="page-title">Pagamentos</h1>
-    <p class="page-sub">// Todos os depósitos realizados na plataforma</p>
+    <p class="page-sub">// Aprove comprovantes para ativar planos dos usuários</p>
     <div class="table-wrap">
-      <div class="table-head">
-        <h3>Histórico de Depósitos</h3>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);">7 registros</span>
-      </div>
-      <table>
-        <thead><tr><th>TX ID</th><th>Usuário</th><th>Plano</th><th>Valor</th><th>Moeda</th><th>Hash TX</th><th>Arquivo</th><th>Ação</th></tr></thead>
-        <tbody id="adm-payments-body"></tbody>
-      </table>
+      <div class="table-head"><h3>Comprovantes Recebidos</h3></div>
+      <table><thead><tr><th>ID</th><th>Usuário</th><th>Plano</th><th>Valor</th><th>Moeda</th><th>Hash TX</th><th>Data</th><th>Ação</th></tr></thead>
+      <tbody id="adm-payments-body"></tbody></table>
     </div>
   </div>
 
   <!-- SAQUES -->
   <div class="dash-body adm-body hidden" id="adm-withdrawals">
     <h1 class="page-title">Saques</h1>
-    <p class="page-sub">// Pedidos de saque — aprove ou rejeite cada solicitação</p>
+    <p class="page-sub">// Aprove ou rejeite pedidos de saque</p>
     <div class="table-wrap">
-      <div class="table-head">
-        <h3>Solicitações de Saque</h3>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--danger);" id="adm-with-pending">2 pendentes</span>
-      </div>
-      <table>
-        <thead><tr><th>ID</th><th>Usuário</th><th>Valor</th><th>Moeda</th><th>Carteira</th><th>Data</th><th>Ação</th></tr></thead>
-        <tbody id="adm-with-body"></tbody>
-      </table>
+      <div class="table-head"><h3>Pedidos de Saque</h3></div>
+      <table><thead><tr><th>ID</th><th>Usuário</th><th>Valor</th><th>Moeda</th><th>Carteira</th><th>Data</th><th>Ação</th></tr></thead>
+      <tbody id="adm-with-body"></tbody></table>
+    </div>
+  </div>
+
+  <!-- PLANOS -->
+  <div class="dash-body adm-body hidden" id="adm-plans">
+    <h1 class="page-title">Planos & Rendimentos</h1>
+    <p class="page-sub">// Veja e edite os % de rendimento de cada plano</p>
+    <div class="table-wrap">
+      <div class="table-head"><h3>Configuração dos Planos</h3></div>
+      <table><thead><tr><th>Plano</th><th>% Mensal</th><th>% Diário</th><th>Ciclo</th><th>Mínimo</th><th>Usuários</th><th>Ação</th></tr></thead>
+      <tbody id="adm-plans-body"></tbody></table>
     </div>
   </div>
 </div>
 
-<style>
-  /* Botão admin secreto no login */
-  .adm-entry{position:fixed;bottom:16px;right:16px;z-index:9998;}
-  .adm-entry button{background:rgba(255,77,109,0.08);border:1px solid rgba(255,77,109,0.2);color:rgba(255,77,109,0.5);font-size:10px;font-weight:700;letter-spacing:1px;padding:6px 12px;border-radius:6px;cursor:pointer;font-family:'Oxanium',sans-serif;transition:all .2s;}
-  .adm-entry button:hover{color:var(--danger);background:rgba(255,77,109,0.15);}
-  .adm-body{width:100%;}
-</style>
-
-<div class="adm-entry">
-  <button onclick="openAdmin()">🔐 ADMIN</button>
+<!-- MODAL EDITAR USUÁRIO -->
+<div id="edit-user-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:99998;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:32px;width:100%;max-width:440px;position:relative;box-shadow:0 40px 80px rgba(0,0,0,0.7);">
+    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),transparent);border-radius:18px 18px 0 0;"></div>
+    <button onclick="closeEditModal()" style="position:absolute;top:16px;right:16px;background:var(--surface);border:1px solid var(--border);color:var(--muted);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:14px;">✕</button>
+    <h3 style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:20px;">✏️ Editar Usuário</h3>
+    <input type="hidden" id="edit-user-idx">
+    <div class="field"><label>Nome</label><input type="text" id="edit-user-name"></div>
+    <div class="field"><label>E-mail</label><input type="email" id="edit-user-email"></div>
+    <div class="field"><label>Saldo ($)</label><input type="number" id="edit-user-balance" step="0.01"></div>
+    <div class="field"><label>Plano</label>
+      <select id="edit-user-plan">
+        <option value="">— Sem plano —</option>
+        <option value="Starter">Starter</option>
+        <option value="Silver">Silver</option>
+        <option value="Gold">Gold</option>
+        <option value="Diamond">Diamond</option>
+      </select>
+    </div>
+    <div class="field"><label>Status</label>
+      <select id="edit-user-status">
+        <option value="active">✓ Ativo</option>
+        <option value="blocked">⏸ Bloqueado</option>
+        <option value="banned">✗ Banido</option>
+      </select>
+    </div>
+    <div class="field"><label>Nova senha (deixe vazio para não alterar)</label><input type="text" id="edit-user-pass" placeholder="nova senha..."></div>
+    <div style="display:flex;gap:10px;margin-top:20px;">
+      <button onclick="saveUserEdit()" class="btn btn-primary">💾 Salvar</button>
+      <button onclick="closeEditModal()" class="btn btn-ghost" style="width:auto;padding:14px 24px;">Cancelar</button>
+    </div>
+  </div>
 </div>
+
+<!-- MODAL EDITAR PLANO -->
+<div id="edit-plan-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:99998;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:32px;width:100%;max-width:400px;position:relative;box-shadow:0 40px 80px rgba(0,0,0,0.7);">
+    <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--violet),var(--cyan),transparent);border-radius:18px 18px 0 0;"></div>
+    <button onclick="closePlanModal()" style="position:absolute;top:16px;right:16px;background:var(--surface);border:1px solid var(--border);color:var(--muted);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:14px;">✕</button>
+    <h3 style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:20px;">📊 Editar Plano</h3>
+    <input type="hidden" id="edit-plan-name">
+    <div class="field"><label>% Mensal de Rendimento</label><input type="number" id="edit-plan-monthly" step="0.1" min="0"></div>
+    <div class="field"><label>Ciclo (dias)</label><input type="number" id="edit-plan-cycle" min="1"></div>
+    <div class="field"><label>Valor Mínimo ($)</label><input type="number" id="edit-plan-min" min="0"></div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:16px;font-size:11px;color:var(--text2);">
+      💡 O % diário é calculado automaticamente: mensal ÷ 30 dias
+    </div>
+    <div style="display:flex;gap:10px;">
+      <button onclick="savePlanEdit()" class="btn btn-primary">💾 Salvar</button>
+      <button onclick="closePlanModal()" class="btn btn-ghost" style="width:auto;padding:14px 24px;">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- BOTÃO ADMIN SECRETO -->
+<div class="adm-entry" style="position:fixed;bottom:16px;right:16px;z-index:9998;">
+  <button onclick="openAdmin()" style="background:rgba(255,77,109,0.08);border:1px solid rgba(255,77,109,0.2);color:rgba(255,77,109,0.5);font-size:10px;font-weight:700;letter-spacing:1px;padding:6px 12px;border-radius:6px;cursor:pointer;font-family:'Oxanium',sans-serif;transition:all .2s;">🔐 ADMIN</button>
+</div>
+
+<div class="toast" id="toast-msg"></div>
 
 </body>
 </html>
