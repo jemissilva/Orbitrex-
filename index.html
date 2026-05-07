@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Orbitrex — AI · Technology · Growth</title>
 <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 :root{
   --bg:#020509;--surface:#060D14;--card:#090F1A;--card2:#0C1422;
@@ -278,7 +277,7 @@ tr:hover td{background:rgba(0,212,255,0.01);}
       <div class="alert alert-err" id="login-err"></div>
       <div class="field"><label>E-mail</label><input type="email" id="l-email" placeholder="seu@email.com"></div>
       <div class="field"><label>Senha</label><input type="password" id="l-pass" placeholder="••••••••"></div>
-      <button class="btn btn-primary" onclick="doLogin()" id="login-btn"><span id="login-lbl">Entrar</span><div class="spinner hidden" id="login-sp"></div></button>
+      <button class="btn btn-primary" id="login-btn"><span id="login-lbl">Entrar</span><div class="spinner hidden" id="login-sp"></div></button>
       <div class="or">ou</div>
       <button class="btn btn-ghost" onclick="goTo('s-register')">Criar conta</button>
     </div>
@@ -299,7 +298,7 @@ tr:hover td{background:rgba(0,212,255,0.01);}
       <div class="field"><label>E-mail</label><input type="email" id="r-email" placeholder="seu@email.com"></div>
       <div class="field"><label>Senha</label><input type="password" id="r-pass" placeholder="mín. 8 caracteres"></div>
       <div class="field"><label>Confirmar senha</label><input type="password" id="r-pass2" placeholder="repita a senha"></div>
-      <button class="btn btn-primary" onclick="doRegister()">Criar conta</button>
+      <button class="btn btn-primary" id="reg-btn">Criar conta</button>
       <div class="or">ou</div>
       <button class="btn btn-ghost" onclick="goTo('s-login')">Já tenho conta</button>
     </div>
@@ -554,12 +553,61 @@ tr:hover td{background:rgba(0,212,255,0.01);}
 <div class="toast" id="toast"></div>
 <button class="adm-btn" onclick="openAdmin()">🔐 ADMIN</button>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script type="module">
 // ═══════════════════════════════════
 // FIREBASE CONFIG
 // ═══════════════════════════════════
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, setDoc, getDoc, getDocs, collection, query, where, orderBy, updateDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// Expor QRCode para uso no módulo
+const QRCode = window.QRCode;
+
+// Expor funções de navegação imediatamente (não dependem de Firebase)
+window.goTo = function(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+};
+window.switchTab = function(el, tabId){
+  el.closest('.tab-bar').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  const dash = el.closest('.screen');
+  dash.querySelectorAll('.content').forEach(c=>c.classList.add('hidden'));
+  document.getElementById(tabId).classList.remove('hidden');
+};
+window.aTab = function(el, tabId){
+  document.querySelectorAll('#s-admin .tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('#s-admin .content').forEach(c=>c.classList.add('hidden'));
+  document.getElementById(tabId).classList.remove('hidden');
+};
+window.openModal = function(id){ document.getElementById(id).style.display='flex'; };
+window.closeModal = function(id){ document.getElementById(id).style.display='none'; };
+window.selectPlan = function(n,a){ setTimeout(()=>selectPlan(n,a),0); };
+window.setCoin = function(c){ setTimeout(()=>setCoin(c),0); };
+window.copyAddr = function(){ setTimeout(()=>copyAddr(),0); };
+window.submitProof = function(){ setTimeout(()=>submitProof(),0); };
+window.previewFile = function(i){ setTimeout(()=>previewFile(i),0); };
+window.clearFile = function(){ setTimeout(()=>clearFile(),0); };
+window.doWithdraw = function(){ setTimeout(()=>doWithdraw(),0); };
+window.doLogout = function(){ ME=null; window.goTo('s-login'); };
+window.saveProfile = function(){ setTimeout(()=>saveProfile(),0); };
+window.changePass = function(){ setTimeout(()=>changePass(),0); };
+window.openAdmin = function(){ setTimeout(()=>openAdmin(),0); };
+window.renderAdmin = function(){ setTimeout(()=>renderAdmin(),0); };
+window.approvePay = function(a,b,c,d){ setTimeout(()=>approvePay(a,b,c,d),0); };
+window.rejectPay = function(a){ setTimeout(()=>rejectPay(a),0); };
+window.approveWith = function(a,b,c){ setTimeout(()=>approveWith(a,b,c),0); };
+window.rejectWith = function(a){ setTimeout(()=>rejectWith(a),0); };
+window.openUserEdit = function(a,b,c,d,e,f){ setTimeout(()=>openUserEdit(a,b,c,d,e,f),0); };
+window.saveUserEdit = function(){ setTimeout(()=>saveUserEdit(),0); };
+window.openPlanEdit = function(a){ setTimeout(()=>openPlanEdit(a),0); };
+window.savePlanEdit = function(){ setTimeout(()=>savePlanEdit(),0); };
+window.viewUserDetails = function(a){ setTimeout(()=>viewUserDetails(a),0); };
+window.viewWallet = function(a,b){ setTimeout(()=>viewWallet(a,b),0); };
+window.loadFinancialSummary = function(){ setTimeout(()=>loadFinancialSummary(),0); };
 
 const firebaseConfig = {
   apiKey: "AIzaSyCmKmXWf32KsAkE0--pTEqhfMPSzn87d60",
@@ -1107,6 +1155,13 @@ document.addEventListener('DOMContentLoaded',()=>{
     document.getElementById('wd-fee').textContent='$'+fee.toFixed(2);
     document.getElementById('wd-net-val').textContent='$'+Math.max(0,parseFloat((v-fee).toFixed(2)));
   });
+
+  // Bind botões de login/cadastro via ID
+  const btnLogin = document.getElementById('login-btn');
+  if(btnLogin) btnLogin.addEventListener('click', doLogin);
+
+  const btnReg = document.getElementById('reg-btn');
+  if(btnReg) btnReg.addEventListener('click', doRegister);
 });
 
 document.addEventListener('keydown',e=>{
